@@ -1,0 +1,48 @@
+.navbar{
+    /* height: 50px; */
+    height: 7vh;
+    /* border-bottom: 1px solid black; */
+    /* box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px; */
+    /* width: 100%; */
+    background-color: whitesmoke;
+    display: flex;
+    align-items: center;
+    padding-inline: 2%;
+    justify-content: space-between;
+    /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
+    /* border-bottom: 1px solid #1A4870; */
+}
+.logoside a{
+    display: flex;
+    /* justify-content: ; */
+    align-items: center;
+    text-decoration: none;
+    cursor: pointer;
+    color: black;
+    
+
+}
+.navlogo,
+.navlogo img{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+.logoside{
+    width: max-content;
+    display: flex;
+    align-items: center;
+}
+.navname{
+}
+.navname p{
+    font-size: 20px;
+    font-weight: 400;
+    margin-left: 2%;
+    width: 100%;
+}
+@media (max-width:600px) {
+    .navname p{
+        font-size: 18px;
+    }
+}

@@ -1,0 +1,48 @@
+.content_box ,
+.content_box a{
+
+  height: 130px;
+  width: 130px;
+  border-radius: 5%;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2%;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  
+}
+.content_box a{
+  box-shadow: none;
+  color: black;
+  
+}
+.content_box{
+  background: radial-gradient(circle at -4% -12.9%, rgb(74, 98, 110) 0.3%, rgb(30, 33, 48) 90.2%);
+  background: whitesmoke;
+}
+
+.content_box p {
+  font-size: 18px;
+  font-weight: 500;
+  display: flex;
+}
+
+@media (max-width: 600px) {
+  .content_box ,
+  .content_box a{
+    padding: 1%;
+    height: 130px;
+    width: 130px;
+    color: black;
+   
+  }
+  .content_box p{
+    font-size: 13px;
+  }
+}
