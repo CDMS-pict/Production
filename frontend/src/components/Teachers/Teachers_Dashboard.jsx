@@ -7,9 +7,9 @@ function Teachers_Dashboard() {
 
   const student_box_contents = [
     { title: "Personal Details", url: "/" },
-    { title: "Internship data", url: "/teachers_dashboard/internship" },
-    { title: "Students data", url: "/teachers_dashboard/students" },
-    { title: "Notices", url: "/teachers_dashboard/notices" },
+    { title: "Internship data", url: "/teachersdashboard/internship" },
+    { title: "Students data", url: "/teachersdashboard/students" },
+    { title: "Notices", url: "/teachersdashboard/notices" },
   ];
   return (
     <div>
