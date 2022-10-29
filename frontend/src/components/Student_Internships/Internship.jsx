@@ -127,6 +127,8 @@ function Internship() {
           </Button>
         </div>
       </div>
+      <br />
+      <br />
       <center>
         <div className="internshipboxes">
           {datas.map((d) => (
