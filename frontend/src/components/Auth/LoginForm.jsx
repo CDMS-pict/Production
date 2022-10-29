@@ -7,7 +7,6 @@ import logo from "../../pict_logo.jpg";
 import { authActions } from "../../store/store";
 import { useDispatch } from "react-redux";
 
-
 const LoginForm = () => {
   const dispatch = useDispatch();
   const [values, setValues] = useState({
@@ -32,8 +31,7 @@ const LoginForm = () => {
     },
   ];
 
-
-  
+  const [alert, setAlert] = useState("");
 
   const sendRequest = async () => {
     const res = await axios
@@ -41,7 +39,7 @@ const LoginForm = () => {
         collegeId: values.collegeId,
         password: values.password,
       })
-      .catch((err) => console.log(err));
+      .catch((err) => setAlert("User Not Found"));
     const data = await res.data;
     return data;
   };
@@ -76,13 +74,20 @@ const LoginForm = () => {
           ))}
 
           <button className="loginbtn">Submit</button>
-          <br />
-          <br />
+          {alert !== "" && (
+            <p style={{ color: "red", textAlign: "center" ,fontWeight: "600"}}>{alert}</p>
+          )}
+          {alert === "" && (
+            <>
+              <br />
+              <br />
+            </>
+          )}
           <center>
             <p>
               Don't have an account ? <a href="/SignUp">Sign Up</a>
             </p>
-            <br />
+            {/* <br /> */}
             <span className="forgotpass">
               <a href="/">Forgot Password</a>
             </span>

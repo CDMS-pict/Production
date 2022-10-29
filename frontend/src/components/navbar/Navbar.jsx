@@ -10,13 +10,13 @@ import DialogActions from '@mui/material/DialogActions';
 // import DialogContentText from '@mui/material/DialogContentText';
 // import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from '@mui/material/styles';
+// import useMediaQuery from '@mui/material/useMediaQuery';
+// import { useTheme } from '@mui/material/styles';
 
 function Navbar() {
   const [open, setOpen] = React.useState(false);
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+  // const theme = useTheme();
+  // const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -63,13 +63,13 @@ function Navbar() {
       </div>
 
       <Dialog
-        fullScreen={fullScreen}
+        fullScreen={false}
         open={open}
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
       >
         <DialogTitle id="responsive-dialog-title">
-          {"Are You Sure You Want To Logout ?"}
+          {"Are You Sure To Logout ?"}
         </DialogTitle>
         {/* <DialogContent>
           <DialogContentText>

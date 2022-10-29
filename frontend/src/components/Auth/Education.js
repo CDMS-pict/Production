@@ -12,11 +12,33 @@ export class Education extends Component {
     e.preventDefault();
     this.props.prevStep();
   };
-
+  
   render() {
+    let alert;
     const { values, inputChange } = this.props;
     const handleSubmit = async (e) => {
       e.preventDefault();
+      // if(values.collegeId)
+      const collegeID = values.collegeId;
+      const extension = collegeID.split("@")[1];
+      if(extension !== "ms.pict.edu"){
+        window.alert("Enter a Valid Collge ID");
+        return;
+      }
+      if(values.rollno < 10000 && values.rollno >99999){
+        window.alert("Enter a Valid 5 Digit Roll No");
+        return;
+      }
+      // if(values.branch !== "CS" || values.branch !== "IT" || values.branch !== 'ENTC' ){
+
+      //   window.alert(values.branch + " Enter a Valid Branch");
+      //   return;
+      // }
+      const plength = values.password
+      if(plength.length < 6 || plength.length > 10){
+        window.alert("Enter Password of atleast 6 and atmost 10 charachters");
+        return;
+      }
       values.rollno = parseInt(values.rollno);
       console.log(values);
       try {
@@ -90,6 +112,7 @@ export class Education extends Component {
                   Submit
                 </button>
               </div>
+              <p style={{color: "red", textAlign:"center"}}>{alert}</p>
               <br />
               <center>
                 <p>

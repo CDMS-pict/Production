@@ -57,6 +57,8 @@ export class PersonalInfo extends Component {
               onChange={inputChange("password")}
               value={values.password}
               placeholder="Password"
+              maxLength={10}
+              // minLength={6}
             />
           </div>
 
