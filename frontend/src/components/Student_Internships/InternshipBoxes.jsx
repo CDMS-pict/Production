@@ -54,6 +54,7 @@ function Internship_Boxes({ data, user }) {
   const [duration, setDuration] = useState("");
   const [role, setRole] = useState("");
   const [desc, setDesc] = useState("");
+  const [stipend, setStipend] = useState(0);
 
   const [sfilename, setFilename] = useState("");
   const handleImage = (e) => {
@@ -93,6 +94,7 @@ function Internship_Boxes({ data, user }) {
       duration: duration !== "" ? duration : data.duration ? data.duration : "",
       role: role !== "" ? role : data.role ? data.role : "",
       desc: desc !== "" ? desc : data.desc ? data.desc : "",
+      stipend: stipend !== "" ? stipend : data.stipend ? data.stipend : "",
     };
 
     try {
@@ -130,7 +132,7 @@ function Internship_Boxes({ data, user }) {
         <div className="boxtop">
           <p className="company_name">{data.company_name}</p>
           <p className="duration_date">
-            {moment(data.start_date).format("YYYY-MM-DD")} -{" "}
+            {moment(data.start_date).format("YYYY-MM-DD")} to{" "}
             {moment(data.end_date).format("YYYY-MM-DD")}
             {/* {starting_date.getFullYear()+'-' + (starting_date.getMonth()+1) + '-'+starting_date.getDate()} */}
           </p>
@@ -139,6 +141,9 @@ function Internship_Boxes({ data, user }) {
         <div className="box_desc">
           <p>
             <b>Role: </b> {data.role}
+          </p>
+          <p>
+            <b>Stipend: </b> {data.stipend}
           </p>
           <b>Duration: </b> {data.duration}
           <p>
@@ -208,6 +213,13 @@ function Internship_Boxes({ data, user }) {
                   // disabled
                   onChange={(e) => setRole(e.target.value)}
                 />
+                  <FormInput
+                    name="Stipend"
+                    placeholder="Stipend"
+                    defaultValue={data.stipend}
+                    // disabled
+                    onChange={(e) => setStipend(e.target.value)}
+                  />
                 <FormInput
                   name="Description"
                   placeholder="Description"

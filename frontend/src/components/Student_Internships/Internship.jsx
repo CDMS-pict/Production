@@ -17,6 +17,7 @@ function Internship() {
   const [start_date, setStart_date] = useState("");
   const [end_date, setEnd_date] = useState("");
   const [duration, setDuration] = useState("");
+  const [stipend, setStipend] = useState(0);
   const [role, setRole] = useState("");
   const [desc, setDesc] = useState("");
 
@@ -88,6 +89,7 @@ function Internship() {
       duration,
       role,
       desc,
+      stipend,
       offer_letter: selectedFile,
       student_id: user._id,
       student_name: user.fullname,
@@ -175,6 +177,12 @@ function Internship() {
                 name="Role"
                 placeholder="Role"
                 onChange={(e) => setRole(e.target.value)}
+              />
+              <FormInput
+                name="Stipend"
+                type="number"
+                placeholder="Stipend"
+                onChange={(e) => setStipend(e.target.value)}
               />
               <FormInput
                 name="Description"

@@ -9,12 +9,13 @@ function StudentDashboard({student}) {
     { title: "Personal Details", url: "/student/personaldetails" },
     { title: "Academic Details", url: "/student/Academics" },
     { title: "Placement Details", url: "" },
-    { title: "Extra Curricular", url: "" },
+    { title: "Extra Curricular", url: "/student/extracurricular" },
     { title: "Internship data", url: "/student/internship" },
     { title: "Competitive Exams", url: "" },
     { title: "Technical Activities", url: "" },
     { title: "LOR Application", url: "" },
     { title: "Notices", url: "" },
+    { title: "Amcat Details", url: "" },
   ];
 
   return (

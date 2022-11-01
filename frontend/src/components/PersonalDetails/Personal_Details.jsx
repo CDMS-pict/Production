@@ -85,6 +85,7 @@ function Personal_Details() {
   const [aadhar, setAadhar] = useState("");
   const [pwd, setPwd] = useState("");
   const [bloodgrp, setBloodGrp] = useState("");
+  const [abcID, setABCID]= useState("");
 
   const handleUpdate = async () => {
     try {
@@ -109,6 +110,8 @@ function Personal_Details() {
         PWD: pwd !== "" ? pwd : user.PWD ? user.PWD : "",
         blood_grp:
           bloodgrp !== "" ? bloodgrp : user.blood_grp ? user.blood_grp : "",
+        abcID:
+          abcID !== "" ? abcID : user.abcID ? user.abcID : "",
       };
       data.mobile_no = parseInt(data.mobile_no);
       // console.log(data);
@@ -126,7 +129,7 @@ function Personal_Details() {
       console.log("Something Wents Wrong");
     }
   };
-  
+
   return (
     <div>
       <Navbar />
@@ -307,6 +310,15 @@ function Personal_Details() {
                 onChange={(e) => setBloodGrp(e.target.value)}
                 disabled={edit_pesonal}
               />
+              <FormInput
+                label="ABC ID"
+                name="abc_id"
+                placeholder="ABC ID"
+                type="number"
+                defaultValue={user.abcID}
+                onChange={(e) => setABCID(e.target.value)}
+                disabled={edit_pesonal}
+              />
             </div>
           </div>
         </div>
@@ -320,8 +332,6 @@ function Personal_Details() {
         {/* 10th 12th details  */}
 
         <TenthTwelth user={user} />
-
-        
 
         <br />
         <br />

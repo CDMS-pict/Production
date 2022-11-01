@@ -21,6 +21,10 @@ var InternshipSchema = new mongoose.Schema(
     desc: {
       type: String,
     },
+    stipend:{
+      type:Number,
+      default: 0
+    },
     student_id: {
       type: String,
       required: true,

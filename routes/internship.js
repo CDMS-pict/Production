@@ -15,6 +15,7 @@ router.post("/newInternship", async (req, res) => {
     duration,
     role,
     desc,
+    stipend,
     offer_letter,
     student_id,
     student_name,
@@ -36,6 +37,7 @@ router.post("/newInternship", async (req, res) => {
       duration,
       role,
       desc,
+      stipend,
       offer_letter: {
         public_id: result.public_id,
         url: result.secure_url,

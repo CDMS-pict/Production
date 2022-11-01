@@ -31,6 +31,10 @@ var StudentSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    abcID:{
+      type:Number,
+      default: 0
+    },
     rollno: {
       type: Number,
       default: "",
