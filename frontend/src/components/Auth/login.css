@@ -9,6 +9,9 @@ input {
   border-radius: 5px;
   border: 1px solid grey;
 }
+input ::placeholder{
+  color: black;
+}
 label {
   font-size: 15px;
   color: gray;
