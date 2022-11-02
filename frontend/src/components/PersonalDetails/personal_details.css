@@ -2,6 +2,11 @@
     padding-inline: 2%;
     margin-top: 2%;
 }
+.react-pdf__Page__canvas {
+    margin: 0 ;
+    width: 100% !important;
+    height: 100% !important;
+}
 .details_header{
     background-color: whitesmoke;
     height: max-content;
@@ -158,5 +163,18 @@
     .tenth_twelth_marksheet {
         display: flex;
         justify-content: center;
+    }
+}
+
+@media (max-width: 400px) {
+    .pdfbox{
+        height: 100vh;
+        overflow: hidden;
+    }
+    .boxmodal{
+        height: max-content;
+    }
+    .change_page_div{
+    /* margin-top: -10%; */
     }
 }

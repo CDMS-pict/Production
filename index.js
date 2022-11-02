@@ -4,13 +4,12 @@ const mogoose = require("mongoose");
 const dotenv = require("dotenv");
 const studentsRoute = require("./routes/students");
 const internshipRoute = require("./routes/internship");
-const fileUpload = require('express-fileupload')
+const fileUpload = require("express-fileupload");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
 //uploading files
 const multer = require("multer");
-
 
 dotenv.config();
 
@@ -21,24 +20,34 @@ try {
 } catch (err) {
   console.log(err);
 }
-app.use(fileUpload({
-  useTempFiles: true
-}))
-// app.use(express.json());
-app.use(cors({credentials: true, origin :[ "http://localhost:3000", "http://192.168.65.34:3000","https://digital-academic-passport.herokuapp.com"]}));
-// app.use(cookieParser);
-app.use(express.json({limit: '50mb'}));
-app.use(express.urlencoded({limit: '50mb'}));
-app.use("/api/students",studentsRoute);
-app.use("/api/internships",internshipRoute);
-
-
-if(process.env.NODE_ENV = "production"){
-  app.use(express.static("frontend/build"));
-  const path = require("path")
-  app.get("*",(req,res)=>{
-    res.sendfile(path.resolve(__dirname,'frontend','build','index.html'))
+app.use(
+  fileUpload({
+    useTempFiles: true,
   })
+);
+// app.use(express.json());
+app.use(
+  cors({
+    credentials: true,
+    origin: [
+      "http://localhost:3000",
+      "http://192.168.65.34:3000",
+      "https://digital-academic-passport.herokuapp.com",
+    ],
+  })
+);
+// app.use(cookieParser);
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb" }));
+app.use("/api/students", studentsRoute);
+app.use("/api/internships", internshipRoute);
+
+if ((process.env.NODE_ENV = "production")) {
+  app.use(express.static("frontend/build"));
+  const path = require("path");
+  app.get("*", (req, res) => {
+    res.sendfile(path.resolve(__dirname, "frontend", "build", "index.html"));
+  });
 }
 
 app.listen(process.env.PORT || 5000, () => {

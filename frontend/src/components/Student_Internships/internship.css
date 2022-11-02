@@ -130,6 +130,7 @@ h2 {
   .editbtndiv {
     margin-top: 20px;
     justify-content: space-between;
+    column-gap: 3px;
   }
   
 }

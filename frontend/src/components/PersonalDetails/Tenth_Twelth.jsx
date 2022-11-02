@@ -152,7 +152,7 @@ function Tenth_Twelth({ user }) {
         let alink = document.createElement("a");
         alink.href = fileURL;
         alink.download = url;
-        alink.setAttribute('Download' , user.rollno + "_Marksheet");
+        alink.setAttribute("Download", user.rollno + "_Marksheet");
         alink.click();
       });
     });
@@ -256,13 +256,13 @@ function Tenth_Twelth({ user }) {
         <Fade in={open}>
           <Box className="boxmodal pdfbox">
             <Button onClick={onButtonClick}>Download PDF</Button>
-            <Document
-              file={url}
-              onLoadSuccess={onDocumentLoadSuccess}
-              className="pdfdoc"
-            >
-              <Page pageNumber={pageNumber} />
-            </Document>
+              <Document
+                file={url}
+                onLoadSuccess={onDocumentLoadSuccess}
+                className="pdfdoc"
+              >
+                <Page pageNumber={pageNumber} />
+              </Document>
             <div className="change_page_div">
               <p
                 onClick={() => setPageNumber(pageNumber - 1)}
