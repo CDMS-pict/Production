@@ -58,7 +58,7 @@ function Internship() {
     const fetchInternships = async () => {
       try {
         const res = await axios.get(
-          `/api/internships/getallStudentInternships/${user._id}` 
+          `/api/internships/getallStudentInternships/${user._id}`
         );
         setDatas(res.data);
         // console.log(res.data);
@@ -94,8 +94,9 @@ function Internship() {
       student_id: user._id,
       student_name: user.fullname,
       student_div: user.div,
+      student_branch: user.branch,
       student_roll: user.rollno,
-      student_year: user.div[0] + user.div[1]
+      student_year: user.div[0] + user.div[1],
     };
 
     if (
@@ -134,7 +135,7 @@ function Internship() {
       <center>
         <div className="internshipboxes">
           {datas.map((d) => (
-            <InternshipBoxes data={d} user ={user} />
+            <InternshipBoxes data={d} user={user} />
           ))}
         </div>
       </center>
@@ -243,7 +244,9 @@ function Internship() {
                   </span>
                 </Button> */}
               </div>
-              <span style={{ fontSize: "12px", color: "black",fontWeight: "600" }}>
+              <span
+                style={{ fontSize: "12px", color: "black", fontWeight: "600" }}
+              >
                 {sfilename}
               </span>
               <div className="submitbtndiv">

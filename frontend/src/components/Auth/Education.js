@@ -79,31 +79,19 @@ export class Education extends Component {
               <Select
                 value={values.branch}
                 onChange={inputChange("branch")}
+                className="select"
                 displayEmpty
-                style={{ width: "100%", color: "black", marginBottom: "9px" , backgroundColor: "white", border: "1px solid whitesmoke" }}
+                style={{ width: "100%",  marginBottom: "9px" , backgroundColor: "white",height: "53px", marginTop: "9px" , fontStyle: "none"  }}
                 inputProps={{ "aria-label": "Without label" }}
               >
-                <MenuItem value="">
-                  <em>Branch</em>
+                <MenuItem disabled value="" >
+                  Branch
                 </MenuItem>
                 <MenuItem value={"CS"}>CS</MenuItem>
                 <MenuItem value={"IT"}>IT</MenuItem>
                 <MenuItem value={"ENTC"}>ENTC</MenuItem>
               </Select>
-              {/* <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value="Branch"
-                label="Branch"
-                onChange={inputChange("branch")}
-                style={{ width: "100%", color: "black" }}
-                displayEmpty
-                inputProps={{ "aria-label": "Without label" }}
-              >
-                <MenuItem value={"CS"}>CS</MenuItem>
-                <MenuItem value={"IT"}>IT</MenuItem>
-                <MenuItem value={"ENTC"}>ENTC</MenuItem>
-              </Select> */}
+      
             </div>
             {/* <div className="form-group">
                     <label htmlFor="twitter">CollegeId</label>
