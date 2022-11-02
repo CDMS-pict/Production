@@ -260,7 +260,7 @@ function Internship_Boxes({ data, user }) {
                   >
                     <div className="uploadmarksheet">
                       <i class="fa-solid fa-upload"></i>
-                      Complition Letter
+                      Completion Letter
                     </div>
                     <input
                       hidden

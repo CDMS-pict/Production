@@ -17,10 +17,10 @@ export class PersonalInfo extends Component {
           <div className="loginform">
           <center>
           <img className="logoimg" src={logo} alt="" />
-          <h4>Digital Academic Passport</h4>
+          <h3>Digital Academic Passport</h3>
           </center>
-          <br />
-          <h1 className="mb-5">Sign Up</h1>
+          {/* <br /> */}
+          <h2 className="mb-2">Sign Up</h2>
           {/* <br /> */}
           <div className="form-group">
             <label htmlFor="name" className="signuplabel">Full Name</label>

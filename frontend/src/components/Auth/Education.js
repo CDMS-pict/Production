@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import logo from "../../pict_logo.jpg";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 
 export class Education extends Component {
   continue = (e) => {
@@ -12,7 +14,7 @@ export class Education extends Component {
     e.preventDefault();
     this.props.prevStep();
   };
-  
+
   render() {
     let alert;
     const { values, inputChange } = this.props;
@@ -21,11 +23,11 @@ export class Education extends Component {
       // if(values.collegeId)
       const collegeID = values.collegeId;
       const extension = collegeID.split("@")[1];
-      if(extension !== "ms.pict.edu"){
+      if (extension !== "ms.pict.edu") {
         window.alert("Enter a Valid Collge ID");
         return;
       }
-      if(values.rollno < 10000 && values.rollno >99999){
+      if (values.rollno < 10000 && values.rollno > 99999) {
         window.alert("Enter a Valid 5 Digit Roll No");
         return;
       }
@@ -34,8 +36,8 @@ export class Education extends Component {
       //   window.alert(values.branch + " Enter a Valid Branch");
       //   return;
       // }
-      const plength = values.password
-      if(plength.length < 6 || plength.length > 10){
+      const plength = values.password;
+      if (plength.length < 6 || plength.length > 10) {
         window.alert("Enter Password of atleast 6 and atmost 10 charachters");
         return;
       }
@@ -56,22 +58,52 @@ export class Education extends Component {
           <div className="loginform">
             <center>
               <img className="logoimg" src={logo} alt="" />
-              <h4>Digital Academic Passport</h4>
+              <h3>Digital Academic Passport</h3>
             </center>
-            <br />
-            <h1 className="mb-5">Sign Up</h1>
+            {/* <br /> */}
+            <h2 className="mb-2">Sign Up</h2>
             {/* <br /> */}
             <div className="form-group">
-              <label className="signuplabel" htmlFor="facebook">Branch</label>
-            <br />
-              <input
+              <label className="signuplabel" htmlFor="facebook">
+                Branch
+              </label>
+              {/* <br /> */}
+              {/* <input
                 type="text"
                 className="form-control"
                 name="branch"
                 onChange={inputChange("branch")}
                 value={values.branch}
                 placeholder="Branch"
-              />
+              /> */}
+              <Select
+                value={values.branch}
+                onChange={inputChange("branch")}
+                displayEmpty
+                style={{ width: "100%", color: "black", marginBottom: "9px" , backgroundColor: "white", border: "1px solid whitesmoke" }}
+                inputProps={{ "aria-label": "Without label" }}
+              >
+                <MenuItem value="">
+                  <em>Branch</em>
+                </MenuItem>
+                <MenuItem value={"CS"}>CS</MenuItem>
+                <MenuItem value={"IT"}>IT</MenuItem>
+                <MenuItem value={"ENTC"}>ENTC</MenuItem>
+              </Select>
+              {/* <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value="Branch"
+                label="Branch"
+                onChange={inputChange("branch")}
+                style={{ width: "100%", color: "black" }}
+                displayEmpty
+                inputProps={{ "aria-label": "Without label" }}
+              >
+                <MenuItem value={"CS"}>CS</MenuItem>
+                <MenuItem value={"IT"}>IT</MenuItem>
+                <MenuItem value={"ENTC"}>ENTC</MenuItem>
+              </Select> */}
             </div>
             {/* <div className="form-group">
                     <label htmlFor="twitter">CollegeId</label>
@@ -79,8 +111,10 @@ export class Education extends Component {
                     <input type="text" className="form-control" name="id" onChange={inputChange('id')} value={values.id} />
                 </div> */}
             <div className="form-group">
-              <label className="signuplabel" htmlFor="github">Division</label>
-            {/* <br /> */}
+              <label className="signuplabel" htmlFor="github">
+                Division
+              </label>
+              {/* <br /> */}
               <input
                 type="text"
                 className="form-control"
@@ -91,8 +125,10 @@ export class Education extends Component {
               />
             </div>
             <div className="form-group">
-              <label className="signuplabel" htmlFor="github">Roll No</label>
-            {/* <br /> */}
+              <label className="signuplabel" htmlFor="github">
+                Roll No
+              </label>
+              {/* <br /> */}
               <input
                 type="number"
                 className="form-control"
@@ -112,7 +148,7 @@ export class Education extends Component {
                   Submit
                 </button>
               </div>
-              <p style={{color: "red", textAlign:"center"}}>{alert}</p>
+              <p style={{ color: "red", textAlign: "center" }}>{alert}</p>
               <br />
               <center>
                 <p>

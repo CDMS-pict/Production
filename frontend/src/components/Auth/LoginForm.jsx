@@ -60,10 +60,10 @@ const LoginForm = () => {
         <div className="loginform">
           <center>
             <img className="logoimg" src={logo} alt="" />
-            <h4>Digital Academic Passport</h4>
+            <h3>Digital Academic Passport</h3>
           </center>
-          <br />
-          <h1>Login</h1>
+          {/* <br /> */}
+          <h2>Login</h2>
           {inputs.map((input) => (
             <Login
               key={input.id}

@@ -16,6 +16,7 @@ function StudentDashboard({student}) {
     { title: "LOR Application", url: "" },
     { title: "Notices", url: "" },
     { title: "Amcat Details", url: "" },
+    { title: "Print Profile", url: "/student/printprofile" },
   ];
 
   return (
