@@ -7,7 +7,7 @@ const { label, errorMessage, onChange, id, ...inputProps } = props;
     <div className='login'>
         <label>{label}</label>
         <input {...inputProps}
-        onChange={onChange} style={{border: "2px solid black"}}/>
+        onChange={onChange} />
        
     </div>
   )

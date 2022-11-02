@@ -9,14 +9,18 @@ input {
   border-radius: 5px;
   border: 1px solid grey;
 }
-input ::placeholder{
-  color: black;
-}
 label {
   font-size: 15px;
   color: gray;
 }
-
+.form-group input{
+  border: 1px solid black;
+}
+.form-group input::placeholder{
+  color: black;
+  /* font-weight: 600; */
+  /* font-size: 15px; */
+}
 .form {
   background-color: whitesmoke;
   padding: 0px 60px;
@@ -34,9 +38,14 @@ h1 {
   font-size: 14px;
 }
 .select{
-  border: 1px solid #808080;
+  border: 1px solid black;
   /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
   color: gray;
+  outline: none;
+  font-size: 14px;
+}
+.select:focus{
+  outline: none;
 }
 .loginbtn {
   width: 100%;

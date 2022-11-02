@@ -81,7 +81,7 @@ export class Education extends Component {
                 onChange={inputChange("branch")}
                 className="select"
                 displayEmpty
-                style={{ width: "100%",  marginBottom: "9px" , backgroundColor: "white",height: "53px", marginTop: "9px" , fontStyle: "none"  }}
+                style={{fontSize: "14px",color: "grey", width: "100%",  marginBottom: "9px" , backgroundColor: "white",height: "53px", marginTop: "9px" , fontStyle: "none"  }}
                 inputProps={{ "aria-label": "Without label" }}
               >
                 <MenuItem disabled value="" >
