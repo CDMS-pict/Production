@@ -1,0 +1,64 @@
+.noticeboxmodal{
+    text-align: left;
+}
+.desc{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    text-align: left;
+}
+.desc label{
+    margin-bottom: 3px;
+}
+.desc textarea{
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 5px;
+}
+.noticebody{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3%;
+}
+.noticediv{
+    /* padding-inline: 5%; */
+    width: 95%;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 20px;
+    row-gap: 20px;
+}
+.notices{
+
+    width: 32%;
+    height: 300px;
+    overflow-y: scroll;
+    overflow-x: visible;
+}
+.imp{
+    padding: 2px;
+    background-color: red;
+    color: white;
+    float: right;
+}
+.noticeinput{
+    width: 92%;
+    border: 1px solid black;
+}
+
+@media (max-width: 600px) {
+    .notices{
+        width: 100%;
+
+        border: 1px solid black;
+        border-radius: 20px;
+    }
+    .noticediv{
+        margin-bottom: 5%;
+    }
+    .noticeinput{
+        width: 90%;
+    }
+}

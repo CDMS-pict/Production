@@ -10,6 +10,10 @@ var StudentSchema = new mongoose.Schema(
         type: String,
       },
     },
+    role:{
+      type:String,
+      default: "student"
+    },
     fullname: {
       type: String,
       trim: true,
@@ -38,6 +42,10 @@ var StudentSchema = new mongoose.Schema(
     rollno: {
       type: Number,
       default: "",
+    },
+    interested_domains:{
+      type:Array,
+      default:[]
     },
     sem1Sgpa: {
       type: Number,

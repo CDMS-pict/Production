@@ -10,6 +10,7 @@ import ParentsDetails from "./Parents_Details";
 import "./personal_details.css";
 import TenthTwelth from "./Tenth_Twelth";
 import moment from "moment-timezone";
+import InterestedDomains from "./InterestedDomains";
 
 function Personal_Details() {
   // const [numPages, setNumPages] = useState(null);
@@ -70,7 +71,7 @@ function Personal_Details() {
   useEffect(() => {
     sednRequest().then((data) => setUser(data.user));
   }, []);
-  console.log(user);
+  // console.log(user);
 
   const [fullname, setFullName] = useState("");
   const [mail, setMail] = useState("");
@@ -322,6 +323,9 @@ function Personal_Details() {
             </div>
           </div>
         </div>
+
+        {/* Interested Domains */}
+        <InterestedDomains user={user}/>
 
         {/* parent details */}
         <ParentsDetails user={user} />

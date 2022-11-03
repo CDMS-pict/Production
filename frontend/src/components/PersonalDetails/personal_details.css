@@ -106,6 +106,12 @@
     color: white;
 }
 
+.interesteddomains{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2%;
+}
 @media (max-width: 868px) {
     .pdfbox{
         max-height: auto;

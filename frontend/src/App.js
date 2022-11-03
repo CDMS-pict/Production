@@ -15,8 +15,9 @@ import PersonalDetails from "./components/PersonalDetails/Personal_Details";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import ExtraCurricular from "./components/ExtraCurricular/ExtraCurricular";
+// import ExtraCurricular from "./components/ExtraCurricular/ExtraCurricular";
 import PrintProfile from "./components/PrintProfile/PrintProfile";
+import Notices from "./components/Notices/Notices";
 // import { selectUser } from "./store/store";
 
 // import Student_Internships from "./components/Teachers/DashBoard_Components/Student_Internships";
@@ -66,8 +67,8 @@ function App() {
         {user ? (
           <Routes>
             {/* <Route exact path="/" element={<LoginForm />} /> */}
-            <Route exact path="/dashboard" element={<StudentDashboard />} />
-            <Route exact path="/" element={<StudentDashboard />} />
+            <Route exact path="/dashboard" element={<StudentDashboard student={user}/>} />
+            <Route exact path="/" element={<StudentDashboard student={user}/>} />
             <Route exact path="/signup" element={<Form />} />
             <Route
               exact
@@ -77,9 +78,14 @@ function App() {
             <Route
               exact
               path="/student/personaldetails"
-              element={<PersonalDetails />}
+              element={<PersonalDetails  />}
             />
-            <Route exact path="/student/printprofile" element={<PrintProfile user={user} />} />
+            <Route
+              exact
+              path="/student/printprofile"
+              element={<PrintProfile user={user} />}
+            />
+            <Route exact path="/notices" element={<Notices user={user} />} />
             <Route exact path="/student/internship" element={<Internship />} />
             {/* <Route exact path="/student/extracurricular" element={<ExtraCurricular />} /> */}
             <Route

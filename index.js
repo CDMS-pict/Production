@@ -4,6 +4,7 @@ const mogoose = require("mongoose");
 const dotenv = require("dotenv");
 const studentsRoute = require("./routes/students");
 const internshipRoute = require("./routes/internship");
+const noticeRoute = require("./routes/notices");
 const fileUpload = require("express-fileupload");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
@@ -41,6 +42,7 @@ app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb" }));
 app.use("/api/students", studentsRoute);
 app.use("/api/internships", internshipRoute);
+app.use("/api/notices", noticeRoute);
 
 if ((process.env.NODE_ENV = "production")) {
   app.use(express.static("frontend/build"));
