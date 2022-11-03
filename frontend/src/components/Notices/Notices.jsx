@@ -92,7 +92,7 @@ function Notices({ user }) {
         <div className="noticediv">
           {notices.map((n) => (
             <div className="notices">
-                <Card variant="outlined" style={{height: "300px"}}>
+                <Card variant="outlined"  className="cardstyle">
                   <React.Fragment>
                     <CardContent>
                       <Typography

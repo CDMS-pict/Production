@@ -48,6 +48,10 @@
     border: 1px solid black;
 }
 
+.cardstyle{
+    height: 300px;
+}
+
 @media (max-width: 600px) {
     .notices{
         width: 100%;
@@ -60,5 +64,8 @@
     }
     .noticeinput{
         width: 90%;
+    }
+    .cardstyle{
+        height: max-content;
     }
 }
