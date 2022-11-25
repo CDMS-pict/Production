@@ -11,6 +11,8 @@ const {
   login,
   verifyToken,
   getUser,
+  sendOTPverificationEmail,
+  verifyOTP,
   refreshToken,
   logout,
 } = require("../controllers/Student_Controller");
@@ -162,7 +164,9 @@ const {
 // });
 
 // router.get("/refresh",)
-router.post("/signup", signup);
+router.post("/signupOTP",sendOTPverificationEmail);
+router.post("/signupVerify",verifyOTP);
+// router.post("/signup", signup);
 router.post("/login", login);
 router.get("/user", verifyToken, getUser);
 // router.get("/refresh", refreshToken, verifyToken, getUser);

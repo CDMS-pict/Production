@@ -14,6 +14,7 @@ export class Form extends Component {
     collegeId: "",
     div: "",
     rollnono: "",
+    otp: ""
   };
 
   nextStep = () => {
@@ -34,8 +35,8 @@ export class Form extends Component {
 
   render() {
     const { step } = this.state;
-    const { fullname, password, branch, collegeId, div, rollno } = this.state;
-    const values = { fullname, password, branch, collegeId, div, rollno };
+    const { fullname, password, branch, collegeId, div, rollno,otp } = this.state;
+    const values = { fullname, password, branch, collegeId, div, rollno,otp };
 
     switch (step) {
       case 1:
@@ -56,7 +57,11 @@ export class Form extends Component {
           />
         );
       case 3:
-        return <Confirm />;
+        return <Confirm 
+        nextStep={this.nextStep}
+            prevStep={this.prevStep}
+            inputChange={this.inputChange}
+            values={values}/>;
       case 4:
         return <Success />;
       default:

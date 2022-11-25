@@ -9,7 +9,8 @@ var StudentSchema = new mongoose.Schema(
       url: {
         type: String,
       },
-    },
+    }
+    ,
     role:{
       type:String,
       default: "student"

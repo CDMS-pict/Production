@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import axios from "axios";
+import logo from "../../pict_logo.jpg";
 
 export class Confirm extends Component {
   continue = (e) => {
@@ -12,45 +14,69 @@ export class Confirm extends Component {
   };
 
   render() {
-    const {
-      values: { name, email, password, branch, clgid, div, roll },
-    } = this.props;
+    let alert;
+    const { values, inputChange } = this.props;
+
+    const handleFinal = async (e) => {
+      e.preventDefault();
+      try {
+        // console.log(values);
+        await axios.post("/api/students/signupVerify", values);
+        window.alert("Signup successfull");
+        window.location.replace("/");
+      } catch (err) {
+        console.log(err);
+        window.alert("Verification failed , please try again");
+      }
+    };
 
     return (
-      <div className="app">
-        <div className="form-container">
-          <h1 className="mb-5">Confirm</h1>
-          <ul class="list-group">
-            <li class="list-group-item">Name: {name}</li>
-            <li class="list-group-item">Email: {email}</li>
-            <li class="list-group-item">Password: {password}</li>
-            <li class="list-group-item">
-              Branch <a href={branch}>{branch}</a>
-            </li>
-            <li class="list-group-item">
-              CollegeId<a href={clgid}>{clgid}</a>
-            </li>
-            <li class="list-group-item">
-              Div<a href={div}>{div}</a>
-            </li>
-            <li class="list-group-item">
-              RollNo<a href={roll}>{roll}</a>
-            </li>
-          </ul>
+      <div className="app ">
+        <div className="form-container form">
+          <div className="loginform">
+            <center>
+              <img className="logoimg" src={logo} alt="" />
+              <h3>Digital Academic Passport</h3>
+            </center>
+            {/* <br /> */}
+            <h2 className="mb-2">Sign Up</h2>
+            {/* <br /> */}
 
-          <br />
-          <br />
-
-          <div className="row">
-            <div className="col-6">
-              <button className="btn btn-danger" onClick={this.back}>
-                Back
-              </button>
-            </div>
-            <div className="col-6 text-right">
-              <button className="btn" onClick={this.continue}>
-                Continue
-              </button>
+            <div className="form-group">
+              <label className="" htmlFor="OTP">
+                <center>
+                  <b>College ID verification</b>
+                  <br />
+                  Enter an OTP sent to {values.collegeId};
+                </center>
+              </label>
+              <center>
+              <input
+                type="text"
+                className="form-control"
+                name="OTP"
+                onChange={inputChange("otp")}
+                value={values.otp}
+                placeholder="OTP"
+              />
+              </center>
+              <div className="row">
+                <div
+                  className="col-12 back_continue"
+                  style={{ justifyContent: "center" }}
+                >
+                  <button className="loginbtn btn1" onClick={handleFinal}>
+                    Submit
+                  </button>
+                </div>
+                <p style={{ color: "red", textAlign: "center" }}>{alert}</p>
+                <br />
+                <center>
+                  <p>
+                    Already have an account ? <a href="/login">Login</a>
+                  </p>
+                </center>
+              </div>
             </div>
           </div>
         </div>

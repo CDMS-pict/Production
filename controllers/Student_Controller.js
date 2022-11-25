@@ -1,15 +1,24 @@
 const User = require("../models/Students");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const signup = async (req, res, next) => {
+const nodemailer = require("nodemailer");
+const UserOTPVerification = require("../models/UserOTPVerification");
+
+let transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  auth: {
+    user: process.env.AUTH_EMAIL,
+    pass: process.env.AUTH_PASS,
+  },
+});
+const signup = async ({ fullname, collegeId, password, rollno, div, branch },req, res, next) => {
   try {
-    const { fullname, collegeId, password, rollno, div, branch } = req.body;
     const emailRegex = /@ms.pict.edu/;
     if (!emailRegex.test(collegeId)) throw "CollgeId is not valid";
     if (password.length < 6) throw "Password must be of atleast 6 characters";
     const user = await User.findOne({ collegeId });
     if (user) {
-      res.status(200).json("User if Already Exists");
+      res.status(200).json("User is Already Exists");
     }
     const salt = await bcrypt.genSalt(10);
     const hashedpass = await bcrypt.hash(password, salt);
@@ -20,12 +29,14 @@ const signup = async (req, res, next) => {
       rollno,
       div,
       branch,
+      verified: false,
     });
     const student = await newStudent.save();
-    res.status(200).json(student);
+    // await login({collegeId,password},req,res,next);
+    // res.status(200).json(student);
   } catch (err) {
     console.log(err);
-    res.status(500).json(err);
+    // res.status(500).json(err);
   }
 };
 
@@ -75,7 +86,7 @@ const verifyToken = (req, res, next) => {
   if (!token) {
     res.status(404).json({ message: "No token found" });
   }
- 
+
   jwt.verify(String(token), process.env.JWT_SECRET_KEY, (err, user) => {
     if (err) {
       return res.status(400).json({ message: "Invalid TOken" });
@@ -151,9 +162,91 @@ const logout = (req, res, next) => {
   });
 };
 
+const sendOTPverificationEmail = async (req, res) => {
+  try {
+    const collegeId =  req.body.collegeId;
+    const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
+    const mailOptions = {
+      from: process.env.AUTH_EMAIL,
+      to: collegeId,
+      subject: "Login OTP",
+      html: `<p>Enter <h1>${otp}</h1> in the app to verify your college ID and complete the login process</p>`,
+    };
+    const saltRounds = 10;
+    const hashedOTP = await bcrypt.hash(otp, saltRounds);
+    const newOTPVerification = await new UserOTPVerification({
+      collegeId: collegeId,
+      otp: hashedOTP,
+      createdAt: Date.now(),
+      expiresAt: Date.now() + 3600000,
+    });
+
+    await newOTPVerification.save();
+    await transporter.sendMail(mailOptions);
+    res.json({
+      status: "PENDING",
+      message: "Verification otp mail sent",
+      data: {
+        collegeId: collegeId
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    res.json({
+      status: "FAILED",
+      message: err.message,
+    });
+  }
+};
+
+const verifyOTP = async (req, res,next) => {
+  try {
+    let { collegeId, otp } = req.body;
+    if (!collegeId || !otp) {
+      throw Error("Empty otp detials are not allowed");
+    } else {
+      const UserOTPVerificationRecords = await UserOTPVerification.find({
+        collegeId
+      });
+      console.log(UserOTPVerificationRecords);
+      if (UserOTPVerificationRecords.length <= 0) {
+        throw new Error("Account Does'nt exist or has been verified already");
+      } else {
+        const { expiresAt } = UserOTPVerificationRecords[0];
+        const hashedOTP = UserOTPVerificationRecords[0].otp;
+        if (expiresAt < Date.now()) {
+          await UserOTPVerification.deleteMany({ collegeId });
+          throw new Error("Code has expired. Please Request Again");
+        } else {
+          const validOTP = await bcrypt.compare(otp, hashedOTP);
+          if (!validOTP) {
+            throw new Error("Invalid Code");
+          } else {
+            // await User.updateOne({ _id: studentId }, { verified: true });
+            const { fullname, collegeId, password, rollno, div, branch } = req.body;
+
+            await UserOTPVerification.deleteMany({ collegeId });
+            await signup({ fullname, collegeId, password, rollno, div, branch },req,res,next);
+            res.json({
+              status: "VERIFIED",
+              message: "User email verified successfully",
+            });
+          }
+        }
+      }
+    }
+  } catch (err) {
+    res.json({
+      status: "FAILED",
+      message: err.message,
+    });
+  }
+};
 exports.logout = logout;
 exports.signup = signup;
 exports.login = login;
 exports.verifyToken = verifyToken;
 exports.getUser = getUser;
 exports.refreshToken = refreshToken;
+exports.verifyOTP = verifyOTP;
+exports.sendOTPverificationEmail = sendOTPverificationEmail;
