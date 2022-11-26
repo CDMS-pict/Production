@@ -21,6 +21,7 @@ import { useSelector } from "react-redux";
 // import ExtraCurricular from "./components/ExtraCurricular/ExtraCurricular";
 import PrintProfile from "./components/PrintProfile/PrintProfile";
 import Notices from "./components/Notices/Notices";
+import GuardianBatch from "./components/Teachers/GuardianBatch/GuardianBatch";
 // import { selectUser } from "./store/store";
 
 // import Student_Internships from "./components/Teachers/DashBoard_Components/Student_Internships";
@@ -84,7 +85,7 @@ function App() {
             <Route
               exact
               path="/dashboard"
-              element={<StudentDashboard user={user} />}
+              element={<StudentDashboard student={user} />}
             />
             <Route
               exact
@@ -150,7 +151,7 @@ function App() {
 
             <Route exact path="/" element={<TeachersDashboard user={user}/>} />
             <Route exact path="/personaldetails" element={<PersonalDetails1 user={user}/>} />
-            <Route exact path="/batches" element={<PersonalDetails1 user={user}/>} />
+            <Route exact path="/batches" element={<GuardianBatch user={user}/>} />
             <Route
               exact
               path="/teachersdashboard"

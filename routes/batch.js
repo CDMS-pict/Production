@@ -11,10 +11,11 @@ let transporter = nodemailer.createTransport({
 });
 
 router.post("/newBatch", async (req, res) => {
-  const { batch_name, guardian_teacher, batch_div, batch_branch } = req.body;
+  const { batch_name,guardian_id, guardian_teacher, batch_div, batch_branch } = req.body;
   try {
     const newBatch = new Batches({
       batch_name,
+      guardian_id,
       guardian_teacher,
       batch_div,
       batch_branch,
@@ -45,6 +46,19 @@ router.get("/getbatches", async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+// get batches by teacher 
+router.get("/getbatches/:id", async(req,res)=>{
+  const id = req.params.id;
+  try{
+    const batches = await Batches.find({guardian_id : id})
+    res.status(200).json(batches);
+  }
+  catch(err){
+    console.log(err);
+    res.status(500).json(err);
+  }
+})
 
 // add students to batch
 

@@ -482,4 +482,19 @@ router.get("/getallStudents", async (req, res) => {
   }
 });
 
+//get students by div
+
+router.get("/getdivStudents/:div",async(req,res)=>{
+  const div = req.params.div;
+  try{
+    const stds = await Students.find({div});
+    res.status(200).json(stds);
+  }
+  catch(err){
+    console.log(err);
+    res.status(500).json(err);
+  }
+})
+
+
 module.exports = router;

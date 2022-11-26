@@ -39,7 +39,7 @@ export class Confirm extends Component {
               <h3>Digital Academic Passport</h3>
             </center>
             {/* <br /> */}
-            <h2 className="mb-2">Sign Up</h2>
+            <h2 className="mb-2">Teachers Sign Up</h2>
             {/* <br /> */}
 
             <div className="form-group">

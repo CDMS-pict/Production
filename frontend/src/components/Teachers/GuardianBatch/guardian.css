@@ -1,0 +1,27 @@
+.batchtop{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 2%;
+}
+
+.addbatch{
+    /* padding: 2%; */
+    display: flex;
+    justify-content: center;
+    column-gap: 20px;
+    padding-bottom: 2%;
+    flex-wrap: wrap;
+}
+.batches{
+    padding-inline: 20px;
+}
+
+@media (max-width:600px) {
+    .addbatch{
+        flex-direction: column;
+        padding-inline: 20px;
+        margin-bottom: 5%;
+    }
+}

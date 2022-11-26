@@ -63,7 +63,7 @@ const LoginForm = () => {
             <h3>Digital Academic Passport</h3>
           </center>
           {/* <br /> */}
-          <h2>Login</h2>
+          <h2>Teachers Login</h2>
           {inputs.map((input) => (
             <Login
               key={input.id}

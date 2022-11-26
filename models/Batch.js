@@ -6,6 +6,11 @@ var BatchSchema = new mongoose.Schema({
         required : true
     }
     ,
+    guardian_id:{
+        type:String,
+        required: true
+    }
+    ,
     guardian_teacher:{
         name:{
             type:String
