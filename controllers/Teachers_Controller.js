@@ -1,4 +1,4 @@
-const User = require("../models/Students");
+const Teacher = require("../models/Teachers");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
@@ -11,28 +11,33 @@ let transporter = nodemailer.createTransport({
     pass: process.env.AUTH_PASS,
   },
 });
-const signup = async ({ fullname, collegeId, password, rollno, div, branch },req, res, next) => {
+
+const signup = async (
+  { fullname, collegeId, password, department, mobile },
+  req,
+  res,
+  next
+) => {
   try {
     const emailRegex = /@ms.pict.edu/;
     if (!emailRegex.test(collegeId)) throw "CollgeId is not valid";
     if (password.length < 6) throw "Password must be of atleast 6 characters";
-    const user = await User.findOne({ collegeId });
+    const user = await Teacher.findOne({ collegeId });
     if (user) {
       res.status(200).json("User is Already Exists");
     }
     const salt = await bcrypt.genSalt(10);
     const hashedpass = await bcrypt.hash(password, salt);
-    const newStudent = new User({
+    const newTeacher = new Teacher({
       fullname,
       collegeId,
-      password: hashedpass,
-      rollno,
-      div,
-      branch,
+      password,
+      department,
+      mobile,
     });
-    const student = await newStudent.save();
+    const teacher = await newTeacher.save();
     // await login({collegeId,password},req,res,next);
-    // res.status(200).json(student);
+    // res.status(200).json(Teacher);
   } catch (err) {
     console.log(err);
     // res.status(500).json(err);
@@ -44,28 +49,28 @@ const login = async (req, res, next) => {
 
   let existingUser;
   try {
-    existingUser = await User.findOne({ collegeId: collegeId });
+    existingUser = await Teacher.findOne({ collegeId: collegeId });
   } catch (err) {
     return new Error(err);
   }
   if (!existingUser) {
     return res.status(400).json({ message: "User not found. Signup Please" });
   }
-  const isPasswordCorrect = bcrypt.compareSync(password, existingUser.password);
+  const isPasswordCorrect = bcrypt.compareSync(password, existingTeacher.password);
   if (!isPasswordCorrect) {
     return res.status(400).json({ message: "Inavlid collegeId / Password" });
   }
-  const token = jwt.sign({ id: existingUser._id }, process.env.JWT_SECRET_KEY, {
+  const token = jwt.sign({ id: existingTeacher._id }, process.env.JWT_SECRET_KEY, {
     expiresIn: "1h",
   });
 
   // console.log("Generated Token\n", token);
 
-  //   if (req.cookies[`${existingUser._id}`]) {
-  //     req.cookies[`${existingUser._id}`] = "";
+  //   if (req.cookies[`${existingTeacher._id}`]) {
+  //     req.cookies[`${existingTeacher._id}`] = "";
   //   }
 
-  res.cookie(String(existingUser._id), token, {
+  res.cookie(String(existingTeacher._id), token, {
     path: "/",
     expires: new Date(Date.now() + 1000 * 60 * 60), // 30 seconds
     httpOnly: true,
@@ -101,7 +106,7 @@ const getUser = async (req, res, next) => {
   console.log(userId);
   let user;
   try {
-    user = await User.findById(userId, "-password");
+    user = await Teacher.findById(userId, "-password");
   } catch (err) {
     return new Error(err);
   }
@@ -163,7 +168,7 @@ const logout = (req, res, next) => {
 
 const sendOTPverificationEmail = async (req, res) => {
   try {
-    const collegeId =  req.body.collegeId;
+    const collegeId = req.body.collegeId;
     const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
     const mailOptions = {
       from: process.env.AUTH_EMAIL,
@@ -186,7 +191,7 @@ const sendOTPverificationEmail = async (req, res) => {
       status: "PENDING",
       message: "Verification otp mail sent",
       data: {
-        collegeId: collegeId
+        collegeId: collegeId,
       },
     });
   } catch (err) {
@@ -198,14 +203,14 @@ const sendOTPverificationEmail = async (req, res) => {
   }
 };
 
-const verifyOTP = async (req, res,next) => {
+const verifyOTP = async (req, res, next) => {
   try {
     let { collegeId, otp } = req.body;
     if (!collegeId || !otp) {
       throw Error("Empty otp detials are not allowed");
     } else {
       const UserOTPVerificationRecords = await UserOTPVerification.find({
-        collegeId
+        collegeId,
       });
       console.log(UserOTPVerificationRecords);
       if (UserOTPVerificationRecords.length <= 0) {
@@ -221,11 +226,17 @@ const verifyOTP = async (req, res,next) => {
           if (!validOTP) {
             throw new Error("Invalid Code");
           } else {
-            // await User.updateOne({ _id: studentId }, { verified: true });
-            const { fullname, collegeId, password, rollno, div, branch } = req.body;
+            // await Teacher.updateOne({ _id: studentId }, { verified: true });
+            const { fullname, collegeId, password, rollno, div, branch } =
+              req.body;
 
             await UserOTPVerification.deleteMany({ collegeId });
-            await signup({ fullname, collegeId, password, rollno, div, branch },req,res,next);
+            await signup(
+              { fullname, collegeId, password, rollno, div, branch },
+              req,
+              res,
+              next
+            );
             res.json({
               status: "VERIFIED",
               message: "User email verified successfully",
@@ -247,5 +258,5 @@ exports.login = login;
 exports.verifyToken = verifyToken;
 exports.getUser = getUser;
 exports.refreshToken = refreshToken;
-exports.verifyOTP = verifyOTP;
+exports.verifyOTP = verifyteacherOTP;
 exports.sendOTPverificationEmail = sendOTPverificationEmail;

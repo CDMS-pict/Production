@@ -21,7 +21,6 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 
-
 function Student_Internships() {
   const [age, setAge] = React.useState("");
 
@@ -35,7 +34,7 @@ function Student_Internships() {
   const handleChange = (event) => {
     setAge(event.target.value);
   };
-  
+
   const [rowsdata, setRowdata] = useState([]);
   // console.log(rowsdata)
   useEffect(() => {
@@ -77,8 +76,8 @@ function Student_Internships() {
   }
   // console.log(data);
   pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
-  const [rollno, setRollno] = useState(0)
-  const [letter, setLetter] = useState("")
+  const [rollno, setRollno] = useState(0);
+  const [letter, setLetter] = useState("");
   const onButtonClick = () => {
     // using Java Script method to get PDF file
     fetch(url).then((response) => {
@@ -89,19 +88,19 @@ function Student_Internships() {
         let alink = document.createElement("a");
         alink.href = fileURL;
         alink.download = url;
-        alink.setAttribute("Download",rollno+  "_"+ letter);
+        alink.setAttribute("Download", rollno + "_" + letter);
         alink.click();
       });
     });
   };
 
-  const handleOffer = (url,roll) => {
+  const handleOffer = (url, roll) => {
     setUrl(url);
     setRollno(roll);
     setLetter("offer_letter");
     setOpen1(true);
   };
-  const handleCompletion = (url,roll) => {
+  const handleCompletion = (url, roll) => {
     setUrl(url);
     setRollno(roll);
     setLetter("completion_letter");
@@ -188,6 +187,7 @@ function Student_Internships() {
                   <TableCell align="left">Duration</TableCell>
                   <TableCell align="left">Offer Letter</TableCell>
                   <TableCell align="left">Completion Letter</TableCell>
+                  <TableCell align="left">Approval</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -197,9 +197,7 @@ function Student_Internships() {
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell align="left">{row.id}</TableCell>
-                    <TableCell align="left">
-                      {row.student_name}
-                    </TableCell>
+                    <TableCell align="left">{row.student_name}</TableCell>
                     <TableCell align="left">{row.student_div}</TableCell>
                     <TableCell align="left">{row.student_branch}</TableCell>
                     <TableCell align="left">{row.company_name}</TableCell>
@@ -214,11 +212,55 @@ function Student_Internships() {
                     <TableCell align="left">{row.duration}</TableCell>
                     <TableCell align="left">
                       {" "}
-                      <Button onClick={()=>handleOffer(row.offer_letter?.url,row.rollno)}>View</Button>
+                      <Button
+                        onClick={() =>
+                          handleOffer(row.offer_letter?.url, row.rollno)
+                        }
+                      >
+                        View
+                      </Button>
                     </TableCell>
                     <TableCell align="left">
                       {" "}
-                      <Button onClick={()=>handleCompletion(row.letter_of_completion?.url,row.rollno)}>View</Button>
+                      <Button
+                        onClick={() =>
+                          handleCompletion(
+                            row.letter_of_completion?.url,
+                            row.rollno
+                          )
+                        }
+                      >
+                        View
+                      </Button>
+                    </TableCell>
+                    <TableCell align="left">
+                      {" "}
+                      <Select
+                        value={age}
+                        onChange={handleChange}
+                        displayEmpty
+                        inputProps={{ "aria-label": "Without label" }}
+                      >
+                        <MenuItem value="">
+                          <em>Pending</em>
+                        </MenuItem>
+                        <MenuItem value={"Pending"}>Pending</MenuItem>
+                        <MenuItem value={"Approved"}>Approved</MenuItem>
+                        <MenuItem value={"Rejected"}>Rejected</MenuItem>
+                      </Select>
+                    </TableCell>
+                    <TableCell align="left">
+                      {" "}
+                      <Button
+                        onClick={() =>
+                          handleCompletion(
+                            row.letter_of_completion?.url,
+                            row.rollno
+                          )
+                        }
+                      >
+                        Update
+                      </Button>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -228,45 +270,45 @@ function Student_Internships() {
         </div>
       </div>
       <Modal
-          aria-describedby="transition-modal-description"
-          open={open1}
-          onClose={handleClose1}
-          closeAfterTransition
-          BackdropComponent={Backdrop}
-          BackdropProps={{
-            timeout: 500,
-          }}
-        >
-          <Fade in={open1}>
-            <Box className="boxmodal pdfbox">
-              {url && <Button onClick={onButtonClick}>Download PDF</Button>}
-              <Document
-                file={url}
-                onLoadSuccess={onDocumentLoadSuccess}
-                className="pdfdoc"
+        aria-describedby="transition-modal-description"
+        open={open1}
+        onClose={handleClose1}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open1}>
+          <Box className="boxmodal pdfbox">
+            {url && <Button onClick={onButtonClick}>Download PDF</Button>}
+            <Document
+              file={url}
+              onLoadSuccess={onDocumentLoadSuccess}
+              className="pdfdoc"
+            >
+              <Page pageNumber={pageNumber} />
+            </Document>
+            <div className="change_page_div">
+              <p
+                onClick={() => setPageNumber(pageNumber - 1)}
+                className="direction"
               >
-                <Page pageNumber={pageNumber} />
-              </Document>
-              <div className="change_page_div">
-                <p
-                  onClick={() => setPageNumber(pageNumber - 1)}
-                  className="direction"
-                >
-                  {"<"}
-                </p>
-                <p>
-                  Page {pageNumber} of {numPages}
-                </p>
-                <p
-                  onClick={() => setPageNumber(pageNumber + 1)}
-                  className="direction"
-                >
-                  {">"}
-                </p>
-              </div>
-            </Box>
-          </Fade>
-        </Modal>
+                {"<"}
+              </p>
+              <p>
+                Page {pageNumber} of {numPages}
+              </p>
+              <p
+                onClick={() => setPageNumber(pageNumber + 1)}
+                className="direction"
+              >
+                {">"}
+              </p>
+            </div>
+          </Box>
+        </Fade>
+      </Modal>
     </div>
   );
 }

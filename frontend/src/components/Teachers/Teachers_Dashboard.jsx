@@ -9,6 +9,7 @@ function Teachers_Dashboard() {
     { title: "Personal Details", url: "/" },
     { title: "Internship data", url: "/teachersdashboard/internship" },
     { title: "Students data", url: "/teachersdashboard/students" },
+    { title: "Guardian Batch", url: "/teachersdashboard/batches" },
     { title: "Notices", url: "/teachersdashboard/notices" },
   ];
   return (
