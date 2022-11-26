@@ -35,7 +35,7 @@ const LoginForm = () => {
 
   const sendRequest = async () => {
     const res = await axios
-      .post("/api/students/login", {
+      .post("/api/teachers/login", {
         collegeId: values.collegeId,
         password: values.password,
       })
@@ -48,7 +48,7 @@ const LoginForm = () => {
     // send http request
     sendRequest()
       .then(() => dispatch(authActions.login()))
-      .then(() => window.location.replace("/dashboard"));
+      .then(() => window.location.replace("/teachersdashboard"));
   };
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
@@ -75,7 +75,9 @@ const LoginForm = () => {
 
           <button className="loginbtn">Submit</button>
           {alert !== "" && (
-            <p style={{ color: "red", textAlign: "center" ,fontWeight: "600"}}>{alert}</p>
+            <p style={{ color: "red", textAlign: "center", fontWeight: "600" }}>
+              {alert}
+            </p>
           )}
           {alert === "" && (
             <>
@@ -85,7 +87,7 @@ const LoginForm = () => {
           )}
           <center>
             <p>
-              Don't have an account ? <a href="/SignUp">Sign Up</a>
+              Don't have an account ? <a href="/teachers">Sign Up</a>
             </p>
             {/* <br /> */}
             <span className="forgotpass">

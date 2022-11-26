@@ -21,9 +21,9 @@ export class Confirm extends Component {
       e.preventDefault();
       try {
         // console.log(values);
-        await axios.post("/api/students/signupVerify", values);
+        await axios.post("/api/teachers/signupVerify", values);
         window.alert("Signup successfull");
-        window.location.replace("/");
+        window.location.replace("/teacherslogin");
       } catch (err) {
         console.log(err);
         window.alert("Verification failed , please try again");
@@ -73,7 +73,7 @@ export class Confirm extends Component {
                 <br />
                 <center>
                   <p>
-                    Already have an account ? <a href="/login">Login</a>
+                    Already have an account ? <a href="/teacherslogin">Login</a>
                   </p>
                 </center>
               </div>

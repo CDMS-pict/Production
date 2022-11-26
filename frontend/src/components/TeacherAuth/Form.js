@@ -10,10 +10,9 @@ export class Form extends Component {
     step: 1,
     fullname: "",
     password: "",
-    branch: "",
+    department: "",
     collegeId: "",
-    div: "",
-    rollno: "",
+    mobile: "",
     otp: ""
   };
 
@@ -35,8 +34,8 @@ export class Form extends Component {
 
   render() {
     const { step } = this.state;
-    const { fullname, password, branch, collegeId, div, rollno,otp } = this.state;
-    const values = { fullname, password, branch, collegeId, div, rollno,otp };
+    const { fullname, password, department, collegeId,mobile,otp } = this.state;
+    const values = {fullname, password, department, collegeId,mobile,otp };
 
     switch (step) {
       case 1:

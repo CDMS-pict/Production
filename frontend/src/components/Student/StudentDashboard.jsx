@@ -40,7 +40,7 @@ function StudentDashboard({ student }) {
 
       <div className="student_dashboard">
         <div className="profile_div">
-          <Profile student={student} />
+          <Profile user={student} />
         </div>
         <div className="student_dashboard_contents">
           <div className="years">

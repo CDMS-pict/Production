@@ -31,9 +31,10 @@ const signup = async (
     const newTeacher = new Teacher({
       fullname,
       collegeId,
-      password,
+      password : hashedpass,
       department,
       mobile,
+      role: "teacher"
     });
     const teacher = await newTeacher.save();
     // await login({collegeId,password},req,res,next);
@@ -56,21 +57,21 @@ const login = async (req, res, next) => {
   if (!existingUser) {
     return res.status(400).json({ message: "User not found. Signup Please" });
   }
-  const isPasswordCorrect = bcrypt.compareSync(password, existingTeacher.password);
+  const isPasswordCorrect = bcrypt.compareSync(password, existingUser.password);
   if (!isPasswordCorrect) {
     return res.status(400).json({ message: "Inavlid collegeId / Password" });
   }
-  const token = jwt.sign({ id: existingTeacher._id }, process.env.JWT_SECRET_KEY, {
+  const token = jwt.sign({ id: existingUser._id }, process.env.JWT_SECRET_KEY, {
     expiresIn: "1h",
   });
 
   // console.log("Generated Token\n", token);
 
-  //   if (req.cookies[`${existingTeacher._id}`]) {
-  //     req.cookies[`${existingTeacher._id}`] = "";
+  //   if (req.cookies[`${existingUser._id}`]) {
+  //     req.cookies[`${existingUser._id}`] = "";
   //   }
 
-  res.cookie(String(existingTeacher._id), token, {
+  res.cookie(String(existingUser._id), token, {
     path: "/",
     expires: new Date(Date.now() + 1000 * 60 * 60), // 30 seconds
     httpOnly: true,
@@ -227,12 +228,12 @@ const verifyOTP = async (req, res, next) => {
             throw new Error("Invalid Code");
           } else {
             // await Teacher.updateOne({ _id: studentId }, { verified: true });
-            const { fullname, collegeId, password, rollno, div, branch } =
+            const { fullname, collegeId, password, department, mobile } =
               req.body;
 
             await UserOTPVerification.deleteMany({ collegeId });
             await signup(
-              { fullname, collegeId, password, rollno, div, branch },
+              { fullname, collegeId, password, department, mobile },
               req,
               res,
               next
@@ -258,5 +259,5 @@ exports.login = login;
 exports.verifyToken = verifyToken;
 exports.getUser = getUser;
 exports.refreshToken = refreshToken;
-exports.verifyOTP = verifyteacherOTP;
+exports.verifyOTP = verifyOTP;
 exports.sendOTPverificationEmail = sendOTPverificationEmail;

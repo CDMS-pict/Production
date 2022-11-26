@@ -76,7 +76,7 @@ export class PersonalInfo extends Component {
                 <br />
                 <center>
                   <p>
-                    Already have an account ? <a href="/login">Login</a>
+                    Already have an account ? <a href="/teacherslogin">Login</a>
                   </p>
                 </center>
               </center>

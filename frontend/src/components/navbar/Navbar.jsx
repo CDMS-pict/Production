@@ -32,6 +32,14 @@ function Navbar() {
     const res = await axios.post("/api/students/logout", null, {
       withCredentials: true,
     });
+    if (res === undefined) {
+      const res = await axios.post("/api/teachers/logout", null, {
+        withCredentials: true,
+      });
+      if (res.status === 200) {
+        return res;
+      }
+    }
     if (res.status === 200) {
       return res;
     }

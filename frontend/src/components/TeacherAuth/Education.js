@@ -50,7 +50,7 @@ export class Education extends Component {
       }
       try {
         // await axios.post("/api/students/signup", values);
-        await axios.post("/api/students/signupOTP", values);
+        await axios.post("/api/teachers/signupOTP", values);
       
         window.alert("OTP Sent Successfully");
         this.continue(e);
@@ -73,11 +73,11 @@ export class Education extends Component {
             {/* <br /> */}
             <div className="form-group">
               <label className="signuplabel" htmlFor="facebook">
-                Branch
+                Department
               </label>
               <Select
-                value={values.branch}
-                onChange={inputChange("branch")}
+                value={values.department}
+                onChange={inputChange("department")}
                 className="select"
                 displayEmpty
                 style={{
@@ -93,7 +93,7 @@ export class Education extends Component {
                 inputProps={{ "aria-label": "Without label" }}
               >
                 <MenuItem disabled value="">
-                  Branch
+                  Department
                 </MenuItem>
                 <MenuItem value={"FE"}>FE</MenuItem>
                 <MenuItem value={"CS"}>CS</MenuItem>
@@ -104,30 +104,18 @@ export class Education extends Component {
 
             <div className="form-group">
               <label className="signuplabel" htmlFor="github">
-                Division
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                name="div"
-                onChange={inputChange("div")}
-                value={values.div}
-                placeholder="Division (eg.TE7)"
-              />
-            </div>
-            <div className="form-group">
-              <label className="signuplabel" htmlFor="github">
-                Roll No
+                Mobile no.
               </label>
               <input
                 type="number"
                 className="form-control"
-                name="roll"
-                onChange={inputChange("rollno")}
-                value={values.rollno}
-                placeholder="Roll Number"
+                name="div"
+                onChange={inputChange("mobile")}
+                value={values.div}
+                placeholder="Mobile no."
               />
             </div>
+          
 
             <div className="row">
               <div className="col-12 back_continue">
@@ -142,7 +130,7 @@ export class Education extends Component {
               <br />
               <center>
                 <p>
-                  Already have an account ? <a href="/login">Login</a>
+                  Already have an account ? <a href="/teacherslogin">Login</a>
                 </p>
               </center>
             </div>

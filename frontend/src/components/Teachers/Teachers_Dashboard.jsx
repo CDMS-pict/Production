@@ -3,13 +3,13 @@ import Boxes from "../Boxes/Boxes";
 import Navbar from "../navbar/Navbar";
 import Profile from "../Profile/Profile";
 
-function Teachers_Dashboard() {
+function Teachers_Dashboard({user}) {
 
   const student_box_contents = [
-    { title: "Personal Details", url: "/" },
+    { title: "Personal Details", url: "/personaldetails" },
     { title: "Internship data", url: "/teachersdashboard/internship" },
     { title: "Students data", url: "/teachersdashboard/students" },
-    { title: "Guardian Batch", url: "/teachersdashboard/batches" },
+    { title: "Guardian Batch", url: "/batches" },
     { title: "Notices", url: "/teachersdashboard/notices" },
   ];
   return (
@@ -18,7 +18,7 @@ function Teachers_Dashboard() {
 
       <div className="student_dashboard">
         <div className="profile_div">
-          <Profile />
+          <Profile user={user}/>
         </div>
         <div className="student_dashboard_contents">
           <div className="years">
