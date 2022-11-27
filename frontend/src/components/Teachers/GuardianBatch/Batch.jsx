@@ -12,8 +12,10 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
 function Batch({ batch }) {
+  // console.log(batch);
   const [age, setAge] = React.useState("");
   const [students, setStudents] = useState([]);
+  const [adding,setAdding] = useState(false);
   useEffect(() => {
     const fetchStudents = async () => {
       const res = await axios.get(
@@ -24,45 +26,43 @@ function Batch({ batch }) {
     fetchStudents();
   });
   const handleChange = async () => {};
-  const handleAdd = async (id) => {
+  const handleAdd = async (row) => {
     const data = {
-      students: [id],
+      students: {
+        collegeId: row.collegeId,
+        name: row.fullname,
+        rollno: row.rollno,
+        div: row.div,
+      },
+      students_mail:[
+        row.collegeId
+      ],
+      parents_mail:[
+        row.father_mail,
+        row.mother_mail
+      ]
+
     };
+    // console.log(data);
     try {
+      // console.log(data);
       await axios.put(`/api/batches/addstudents/${batch.batchid}`, data);
+      setAdding(true);
       console.log("Student added Successfully");
     } catch (err) {
       console.log(err);
     }
   };
-
-  let stddata = [];
-  useEffect(() => {
-    // let res;
-    const getStudents = async () => {
-      try {
-        let res;
-        for (let i = 0; i < batch.students.length; i++) {
-          // console.log(batch.students[i]);
-          res = await axios.get("/api/students/getStudent/" + batch.students[i]);
-          const ddata = res.data;
-          stddata.push({d:ddata});
-          // console.log(ddata);
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getStudents();
-  });
-  console.log(stddata);
+  const stddata = batch.students;
+ 
+  const [rollno,setRollno] = useState("");
+  stddata.sort((a,b)=>(a.rollno < b.rollno ? -1 : 1));
   return (
     <div className="batchc">
       <h2>{batch.batchname}</h2>
       <div className="bcompo">
         <Select
           value={age}
-          onChange={handleChange}
           displayEmpty
           inputProps={{ "aria-label": "Without label" }}
           style={{ width: "300px" }}
@@ -70,8 +70,10 @@ function Batch({ batch }) {
           <MenuItem value="">
             <em>Add Student</em>
           </MenuItem>
-
-          <MenuItem value={"Approved"} className="mitems">
+          <center>
+            <input style={{ width: "300px" }} placeholder="Enter roll no" onChange={(e)=>setRollno(e.target.value)} />
+          </center>
+          <MenuItem className="mitems">
             <div className="contents">
               <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -85,7 +87,7 @@ function Batch({ batch }) {
                   </TableHead>
                   <TableBody>
                     {students.map((row) => (
-                      <TableRow
+                      row.rollno == rollno && <TableRow
                         key={row.name}
                         sx={{
                           "&:last-child td, &:last-child th": { border: 0 },
@@ -95,9 +97,7 @@ function Batch({ batch }) {
                         <TableCell align="left">{row.fullname}</TableCell>
                         <TableCell align="left">{row.div}</TableCell>
                         <TableCell align="left">
-                          <Button onClick={() => handleAdd(row.collegeId)}>
-                            Add
-                          </Button>
+                          <Button onClick={() => handleAdd(row)}>{adding===true ? "Added" : "Add"}</Button>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -119,7 +119,7 @@ function Batch({ batch }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {students.map((row) => (
+            {stddata.map((row) => (
               <TableRow
                 key={row.name}
                 sx={{
@@ -127,10 +127,10 @@ function Batch({ batch }) {
                 }}
               >
                 <TableCell align="left">{row.rollno}</TableCell>
-                <TableCell align="left">{row.fullname}</TableCell>
+                <TableCell align="left">{row.name}</TableCell>
                 <TableCell align="left">{row.div}</TableCell>
                 <TableCell align="left">
-                  <Button onClick={() => handleAdd(row.collegeId)}>Add</Button>
+                  {/* <Button onClick={() => handleAdd(row)}>Add</Button> */}
                 </TableCell>
               </TableRow>
             ))}

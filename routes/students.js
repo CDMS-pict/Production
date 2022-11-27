@@ -481,6 +481,16 @@ router.get("/getallStudents", async (req, res) => {
     res.status(500).json(err);
   }
 });
+router.get("/getStudent/:id", async (req, res) => {
+  try {
+    const collegeId = req.params.id;
+    const students_data = await Students.findOne({collegeId});
+    res.status(200).json(students_data);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
 
 //get students by div
 

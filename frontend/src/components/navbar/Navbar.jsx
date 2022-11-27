@@ -15,8 +15,6 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 function Navbar() {
   const [open, setOpen] = React.useState(false);
-  // const theme = useTheme();
-  // const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   const handleClickOpen = () => {
     setOpen(true);

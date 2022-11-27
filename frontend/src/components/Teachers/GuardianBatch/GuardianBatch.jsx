@@ -13,6 +13,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Batch from "./Batch";
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
+import Dialog from '@mui/material/Dialog';
+
 
 function GuardianBatch({ user }) {
   const [div, setDiv] = useState("");
@@ -83,6 +87,30 @@ function GuardianBatch({ user }) {
       window.alert("Something wents wrong");
     }
   };
+  const [open, setOpen] = React.useState(false);
+
+  const [did,setDid] = useState("");
+  const [dname,setDname] = useState("");
+  const handleClickOpen = (id,name) => {
+    setOpen(true);
+    setDid(id);
+    setDname(name);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleDelete = async()=>{
+    try{
+      await axios.delete("/api/batches/deletebatch/" + did);
+      window.alert("Batch Deleted Successfully");
+      setOpen(false);
+    }
+    catch(err){
+      console.log(err);
+      window.alert("Something wents wrong");
+    }
+  }
   return (
     <div>
       <Navbar />
@@ -163,7 +191,7 @@ function GuardianBatch({ user }) {
                       ></i>
                     </TableCell>
                     <TableCell align="left">
-                      <i class="fa-sharp fa-solid fa-trash"></i>
+                      <i class="fa-sharp fa-solid fa-trash" onClick={()=>handleClickOpen(row.batchid,row.batchname)}></i>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -177,6 +205,30 @@ function GuardianBatch({ user }) {
           <input onChange={(e) => setDiv(e.target.value)} />
         </div> */}
       </div>
+      <Dialog
+        fullScreen={false}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="responsive-dialog-title"
+      >
+        <DialogTitle id="responsive-dialog-title">
+          {"Are You Sure To Delete Batch " + dname}
+        </DialogTitle>
+        {/* <DialogContent>
+          <DialogContentText>
+            Let Google help apps determine location. This means sending anonymous
+            location data to Google, even when no apps are running.
+          </DialogContentText>
+        </DialogContent> */}
+        <DialogActions>
+          <Button autoFocus onClick={handleDelete}>
+            Yes
+          </Button>
+          <Button onClick={handleClose} autoFocus>
+            No
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }

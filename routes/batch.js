@@ -11,7 +11,8 @@ let transporter = nodemailer.createTransport({
 });
 
 router.post("/newBatch", async (req, res) => {
-  const { batch_name,guardian_id, guardian_teacher, batch_div, batch_branch } = req.body;
+  const { batch_name, guardian_id, guardian_teacher, batch_div, batch_branch } =
+    req.body;
   try {
     const newBatch = new Batches({
       batch_name,
@@ -47,35 +48,40 @@ router.get("/getbatches", async (req, res) => {
   }
 });
 
-// get batches by teacher 
-router.get("/getbatches/:id", async(req,res)=>{
+// get batches by teacher
+router.get("/getbatches/:id", async (req, res) => {
   const id = req.params.id;
-  try{
-    const batches = await Batches.find({guardian_id : id})
+  try {
+    const batches = await Batches.find({ guardian_id: id });
     res.status(200).json(batches);
-  }
-  catch(err){
+  } catch (err) {
     console.log(err);
     res.status(500).json(err);
   }
-})
+});
 
 // add students to batch
 
 router.put("/addstudents/:batchid", async (req, res) => {
   const id = req.params.batchid;
   try {
-    const { students,parents } = req.body;
+    // const students= req.body.students;
+    const { students_mail,parents_mail } = req.body;
     const batch1 = await Batches.findById({ _id: id });
-    const stdarr = students;
-    const parentarr = parents;
-    const prevstd = batch1.batch_Students;
-    const prevparents = batch1.batch_Students_Parents;
+    const stdarr = students_mail;
+    const parentarr = parents_mail;
+    const prevstd = batch1.student_mails;
+    const prevparents = batch1.parent_mails;
     const arr = stdarr.concat(prevstd);
     const parr = parentarr.concat(prevparents);
     const batch = await Batches.findByIdAndUpdate(
       { _id: id },
-      { $set: { batch_Students: arr,batch_Students_Parents: parr } }
+      { $push: { batch_Students: req.body.students } }
+    );
+
+    await Batches.findByIdAndUpdate(
+      { _id: id },
+      { $set: { student_mails: arr,parent_mails: parr } }
     );
 
     res.status(200).json(batch);
@@ -86,36 +92,35 @@ router.put("/addstudents/:batchid", async (req, res) => {
 });
 // delete student from batch
 
-router.delete("/deletestudent/:id/:index",async(req,res)=>{
-    const id = req.params.id;
-    const index = req.params.index
-    try{
-        const batch = await Batches.findById({ _id: id });
-        const stdarr = batch.batch_Students;
-        delete stdarr[index];
-        for(let i=index;i<stdarr.length;i++){
-            stdarr[i] = stdarr[i+1];
-        }
-        const arr = stdarr;
-        console.log(arr);
-        await Batches.findByIdAndUpdate(
-            { _id: id },
-            { $set: { batch_Students: arr } }
-          );
-        res.status(200).json(arr);
+router.delete("/deletestudent/:id/:index", async (req, res) => {
+  const id = req.params.id;
+  const index = req.params.index;
+  try {
+    const batch = await Batches.findById({ _id: id });
+    const stdarr = batch.batch_Students;
+    delete stdarr[index];
+    for (let i = index; i < stdarr.length; i++) {
+      stdarr[i] = stdarr[i + 1];
     }
-    catch(err){
-        console.log(err);
-        res.status(500).json(err);
-    }
-})
+    const arr = stdarr;
+    console.log(arr);
+    await Batches.findByIdAndUpdate(
+      { _id: id },
+      { $set: { batch_Students: arr } }
+    );
+    res.status(200).json(arr);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
 
 // send mail to batch students
-router.post("/sendmail/:id",async(req,res)=>{
+router.post("/sendmail/:id", async (req, res) => {
   const id = req.params.id;
 
-  const {subject,mailbody} = req.body;
-  try{
+  const { subject, mailbody } = req.body;
+  try {
     const batch = await Batches.findById({ _id: id });
     const mailOptions = {
       from: process.env.AUTH_EMAIL,
@@ -125,19 +130,18 @@ router.post("/sendmail/:id",async(req,res)=>{
     };
     await transporter.sendMail(mailOptions);
     res.status(200).json("Mail Sent Successfully");
-  }
-  catch(err){
+  } catch (err) {
     console.log(err);
     res.status(500).json(err);
   }
-})
+});
 
 // send mail to batch students parents
-router.post("/sendmail/:id",async(req,res)=>{
+router.post("/sendmail/:id", async (req, res) => {
   const id = req.params.id;
 
-  const {subject,mailbody} = req.body;
-  try{
+  const { subject, mailbody } = req.body;
+  try {
     const batch = await Batches.findById({ _id: id });
     const mailOptions = {
       from: process.env.AUTH_EMAIL,
@@ -147,10 +151,9 @@ router.post("/sendmail/:id",async(req,res)=>{
     };
     await transporter.sendMail(mailOptions);
     res.status(200).json("Mail Sent Successfully");
-  }
-  catch(err){
+  } catch (err) {
     console.log(err);
     res.status(500).json(err);
   }
-})
+});
 module.exports = router;
