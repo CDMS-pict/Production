@@ -3,7 +3,7 @@ import PersonalInfo from "./PersonalInfo";
 import Education from "./Education";
 import Success from "./Success";
 import Confirm from "./Confirm";
-import './login.css'
+import "./login.css";
 
 export class Form extends Component {
   state = {
@@ -13,7 +13,7 @@ export class Form extends Component {
     department: "",
     collegeId: "",
     mobile: "",
-    otp: ""
+    otp: "",
   };
 
   nextStep = () => {
@@ -34,8 +34,9 @@ export class Form extends Component {
 
   render() {
     const { step } = this.state;
-    const { fullname, password, department, collegeId,mobile,otp } = this.state;
-    const values = {fullname, password, department, collegeId,mobile,otp };
+    const { fullname, password, department, collegeId, mobile, otp } =
+      this.state;
+    const values = { fullname, password, department, collegeId, mobile, otp };
 
     switch (step) {
       case 1:
@@ -56,15 +57,17 @@ export class Form extends Component {
           />
         );
       case 3:
-        return <Confirm 
-        nextStep={this.nextStep}
+        return (
+          <Confirm
+            nextStep={this.nextStep}
             prevStep={this.prevStep}
             inputChange={this.inputChange}
-            values={values}/>;
+            values={values}
+          />
+        );
       case 4:
         return <Success />;
       default:
-        
     }
   }
 }

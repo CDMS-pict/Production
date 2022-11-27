@@ -12,6 +12,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Batch from "./Batch";
 
 function GuardianBatch({ user }) {
   const [div, setDiv] = useState("");
@@ -19,6 +20,7 @@ function GuardianBatch({ user }) {
   const [batchname, setBatchname] = useState("");
   const [batchdiv, setBatchDiv] = useState("");
   const [batchbranch, setBatchBranch] = useState("");
+  const [batch, setBatch] = useState("");
   // const [guardian, setBatchGuardian] = useState("");
   const [batches, setBatches] = useState([]);
   useEffect(() => {
@@ -56,6 +58,9 @@ function GuardianBatch({ user }) {
       batchbranch: batches[i].batch_branch,
       nostudents: batches[i].batch_Students.length,
       noparents: batches[i].batch_Students_Parents.length,
+      students: batches[i].batch_Students,
+      parents: batches[i].batch_Students_Parents,
+      batchid: batches[i]._id,
     });
   }
   const handleAdd = async () => {
@@ -78,7 +83,6 @@ function GuardianBatch({ user }) {
       window.alert("Something wents wrong");
     }
   };
-  console.log(students);
   return (
     <div>
       <Navbar />
@@ -123,12 +127,13 @@ function GuardianBatch({ user }) {
           <Button onClick={handleAdd}>Add</Button>
         </div>
         <div className="batches">
-        <hr/>
-        <h2>Batches</h2>
+          <hr />
+          <h2>Batches</h2>
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
+                  <TableCell align="left"></TableCell>
                   <TableCell align="left">Sr No.</TableCell>
                   <TableCell align="left">Batch Name</TableCell>
                   <TableCell align="left">Batch Div</TableCell>
@@ -151,18 +156,26 @@ function GuardianBatch({ user }) {
                     <TableCell align="left">{row.batchbranch}</TableCell>
                     <TableCell align="left">{row.nostudents}</TableCell>
                     <TableCell align="left">{row.noparents}</TableCell>
-                    <TableCell align="left"><i class="fa-sharp fa-solid fa-pen"></i></TableCell>
-                    <TableCell align="left"><i class="fa-sharp fa-solid fa-trash"></i></TableCell>
+                    <TableCell align="left">
+                      <i
+                        class="fa-sharp fa-solid fa-pen"
+                        onClick={() => setBatch(row)}
+                      ></i>
+                    </TableCell>
+                    <TableCell align="left">
+                      <i class="fa-sharp fa-solid fa-trash"></i>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           </TableContainer>
         </div>
-        <div className="batchtop">
+        <div className="batchcompo">{batch && <Batch batch={batch} />}</div>
+        {/* <div className="batchtop">
           <p>Get Students by Division</p>
           <input onChange={(e) => setDiv(e.target.value)} />
-        </div>
+        </div> */}
       </div>
     </div>
   );

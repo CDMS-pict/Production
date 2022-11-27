@@ -18,6 +18,19 @@
     padding-inline: 20px;
 }
 
+.batchc{
+    margin-inline: 20px;
+}
+.bcompo{
+    display: flex;
+    justify-content: center;
+    padding-inline: 20px;
+}
+.contents{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 @media (max-width:600px) {
     .addbatch{
         flex-direction: column;
