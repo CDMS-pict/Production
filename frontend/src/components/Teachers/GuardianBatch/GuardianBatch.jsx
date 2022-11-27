@@ -19,25 +19,24 @@ import Dialog from '@mui/material/Dialog';
 
 
 function GuardianBatch({ user }) {
-  const [div, setDiv] = useState("");
-  const [students, setStudents] = useState([]);
+  // const [students, setStudents] = useState([]);
   const [batchname, setBatchname] = useState("");
   const [batchdiv, setBatchDiv] = useState("");
   const [batchbranch, setBatchBranch] = useState("");
   const [batch, setBatch] = useState("");
   // const [guardian, setBatchGuardian] = useState("");
   const [batches, setBatches] = useState([]);
-  useEffect(() => {
-    const fetchStudents = async () => {
-      try {
-        const res = await axios.get("/api/students/getdivStudents/" + div);
-        setStudents(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchStudents();
-  });
+  // useEffect(() => {
+  //   const fetchStudents = async () => {
+  //     try {
+  //       const res = await axios.get("/api/students/getdivStudents/" + div);
+  //       setStudents(res.data);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   fetchStudents();
+  // });
 
   useEffect(() => {
     const fetchBatches = async () => {
@@ -161,13 +160,12 @@ function GuardianBatch({ user }) {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell align="left"></TableCell>
                   <TableCell align="left">Sr No.</TableCell>
                   <TableCell align="left">Batch Name</TableCell>
                   <TableCell align="left">Batch Div</TableCell>
                   <TableCell align="left">Batch Branch</TableCell>
                   <TableCell align="left">Total Students</TableCell>
-                  <TableCell align="left">Total Parents</TableCell>
+                  {/* <TableCell align="left">Total Parents</TableCell> */}
                   <TableCell align="left"></TableCell>
                   <TableCell align="left"></TableCell>
                 </TableRow>
@@ -183,7 +181,7 @@ function GuardianBatch({ user }) {
                     <TableCell align="left">{row.batchdiv}</TableCell>
                     <TableCell align="left">{row.batchbranch}</TableCell>
                     <TableCell align="left">{row.nostudents}</TableCell>
-                    <TableCell align="left">{row.noparents}</TableCell>
+                    {/* <TableCell align="left">{row.noparents}</TableCell> */}
                     <TableCell align="left">
                       <i
                         class="fa-sharp fa-solid fa-pen"

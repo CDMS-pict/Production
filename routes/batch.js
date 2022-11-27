@@ -124,11 +124,12 @@ router.post("/sendmail/:id", async (req, res) => {
     const batch = await Batches.findById({ _id: id });
     const mailOptions = {
       from: process.env.AUTH_EMAIL,
-      to: batch.batch_Students,
+      to: batch.student_mails,
       subject: subject,
       html: `<p><b>${mailbody}</b></p>`,
     };
     await transporter.sendMail(mailOptions);
+    console.log("mail sent to students");
     res.status(200).json("Mail Sent Successfully");
   } catch (err) {
     console.log(err);
@@ -137,7 +138,7 @@ router.post("/sendmail/:id", async (req, res) => {
 });
 
 // send mail to batch students parents
-router.post("/sendmail/:id", async (req, res) => {
+router.post("/sendmailp/:id", async (req, res) => {
   const id = req.params.id;
 
   const { subject, mailbody } = req.body;
@@ -145,11 +146,12 @@ router.post("/sendmail/:id", async (req, res) => {
     const batch = await Batches.findById({ _id: id });
     const mailOptions = {
       from: process.env.AUTH_EMAIL,
-      to: batch.batch_Students_Parents,
+      to: batch.parent_mails,
       subject: subject,
       html: `<p><b>${mailbody}</b></p>`,
     };
     await transporter.sendMail(mailOptions);
+    console.log("mail sent to student parents");
     res.status(200).json("Mail Sent Successfully");
   } catch (err) {
     console.log(err);

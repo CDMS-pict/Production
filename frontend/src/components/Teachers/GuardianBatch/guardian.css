@@ -25,6 +25,14 @@
     display: flex;
     justify-content: center;
     padding-inline: 20px;
+    align-items: center;
+    column-gap: 20px;
+}
+.bcompo p i{
+    font-size: 20px;
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 50%;
 }
 .contents{
     display: flex;

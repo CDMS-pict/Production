@@ -108,7 +108,6 @@ function App() {
               path="/student/printprofile"
               element={<PrintProfile user={user} />}
             />
-            <Route exact path="/notices" element={<Notices user={user} />} />
             <Route exact path="/student/internship" element={<Internship />} />
             {/* <Route exact path="/student/extracurricular" element={<ExtraCurricular />} /> */}
             <Route
@@ -129,6 +128,7 @@ function App() {
           </Routes>
         ) : (
           <Routes>
+            <Route exact path="/teachersdashboard/notices" element={<Notices user={user} />} />
             <Route exact path="/teachers" element={<Form1 />} />
             <Route exact path="/teacherslogin" element={<LoginForm1 />} />
             <Route exact path="/login" element={<LoginForm />} />
