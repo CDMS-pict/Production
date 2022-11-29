@@ -68,7 +68,7 @@ function Internship() {
     };
     fetchInternships();
   });
-  const sednRequest = async () => {
+  const sendRequest = async () => {
     const res = await axios
       .get("/api/students/user", {
         withCredentials: true,
@@ -78,7 +78,7 @@ function Internship() {
     return data;
   };
   useEffect(() => {
-    sednRequest().then((data) => setUser(data.user));
+    sendRequest().then((data) => setUser(data.user));
   }, []);
   // console.log(user);
   const handleAddInternship = async (e) => {
@@ -96,6 +96,7 @@ function Internship() {
       student_div: user.div,
       student_branch: user.branch,
       student_roll: user.rollno,
+      batch: user.batch,
       student_year: user.div[0] + user.div[1],
     };
 

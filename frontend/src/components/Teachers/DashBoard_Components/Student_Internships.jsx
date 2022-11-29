@@ -23,6 +23,8 @@ import Fade from "@mui/material/Fade";
 
 function Student_Internships() {
   const [age, setAge] = React.useState("");
+  const [batch, setBatch] = useState("");
+  const [status,setStatus] = useState("");
 
   const divs = [];
   const years = ["FE", "SE", "TE", "BE"];
@@ -32,19 +34,33 @@ function Student_Internships() {
     }
   }
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setStatus(event.target.value);
   };
+  const handleUpdateStatus=async(id)=>{
+    const form_data = {
+      status: status
+    }
+    try{
+      await axios.put(
+        `/api/internships/updateInternshipInfo/${id}`,
+        form_data
+      );
+      window.alert("Status Updated Successfully");
+    }
+    catch(err){
+      console.log(err);
+      window.alert("Unable to update the status");
+    }
+  }
 
   const [rowsdata, setRowdata] = useState([]);
   // console.log(rowsdata)
   useEffect(() => {
     const internships = async () => {
-      try {
-        const res = await axios.get("/api/internships/getallInternships");
+      if (batch !== "") {
+        const res = await axios.get("/api/internships/getbybatch/" + batch);
         setRowdata(res.data);
-      } catch (err) {
-        console.log(err);
-        window.alert("Unable To Fetch The Data");
+        // console.log(res.data);
       }
     };
     internships();
@@ -63,6 +79,8 @@ function Student_Internships() {
       duration: rowsdata[i].duration,
       offer_letter: rowsdata[i].offer_letter,
       letter_of_completion: rowsdata[i].letter_of_completion,
+      status: rowsdata[i].status,
+      iid: rowsdata[i]._id
     });
   }
   const [open1, setOpen1] = React.useState(false);
@@ -113,18 +131,19 @@ function Student_Internships() {
         <h2 style={{ marginTop: "3%" }}>Internship Data</h2>
       </center>
       <div className="t_dashboard">
-        <p>
+        <center>
+          <input onChange={(e) => setBatch(e.target.value)} placeholder="Enter batch name" />
+        </center>
+        {/* <p>
           Filter By<i class="fa-solid fa-filter"></i>
-        </p>
+        </p> */}
         {/* <span>Search By</span> */}
-        <div className="search_filters">
+        {/* <div className="search_filters">
           <TextField
             id="outlined-basic"
             label="Student Name"
             variant="outlined"
           />
-          {/* <div className="bydiv"> */}
-          {/* <InputLabel id="demo-simple-select-helper-label">Age</InputLabel> */}
 
           <Select
             value={age}
@@ -140,7 +159,6 @@ function Student_Internships() {
               <MenuItem value={d}>{d}</MenuItem>
             ))}
           </Select>
-          {/* </div> */}
           <Select
             value={age}
             onChange={handleChange}
@@ -168,7 +186,7 @@ function Student_Internships() {
             <MenuItem value={"TE"}>TE</MenuItem>
             <MenuItem value={"BE"}>BE</MenuItem>
           </Select>
-        </div>
+        </div> */}
 
         {/* // internship data table */}
 
@@ -236,13 +254,13 @@ function Student_Internships() {
                     <TableCell align="left">
                       {" "}
                       <Select
-                        value={age}
+                        value={status}
                         onChange={handleChange}
                         displayEmpty
                         inputProps={{ "aria-label": "Without label" }}
                       >
                         <MenuItem value="">
-                          <em>Pending</em>
+                          <em>{row.status}</em>
                         </MenuItem>
                         <MenuItem value={"Pending"}>Pending</MenuItem>
                         <MenuItem value={"Approved"}>Approved</MenuItem>
@@ -253,10 +271,7 @@ function Student_Internships() {
                       {" "}
                       <Button
                         onClick={() =>
-                          handleCompletion(
-                            row.letter_of_completion?.url,
-                            row.rollno
-                          )
+                          handleUpdateStatus(row.iid)
                         }
                       >
                         Update

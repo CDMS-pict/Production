@@ -142,6 +142,15 @@ function Internship_Boxes({ data, user }) {
           <p>
             <b>Role: </b> {data.role}
           </p>
+         {data.status==="Pending" && <p style={{color: "Orange"}}>
+            <b>Status: </b> {data.status}
+          </p>}
+         {data.status==="Approved" && <p style={{color: "Green"}}>
+            <b>Status: </b> {data.status}
+          </p>}
+         {data.status==="Rejected" && <p style={{color: "Red"}}>
+            <b>Status: </b> {data.status}
+          </p>}
           <p>
             <b>Stipend: </b> {data.stipend}
           </p>

@@ -22,7 +22,8 @@ router.post("/newInternship", async (req, res) => {
     student_div,
     student_roll,
     student_branch,
-    student_year
+    student_year,
+    batch
   } = req.body;
   try {
     const file = offer_letter;
@@ -47,7 +48,9 @@ router.post("/newInternship", async (req, res) => {
       student_div,
       student_roll,
       student_branch,
-      student_year
+      student_year,
+      batch,
+      status: "Pending"
     });
 
     const internship = await newINternship.save();
@@ -93,6 +96,17 @@ router.get("/getbydiv",async(req,res)=>{
   try{
     const div = req.body.div;
     const internships = await Internship.find({student_div: div});
+    res.status(200).json(internships);
+  }
+  catch(err){
+    console.log(err);
+    res.status(500).json("Unable To Fetch");
+  }
+})
+router.get("/getbybatch/:batch",async(req,res)=>{
+  try{
+    const div = req.params.batch;
+    const internships = await Internship.find({batch: div});
     res.status(200).json(internships);
   }
   catch(err){

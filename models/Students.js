@@ -36,6 +36,10 @@ var StudentSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    batch:{
+      type: String,
+      default: ""
+    },
     abcID:{
       type:Number,
       default: 0
@@ -234,6 +238,7 @@ var StudentSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+
 
     tenth_marksheet: {
       public_id: {

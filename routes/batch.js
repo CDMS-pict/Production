@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Batches = require("../models/Batch");
 const nodemailer = require("nodemailer");
+const Students = require("../models/Students");
 
 let transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
@@ -66,7 +67,7 @@ router.put("/addstudents/:batchid", async (req, res) => {
   const id = req.params.batchid;
   try {
     // const students= req.body.students;
-    const { students_mail,parents_mail } = req.body;
+    const { students_mail, parents_mail } = req.body;
     const batch1 = await Batches.findById({ _id: id });
     const stdarr = students_mail;
     const parentarr = parents_mail;
@@ -74,17 +75,30 @@ router.put("/addstudents/:batchid", async (req, res) => {
     const prevparents = batch1.parent_mails;
     const arr = stdarr.concat(prevstd);
     const parr = parentarr.concat(prevparents);
+    const smail = students_mail[0];
+    await Students.findOneAndUpdate(
+      {
+        id: smail,
+      },
+      {
+        batch: batch1.batch_name,
+      }
+    );
+
     const batch = await Batches.findByIdAndUpdate(
       { _id: id },
       { $push: { batch_Students: req.body.students } }
     );
 
+
     await Batches.findByIdAndUpdate(
       { _id: id },
-      { $set: { student_mails: arr,parent_mails: parr } }
+      { $set: { student_mails: arr, parent_mails: parr } }
     );
 
     res.status(200).json(batch);
+    // console.log(students_mail[0]);
+    // res.status(200).json(students_mail);
   } catch (err) {
     console.log(err);
     res.status(500).json(err);

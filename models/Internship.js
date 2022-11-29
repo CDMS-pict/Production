@@ -29,6 +29,10 @@ var InternshipSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    batch: {
+      type: String,
+      default: "",
+    },
     offer_letter: {
       public_id: {
         type: String,
@@ -68,6 +72,10 @@ var InternshipSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    status:{
+      type: String
+    }
+    
   },
   { timestamps: true }
 );

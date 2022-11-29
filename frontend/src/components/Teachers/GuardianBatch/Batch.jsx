@@ -126,9 +126,9 @@ function Batch({ batch }) {
                             <TableCell align="left">{row.fullname}</TableCell>
                             <TableCell align="left">{row.div}</TableCell>
                             <TableCell align="left">
-                              <Button onClick={() => handleAdd(row)}>
-                                {adding === true ? "Added" : "Add"}
-                              </Button>
+                              
+                                {row.batch===batch.batchname ? <Button disabled style={{color: "Green"}}>Added </Button> : <Button onClick={() => handleAdd(row)}>{adding === true ? "Added" : "Add"}</Button>}
+                             
                             </TableCell>
                           </TableRow>
                         )
