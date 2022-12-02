@@ -17,7 +17,6 @@ import Typography from "@mui/material/Typography";
 
 import { useEffect } from "react";
 
-
 function Notices({ user }) {
   const [open, setOpen] = React.useState(false);
   const [heading, setHeading] = React.useState("");
@@ -25,9 +24,9 @@ function Notices({ user }) {
   const [forw, setForw] = useState("");
   const [important, setImportant] = useState(false);
 
+  console.log(user);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
 
   const handleaddNotice = async () => {
     const data = {
@@ -35,8 +34,9 @@ function Notices({ user }) {
       desc,
       forw,
       important,
-      teacher_id: user._id,
-      notice_by: user.fullname,
+      teacher_id: user?._id,
+      notice_by: user?.fullname,
+      
     };
     if (!heading || !desc || !forw) {
       window.alert("All the Fields are required");
@@ -54,37 +54,45 @@ function Notices({ user }) {
   useEffect(() => {
     const fetchNotices = async () => {
       try {
-        const res = await axios.get("/api/notices/getbyforw/" + user.branch);
-        console.log(notices);
-        setNotices(res.data);
+        if(user.role==="student"){
+          const res = await axios.get("/api/notices/getbyforw/" + user?.branch);
+          console.log(notices);
+          setNotices(res.data);
+        }
+        else if(user.role==="teacher"){
+          const res = await axios.get("/api/notices/getallTeacherNotices/" + user?._id);
+          console.log(notices);
+          setNotices(res.data);
+        }
       } catch (err) {
         console.log(err);
       }
     };
     fetchNotices();
   });
-  const handleDelete = async(id)=>{
-    try{
+  const handleDelete = async (id) => {
+    try {
       console.log(id);
-      await axios.delete("/api/notices/deleteNotice/"+id);
+      await axios.delete("/api/notices/deleteNotice/" + id);
       window.alert("Notice Deleted Successfully");
-    }
-    catch(err){
+    } catch (err) {
       console.log(err);
-      window.alert("Unable To Delete The Notice")
+      window.alert("Unable To Delete The Notice");
     }
-  }
-  console.log(user)
+  };
+  console.log(user);
   return (
     <div>
       <Navbar />
 
       <div className="studentInternshipDashboard">
-        <div className="dataheader" style={{paddingInline: "1%"}}>
+        <div className="dataheader" style={{ paddingInline: "1%" }}>
           <p className="internship_data_header">Notices</p>
-          {user.role==="teacher" && <Button variant="contained" onClick={handleOpen}>
-            Add{" "}
-          </Button>}
+          {user?.role === "teacher" && (
+            <Button variant="contained" onClick={handleOpen}>
+              Add{" "}
+            </Button>
+          )}
         </div>
       </div>
 
@@ -92,33 +100,39 @@ function Notices({ user }) {
         <div className="noticediv">
           {notices.map((n) => (
             <div className="notices">
-                <Card variant="outlined"  className="cardstyle">
-                  <React.Fragment>
-                    <CardContent>
-                      <Typography
-                        sx={{ fontSize: 14 }}
-                        color="text.secondary"
-                        gutterBottom
-                      >
-                        {n.forw}{n.important && <small className="imp">Important !</small>}
-                      </Typography>
-                      <Typography variant="h5" component="div">
-                        {n.heading}  
-                      </Typography>
-                     
+              <Card variant="outlined" className="cardstyle">
+                <React.Fragment>
+                  <CardContent>
+                    <Typography
+                      sx={{ fontSize: 14 }}
+                      color="text.secondary"
+                      gutterBottom
+                    >
+                      {n.forw}
+                      {n.important && (
+                        <small className="imp">Important !</small>
+                      )}
+                    </Typography>
+                    <Typography variant="h5" component="div">
+                      {n.heading}
+                    </Typography>
 
-                      <Typography
-                        variant="body2"
-                        style={{ whiteSpace: "break-spaces" }}
-                      >
-                        {n.desc}
-                      </Typography>
-                    </CardContent>
-                    {n.teacher_id === user._id &&  <CardActions>
-                      <Button size="small" onClick={()=>handleDelete(n._id)}>Delete</Button>
-                    </CardActions>}
-                  </React.Fragment>
-                </Card>
+                    <Typography
+                      variant="body2"
+                      style={{ whiteSpace: "break-spaces" }}
+                    >
+                      {n.desc}
+                    </Typography>
+                  </CardContent>
+                  {n.teacher_id === user?._id && (
+                    <CardActions>
+                      <Button size="small" onClick={() => handleDelete(n._id)}>
+                        Delete
+                      </Button>
+                    </CardActions>
+                  )}
+                </React.Fragment>
+              </Card>
             </div>
           ))}
         </div>

@@ -30,7 +30,7 @@ function App() {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   // const [student, setStudent] = useState();
 
-  console.log(isLoggedIn);
+  // console.log(isLoggedIn);
 
   // console.log(isLoggedIn);
   // console.log(student);
@@ -109,8 +109,9 @@ function App() {
               element={<PrintProfile user={user} />}
             />
             <Route exact path="/student/internship" element={<Internship />} />
+            <Route exact path="/notices" element={<Notices user={user} />} />
             {/* <Route exact path="/student/extracurricular" element={<ExtraCurricular />} /> */}
-            <Route
+            {/* <Route
               exact
               path="/teachersdashboard"
               element={<TeachersDashboard />}
@@ -124,11 +125,10 @@ function App() {
               exact
               path="/teachersdashboard/students"
               element={<Studentsdata />}
-            />
+            /> */}
           </Routes>
         ) : (
           <Routes>
-            <Route exact path="/teachersdashboard/notices" element={<Notices user={user} />} />
             <Route exact path="/teachers" element={<Form1 />} />
             <Route exact path="/teacherslogin" element={<LoginForm1 />} />
             <Route exact path="/login" element={<LoginForm />} />
@@ -166,6 +166,11 @@ function App() {
               exact
               path="/teachersdashboard/students"
               element={<Studentsdata />}
+            />
+            <Route
+              exact
+              path="/teachersdashboard/notices"
+              element={<Notices user={user} />}
             />
           </Routes>
         ) : (

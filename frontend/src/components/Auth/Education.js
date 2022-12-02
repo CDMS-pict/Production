@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import axios from "axios";
 import logo from "../../pict_logo.jpg";
 import Select from "@mui/material/Select";
@@ -19,10 +19,9 @@ export class Education extends Component {
     let alert;
     const { values, inputChange } = this.props;
 
-
     const handleSubmit = async (e) => {
       e.preventDefault();
-     
+
       const collegeID = values.collegeId;
       const extension = collegeID.split("@")[1];
       if (extension !== "ms.pict.edu") {
@@ -44,14 +43,21 @@ export class Education extends Component {
         return;
       }
       values.rollno = parseInt(values.rollno);
-      if(values.fullname==="" || values.password==="" || values.branch==="" || values.collegeId === "" || values.div==="" || values.rollno===""){
+      if (
+        values.fullname === "" ||
+        values.password === "" ||
+        values.branch === "" ||
+        values.collegeId === "" ||
+        values.div === "" ||
+        values.rollno === ""
+      ) {
         window.alert("All the fields are required");
         return;
       }
       try {
         // await axios.post("/api/students/signup", values);
         await axios.post("/api/students/signupOTP", values);
-      
+
         window.alert("OTP Sent Successfully");
         this.continue(e);
         // window.location.replace("/");
@@ -60,6 +66,65 @@ export class Education extends Component {
         window.alert("Something Went's Wrong");
       }
     };
+    // const [divisions, setDivisions] = useState([]);
+    let divisions = [];
+    if (values.branch === "FE") {
+      divisions = [
+        "FE1",
+        "FE2",
+        "FE3",
+        "FE4",
+        "FE5",
+        "FE6",
+        "FE7",
+        "FE8",
+        "FE9",
+        "FE10",
+        "FE11",
+      ];
+    } else if (values.branch === "CS") {
+      divisions = [
+        "SE1",
+        "SE2",
+        "SE3",
+        "SE4",
+        "TE1",
+        "TE2",
+        "TE3",
+        "TE4",
+        "BE1",
+        "BE2",
+        "BE3",
+        "BE4",
+      ];
+    } else if (values.branch === "IT") {
+      divisions = [
+        "SE9",
+        "SE10",
+        "SE11",
+        "TE9",
+        "TE10",
+        "TE11",
+        "BE9",
+        "BE10",
+        "BE11",
+      ];
+    } else if (values.branch === "ENTC") {
+      divisions = [
+        "SE5",
+        "SE6",
+        "SE7",
+        "SE8",
+        "TE5",
+        "TE6",
+        "TE7",
+        "TE8",
+        "BE5",
+        "BE6",
+        "BE7",
+        "BE8",
+      ];
+    }
     return (
       <div className="app ">
         <div className="form-container form">
@@ -106,14 +171,38 @@ export class Education extends Component {
               <label className="signuplabel" htmlFor="github">
                 Division
               </label>
-              <input
+              <Select
+                value={values.div}
+                onChange={inputChange("div")}
+                className="select"
+                displayEmpty
+                style={{
+                  fontSize: "14px",
+                  color: "grey",
+                  width: "100%",
+                  marginBottom: "9px",
+                  backgroundColor: "white",
+                  height: "53px",
+                  marginTop: "9px",
+                  fontStyle: "none",
+                }}
+                inputProps={{ "aria-label": "Without label" }}
+              >
+                <MenuItem disabled value="">
+                  Division
+                </MenuItem>
+                {divisions.map((d) => (
+                  <MenuItem value={d}>{d}</MenuItem>
+                ))}
+              </Select>
+              {/* <input
                 type="text"
                 className="form-control"
                 name="div"
                 onChange={inputChange("div")}
                 value={values.div}
                 placeholder="Division (eg.TE7)"
-              />
+              /> */}
             </div>
             <div className="form-group">
               <label className="signuplabel" htmlFor="github">
