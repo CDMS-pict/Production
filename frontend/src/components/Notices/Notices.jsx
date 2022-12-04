@@ -14,6 +14,7 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
+import { Document, Page, pdfjs } from "react-pdf";
 
 import { useEffect } from "react";
 
@@ -23,10 +24,34 @@ function Notices({ user }) {
   const [desc, setDesc] = useState("");
   const [forw, setForw] = useState("");
   const [important, setImportant] = useState(false);
+  const [sfilename, setFilename] = useState("");
+  const [selectedFile, setSelectedFile] = useState("");
+  const [open1, setOpen1] = React.useState(false);
 
-  console.log(user);
+  const handleClose1 = () => setOpen1(false);
+  const [numPages, setNumPages] = useState(null);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [url, setUrl] = useState("");
+  function onDocumentLoadSuccess({ numPages }) {
+    setNumPages(numPages);
+  }
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const handleImage = (e) => {
+    const file = e.target.files[0];
+    setFileToBase(file);
+    // filename = file.name;
+    setFilename(file.name);
+    console.log(file);
+  };
+  const setFileToBase = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setSelectedFile(reader.result);
+    };
+  };
 
   const handleaddNotice = async () => {
     const data = {
@@ -36,14 +61,20 @@ function Notices({ user }) {
       important,
       teacher_id: user?._id,
       notice_by: user?.fullname,
-      
     };
+    if (selectedFile) {
+      data.file = selectedFile;
+    }
     if (!heading || !desc || !forw) {
       window.alert("All the Fields are required");
       return;
     }
     try {
-      await axios.post("/api/notices/newNotice", data);
+      if (selectedFile) {
+        await axios.post("/api/notices/newNoticefile", data);
+      } else {
+        await axios.post("/api/notices/newNotice", data);
+      }
       // console.log(data);
     } catch (err) {
       console.log(err);
@@ -51,24 +82,38 @@ function Notices({ user }) {
     }
   };
   const [notices, setNotices] = useState([]);
+  const [bnotices, setBNotices] = useState([]);
+  const [batches, setBatches] = useState([]);
   useEffect(() => {
     const fetchNotices = async () => {
       try {
-        if(user.role==="student"){
+        if (user.role === "student") {
           const res = await axios.get("/api/notices/getbyforw/" + user?.branch);
-          console.log(notices);
+          const resb = await axios.get("/api/notices/getbyforw/" + user?.batch);
+          setBNotices(resb.data);
           setNotices(res.data);
-        }
-        else if(user.role==="teacher"){
-          const res = await axios.get("/api/notices/getallTeacherNotices/" + user?._id);
-          console.log(notices);
+        } else if (user.role === "teacher") {
+          const res = await axios.get(
+            "/api/notices/getallTeacherNotices/" + user?._id
+          );
           setNotices(res.data);
         }
       } catch (err) {
         console.log(err);
       }
     };
+    const fetchBatches = async () => {
+      try {
+        const res = await axios.get(
+          "/api/batches/getbatches/" + user.collegeId
+        );
+        setBatches(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
     fetchNotices();
+    fetchBatches();
   });
   const handleDelete = async (id) => {
     try {
@@ -80,7 +125,11 @@ function Notices({ user }) {
       window.alert("Unable To Delete The Notice");
     }
   };
-  console.log(user);
+  const handleFile = (n) => {
+    // console.log(n.file.url);
+    // setUrl(n.file.url);
+    setOpen1(true);
+  };
   return (
     <div>
       <Navbar />
@@ -124,15 +173,136 @@ function Notices({ user }) {
                       {n.desc}
                     </Typography>
                   </CardContent>
-                  {n.teacher_id === user?._id && (
-                    <CardActions>
+                  <CardActions>
+                    {n.teacher_id === user?._id && (
                       <Button size="small" onClick={() => handleDelete(n._id)}>
                         Delete
                       </Button>
-                    </CardActions>
-                  )}
+                    )}
+                    {n.file?.url && <Button size="small" onClick={() => handleFile()}>
+                      File
+                    </Button>}
+                  </CardActions>
                 </React.Fragment>
               </Card>
+              <Modal
+                aria-describedby="transition-modal-description"
+                open={open1}
+                onClose={handleClose1}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                  timeout: 500,
+                }}
+              >
+                <Fade in={open1}>
+                  <Box className="boxmodal pdfbox">
+                    <Document
+                      file={n.file?.url}
+                      onLoadSuccess={onDocumentLoadSuccess}
+                      className="pdfdoc"
+                    >
+                      <Page pageNumber={pageNumber} />
+                    </Document>
+                    <div className="change_page_div">
+                      <p
+                        onClick={() => setPageNumber(pageNumber - 1)}
+                        className="direction"
+                      >
+                        {"<"}
+                      </p>
+                      <p>
+                        Page {pageNumber} of {numPages}
+                      </p>
+                      <p
+                        onClick={() => setPageNumber(pageNumber + 1)}
+                        className="direction"
+                      >
+                        {">"}
+                      </p>
+                    </div>
+                  </Box>
+                </Fade>
+              </Modal>
+            </div>
+          ))}
+          {bnotices.map((n) => (
+            <div className="notices">
+              <Card variant="outlined" className="cardstyle">
+                <React.Fragment>
+                  <CardContent>
+                    <Typography
+                      sx={{ fontSize: 14 }}
+                      color="text.secondary"
+                      gutterBottom
+                    >
+                      {n.forw}
+                      {n.important && (
+                        <small className="imp">Important !</small>
+                      )}
+                    </Typography>
+                    <Typography variant="h5" component="div">
+                      {n.heading}
+                    </Typography>
+
+                    <Typography
+                      variant="body2"
+                      style={{ whiteSpace: "break-spaces" }}
+                    >
+                      {n.desc}
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    {n.teacher_id === user?._id && (
+                      <Button size="small" onClick={() => handleDelete(n._id)}>
+                        Delete
+                      </Button>
+                    )}
+                    {n.file?.url && <Button size="small" onClick={() => handleFile()}>
+                      File
+                    </Button>}
+                  </CardActions>
+                </React.Fragment>
+              </Card>
+              <Modal
+                aria-describedby="transition-modal-description"
+                open={open1}
+                onClose={handleClose1}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                  timeout: 500,
+                }}
+              >
+                <Fade in={open1}>
+                  <Box className="boxmodal pdfbox">
+                    <Document
+                      file={n.file?.url}
+                      onLoadSuccess={onDocumentLoadSuccess}
+                      className="pdfdoc"
+                    >
+                      <Page pageNumber={pageNumber} />
+                    </Document>
+                    <div className="change_page_div">
+                      <p
+                        onClick={() => setPageNumber(pageNumber - 1)}
+                        className="direction"
+                      >
+                        {"<"}
+                      </p>
+                      <p>
+                        Page {pageNumber} of {numPages}
+                      </p>
+                      <p
+                        onClick={() => setPageNumber(pageNumber + 1)}
+                        className="direction"
+                      >
+                        {">"}
+                      </p>
+                    </div>
+                  </Box>
+                </Fade>
+              </Modal>
             </div>
           ))}
         </div>
@@ -183,6 +353,11 @@ function Notices({ user }) {
                 <MenuItem value={"CS"}>CS</MenuItem>
                 <MenuItem value={"IT"}>IT</MenuItem>
                 <MenuItem value={"ENTC"}>ENTC</MenuItem>
+                {batches.map((b) => (
+                  <MenuItem value={b.batch_name}>
+                    {b.batch_name} (Guardian Batch)
+                  </MenuItem>
+                ))}
               </Select>
               <div className="desc">
                 <label htmlFor="">Description</label>
@@ -194,6 +369,50 @@ function Notices({ user }) {
                   onChange={(e) => setDesc(e.target.value)}
                 ></textarea>
               </div>
+              <div className="intern1">
+                <Button
+                  id="outlined-btn"
+                  variant="contained"
+                  component="label"
+                  size="small"
+                  className="offerbtn"
+                >
+                  <div className="uploadmarksheet">
+                    <i class="fa-solid fa-upload"></i>
+                    Add File
+                  </div>
+                  <input
+                    hidden
+                    accept=".pdf"
+                    multiple
+                    type="file"
+                    onChange={handleImage}
+                  />
+                </Button>
+                {/* <br /> */}
+                {/* <Button id="outlined-btn" variant="contained" size="small">
+                  <div className="uploadoffer">
+                    <i class="fa-solid fa-upload"></i>
+                    Complition Letter
+                    </div>
+                    <input
+                    hidden
+                    accept=".pdf"
+                    multiple
+                    type="file"
+                    onChange={changeHandler2}
+                  />
+                  <br />
+                  <span style={{ fontSize: "10px", color: "orange" }}>
+                    {selectedFile2?.name}
+                  </span>
+                </Button> */}
+              </div>
+              <span
+                style={{ fontSize: "12px", color: "black", fontWeight: "600" }}
+              >
+                {sfilename}
+              </span>
               <div className="checkbox">
                 <input type="checkbox" onChange={() => setImportant(true)} />{" "}
                 Marks as Important (optional)

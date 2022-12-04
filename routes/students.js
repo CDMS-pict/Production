@@ -164,8 +164,8 @@ const {
 // });
 
 // router.get("/refresh",)
-router.post("/signupOTP",sendOTPverificationEmail);
-router.post("/signupVerify",verifyOTP);
+router.post("/signupOTP", sendOTPverificationEmail);
+router.post("/signupVerify", verifyOTP);
 // router.post("/signup", signup);
 router.post("/login", login);
 router.get("/user", verifyToken, getUser);
@@ -206,6 +206,10 @@ router.put("/student/profile/update/:id", async (req, res) => {
 
 router.put("/student/profile/update_profile/:id", async (req, res) => {
   try {
+    const marksheet = student.profile?.public_id;
+    if (marksheet) {
+      await cloudinary.uploader.destroy(marksheet);
+    }
     const student = await Students.findById({ _id: req.params.id });
     const { profile } = req.body;
     const file = profile;
@@ -240,6 +244,10 @@ router.put(
       const student = await Students.findById({ _id: req.params.id });
       const year = req.params.year;
       if (year === "FE") {
+        const marksheet = student.sem1Marksheet?.public_id;
+        if (marksheet) {
+          await cloudinary.uploader.destroy(marksheet);
+        }
         const { sem1Marksheet } = req.body;
         const file = sem1Marksheet;
         const result = await cloudinary.uploader.upload(file, {
@@ -254,6 +262,10 @@ router.put(
           },
         });
       } else if (year === "SE") {
+         const marksheet = student.sem3Marksheet?.public_id;
+        if (marksheet) {
+          await cloudinary.uploader.destroy(marksheet);
+        }
         const { sem3Marksheet } = req.body;
         const file = sem3Marksheet;
         const result = await cloudinary.uploader.upload(file, {
@@ -268,6 +280,10 @@ router.put(
           },
         });
       } else if (year === "TE") {
+         const marksheet = student.sem5Marksheet?.public_id;
+        if (marksheet) {
+          await cloudinary.uploader.destroy(marksheet);
+        }
         const { sem5Marksheet } = req.body;
         const file = sem5Marksheet;
         const result = await cloudinary.uploader.upload(file, {
@@ -282,6 +298,10 @@ router.put(
           },
         });
       } else if (year === "BE") {
+         const marksheet = student.sem7Marksheet?.public_id;
+        if (marksheet) {
+          await cloudinary.uploader.destroy(marksheet);
+        }
         const { sem7Marksheet } = req.body;
         const file = sem7Marksheet;
         const result = await cloudinary.uploader.upload(file, {
@@ -308,7 +328,6 @@ router.put(
   }
 );
 
-
 router.put(
   "/student/profile/academic_update/sem2/:year/:id",
   async (req, res) => {
@@ -316,6 +335,10 @@ router.put(
       const student = await Students.findById({ _id: req.params.id });
       const year = req.params.year;
       if (year === "FE") {
+         const marksheet = student.sem2Marksheet?.public_id;
+        if (marksheet) {
+          await cloudinary.uploader.destroy(marksheet);
+        }
         const { sem2Marksheet } = req.body;
         const file = sem2Marksheet;
         const result = await cloudinary.uploader.upload(file, {
@@ -330,6 +353,10 @@ router.put(
           },
         });
       } else if (year === "SE") {
+         const marksheet = student.sem4Marksheet?.public_id;
+        if (marksheet) {
+          await cloudinary.uploader.destroy(marksheet);
+        }
         const { sem4Marksheet } = req.body;
         const file = sem4Marksheet;
         const result = await cloudinary.uploader.upload(file, {
@@ -344,6 +371,10 @@ router.put(
           },
         });
       } else if (year === "TE") {
+         const marksheet = student.sem6Marksheet?.public_id;
+        if (marksheet) {
+          await cloudinary.uploader.destroy(marksheet);
+        }
         const { sem6Marksheet } = req.body;
         const file = sem6Marksheet;
         const result = await cloudinary.uploader.upload(file, {
@@ -358,6 +389,10 @@ router.put(
           },
         });
       } else if (year === "BE") {
+         const marksheet = student.sem8Marksheet?.public_id;
+        if (marksheet) {
+          await cloudinary.uploader.destroy(marksheet);
+        }
         const { sem8Marksheet } = req.body;
         const file = sem8Marksheet;
         const result = await cloudinary.uploader.upload(file, {
@@ -384,10 +419,12 @@ router.put(
   }
 );
 
-
-
 router.put("/student/profile/update_t_marks/:id", async (req, res) => {
   try {
+    const marksheet = student.tenth_marksheet?.public_id;
+    if (marksheet) {
+      await cloudinary.uploader.destroy(marksheet);
+    }
     const student = await Students.findById({ _id: req.params.id });
     const { tenth_marksheet } = req.body;
     const file = tenth_marksheet;
@@ -416,6 +453,10 @@ router.put("/student/profile/update_t_marks/:id", async (req, res) => {
 
 router.put("/student/profile/update_tw_marks/:id", async (req, res) => {
   try {
+    const marksheet = student.twelth_marksheet?.public_id;
+    if (marksheet) {
+      await cloudinary.uploader.destroy(marksheet);
+    }
     const student = await Students.findById({ _id: req.params.id });
     const { twelth_marksheet } = req.body;
     const file = twelth_marksheet;
@@ -484,7 +525,7 @@ router.get("/getallStudents", async (req, res) => {
 router.get("/getStudent/:id", async (req, res) => {
   try {
     const collegeId = req.params.id;
-    const students_data = await Students.findOne({collegeId});
+    const students_data = await Students.findOne({ collegeId });
     res.status(200).json(students_data);
   } catch (err) {
     console.log(err);
@@ -494,17 +535,15 @@ router.get("/getStudent/:id", async (req, res) => {
 
 //get students by div
 
-router.get("/getdivStudents/:div",async(req,res)=>{
+router.get("/getdivStudents/:div", async (req, res) => {
   const div = req.params.div;
-  try{
-    const stds = await Students.find({div});
+  try {
+    const stds = await Students.find({ div });
     res.status(200).json(stds);
-  }
-  catch(err){
+  } catch (err) {
     console.log(err);
     res.status(500).json(err);
   }
-})
-
+});
 
 module.exports = router;

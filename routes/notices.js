@@ -1,8 +1,9 @@
 const router = require("express").Router();
 const Notices = require("../models/Notices");
+const cloudinary = require("../utils/cloudinary");
 
 router.post("/newNotice", async (req, res) => {
-  const {heading, notice_by, desc, forw, teacher_id, important } = req.body;
+  const { heading, notice_by, desc, forw, teacher_id, important } = req.body;
   try {
     const newNotice = new Notices({
       heading,
@@ -11,6 +12,33 @@ router.post("/newNotice", async (req, res) => {
       forw,
       teacher_id,
       important,
+    });
+    const notice = await newNotice.save();
+    res.status(200).json(notice);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
+router.post("/newNoticefile", async (req, res) => {
+  const { heading, notice_by, desc, forw, teacher_id, important, file } =
+    req.body;
+  try {
+    const result = await cloudinary.uploader.upload(file, {
+      folder: "notices/",
+    });
+    const newNotice = new Notices({
+      heading,
+      notice_by,
+      desc,
+      forw,
+      teacher_id,
+      important,
+      file: {
+        public_id: result.public_id,
+        url: result.secure_url,
+      },
     });
     const notice = await newNotice.save();
     res.status(200).json(notice);
@@ -70,6 +98,10 @@ router.put("/updateNotice/:id", async (req, res) => {
 router.delete("/deleteNotice/:id", async (req, res) => {
   try {
     const id = req.params.id;
+    const notice = await Notices.findOne({ _id: id });
+    // console.log(notice);
+    const fileId = notice.file.public_id;
+    await cloudinary.uploader.destroy(fileId);
     await Notices.findOneAndDelete({ _id: id });
     res.status(200).json("Deleted Successfully");
   } catch (err) {

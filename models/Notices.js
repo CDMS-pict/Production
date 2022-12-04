@@ -26,17 +26,15 @@ var Notices = new mongoose.Schema({
         type:String,
         required: true
     },
-    comments:{
-        student_name:{
-            type:String
-        },
-        comment:{
-            type:String
-        },
-        reply:{
-            type: String
-        }
-    }
+    file:{
+        public_id: {
+            type: String,
+          },
+          url: {
+            type: String,
+          },
+    },
+
 },
 {timestamps: true})
 

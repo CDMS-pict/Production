@@ -239,6 +239,14 @@ router.delete("/deleteInternship/:stid/:id", async (req, res) => {
     const internship_data = await Internship.findOne({
       _id: id,
     });
+    const offerId = internship_data.offer_letter?.public_id;
+    const completionId = internship_data.letter_of_complition?.public_id;
+    if(offerId){
+      await cloudinary.uploader.destroy(offerId);
+    }
+    if(completionId){
+      await cloudinary.uploader.destroy(completionId);
+    }
     const sti= req.params.stid;
     if (internship_data.student_id === sti) {
       await internship_data.deleteOne();

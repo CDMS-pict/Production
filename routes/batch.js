@@ -140,7 +140,7 @@ router.post("/sendmail/:id", async (req, res) => {
       from: process.env.AUTH_EMAIL,
       to: batch.student_mails,
       subject: subject,
-      html: `<p><b>${mailbody}</b></p>`,
+      html: `${mailbody}`,
     };
     await transporter.sendMail(mailOptions);
     console.log("mail sent to students");
