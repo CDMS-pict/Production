@@ -3,7 +3,6 @@ import "./s_dashboard.css";
 import Boxes from "../Boxes/Boxes";
 import Profile from "../Profile/Profile";
 import Navbar from "../navbar/Navbar";
-import Badge from "@mui/material/Badge";
 import axios from "axios";
 
 function StudentDashboard({ student }) {
@@ -55,6 +54,7 @@ function StudentDashboard({ student }) {
         <div className="student_dashboard_contents">
           <div className="years">
             <h3>Students Dashboard</h3>
+            <small><a href="/printProfile"><i class="fa-solid fa-print"></i></a></small>
           </div>
           <div className="boxes_div">
             {student_box_contents.map((s) => (

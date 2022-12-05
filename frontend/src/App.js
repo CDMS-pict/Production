@@ -17,35 +17,15 @@ import PersonalDetails from "./components/PersonalDetails/Personal_Details";
 import PersonalDetails1 from "./components/Teachers/PersonalDetails/PersonalDetails";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-// import ExtraCurricular from "./components/ExtraCurricular/ExtraCurricular";
 import PrintProfile from "./components/PrintProfile/PrintProfile";
 import Notices from "./components/Notices/Notices";
 import GuardianBatch from "./components/Teachers/GuardianBatch/GuardianBatch";
-// import { selectUser } from "./store/store";
-
-// import Student_Internships from "./components/Teachers/DashBoard_Components/Student_Internships";
 
 function App() {
-  const isLoggedIn = useSelector((state) => state.isLoggedIn);
-  // const [student, setStudent] = useState();
 
-  // console.log(isLoggedIn);
-
-  // console.log(isLoggedIn);
-  // console.log(student);
   const [user, setUser] = useState();
 
-  // const refreshToken = async () => {
-  //   const res = await axios
-  //     .get("/api/students/refresh", {
-  //       withCredentials: true,
-  //     })
-  //     .catch((err) => console.log(err));
 
-  //   const data = await res.data;
-  //   return data;
-  // };
   const sednRequest = async () => {
     try {
       const res = await axios
@@ -74,8 +54,6 @@ function App() {
     sednRequest().then((data) => setUser(data.user));
   }, []);
 
-  // const usertrue = localStorage.getItem("user");
-  // console.log(usertrue)
   return (
     <div className="App">
       <Router>
@@ -110,6 +88,7 @@ function App() {
             />
             <Route exact path="/student/internship" element={<Internship />} />
             <Route exact path="/notices" element={<Notices user={user} />} />
+            <Route exact path="/printProfile" element={<PrintProfile user={user} />} />
             {/* <Route exact path="/student/extracurricular" element={<ExtraCurricular />} /> */}
             {/* <Route
               exact

@@ -4,6 +4,9 @@
   height: 84vh;
   /* margin-bottom: 5%; */
 }
+.years small i{
+  cursor: pointer;
+}
 .profile_div {
   width: 290px;
   padding: 2%;

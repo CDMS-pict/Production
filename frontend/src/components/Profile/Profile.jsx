@@ -6,31 +6,8 @@ import moment from "moment-timezone";
 axios.defaults.withCredentials = true;
 // let firstRender = true;
 function Profile({ user }) {
-  // const [user, setUser] = useState();
 
-  // const refreshToken = async () => {
-  //   const res = await axios
-  //     .get("/api/students/refresh", {
-  //       withCredentials: true,
-  //     })
-  //     .catch((err) => console.log(err));
-
-  //   const data = await res.data;
-  //   return data;
-  // };
-  // const sednRequest = async () => {
-  //   const res = await axios
-  //     .get("/api/students/user", {
-  //       withCredentials: true,
-  //     })
-  //     .catch((err) => console.log(err));
-  //   const data = await res.data;
-  //   return data;
-  // };
-  // useEffect(() => {
-  //   sednRequest().then((data) => setUser(data.user));
-  // }, []);
-  console.log(user);
+  // console.log(user);
   return (
     <div className="profile">
       <div className="img_div">

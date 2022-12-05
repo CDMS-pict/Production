@@ -27,6 +27,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  /* float: right; */
 }
 .content_box .lengthc{
   margin-bottom: auto;
