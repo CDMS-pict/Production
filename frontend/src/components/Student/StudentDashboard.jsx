@@ -21,19 +21,29 @@ function StudentDashboard({ student }) {
     { title: "Notices", url: "/notices" },
   ];
   const [notices, setNotices] = useState([]);
+  const [bnotices, setBNotices] = useState([]);
+
   useEffect(() => {
     const fetchNotices = async () => {
       try {
-        const res = await axios.get("/api/notices/getbyforw/" + student.branch);
-        console.log(notices);
-        setNotices(res.data);
+        if (student.role === "student") {
+          const res = await axios.get("/api/notices/getbyforw/" + student?.branch);
+          const resb = await axios.get("/api/notices/getbyforw/" + student?.batch);
+          setBNotices(resb.data);
+          setNotices(res.data);
+        } else if (student.role === "teacher") {
+          const res = await axios.get(
+            "/api/notices/getallTeacherNotices/" + student?._id
+          );
+          setNotices(res.data);
+        }
       } catch (err) {
         console.log(err);
       }
     };
     fetchNotices();
   });
-  const length = notices.length;
+  const length = notices.length + bnotices.length;
   return (
     <div className="sdashboard">
       <Navbar />
@@ -50,9 +60,7 @@ function StudentDashboard({ student }) {
             {student_box_contents.map((s) => (
               <>
                 {s.title === "Notices" ? (
-                  <Badge badgeContent={length} color="error">
-                    <Boxes title={s.title} url={s.url} />
-                  </Badge>
+                    <Boxes title={s.title} url={s.url} length={length}/>
                 ) : (
                   <Boxes title={s.title} url={s.url} />
                 )}

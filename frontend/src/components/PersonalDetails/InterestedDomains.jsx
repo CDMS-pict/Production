@@ -21,25 +21,30 @@ const MenuProps = {
 };
 
 const names = [
-  "Oliver Hansen",
-  "Van Henry",
-  "April Tucker",
-  "Ralph Hubbard",
-  "Omar Alexander",
-  "Carlos Abbott",
-  "Miriam Wagner",
-  "Bradley Wilkerson",
-  "Virginia Andrews",
-  "Kelly Snyder",
+  "Artificial Intelligence",
+  "Machine Learning",
+  "Computer Security",
+  "Cloud Computing",
+  "IOT",
+  "Network Security",
+  "Information Security",
+  "Software Development",
+  "Front End Web Dev",
+  "Back End Web Dev",
+  "MERN Stack",
+  "App Development",
+  "Blockchain",
+  "Data Science",
 ];
+names.sort();
 
 function getStyles(name, personName, theme) {
   return {
     fontWeight:
-      personName.indexOf(name) === -1
+    personName.indexOf(name) === -1
         ? theme.typography.fontWeightRegular
         : theme.typography.fontWeightMedium,
-  };
+      };
 }
 
 function InterestedDomains({ user }) {
@@ -55,7 +60,7 @@ function InterestedDomains({ user }) {
       }
       default:
         break;
-    }
+      }
   };
 
   const theme = useTheme();
@@ -88,19 +93,24 @@ function InterestedDomains({ user }) {
       console.log(err);
       window.alert("Unable to Update The Data");
     }
-
-    console.log(data);
+    
   };
-
+  
+  for(let i =0;i<names.length;i++){
+    if(user.interested_domains?.includes(names[i])){
+      delete names[i];
+    }
+  }
+  const domains = user.interested_domains;
   return (
     <div>
       <div className="student_details">
         <div className="details_header">
-          <h3>Interested Domains</h3>
+          <h3>Technical Domains</h3>
           <Button
             onClick={() =>
               edit_pesonal_value === "EDIT"
-                ? handleEditAccess(1)
+              ? handleEditAccess(1)
                 : handleUpdate_Personal()
             }
           >
@@ -121,7 +131,7 @@ function InterestedDomains({ user }) {
               input={<OutlinedInput id="select-multiple-chip" label="Select" />}
               renderValue={(selected) => (
                 <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                  {user.interested_domains.map((d) => (
+                  {domains.map((d) => (
                     <Chip key={d} label={d} />
                   ))}
                   {selected.map((value) => (
@@ -131,15 +141,18 @@ function InterestedDomains({ user }) {
               )}
               MenuProps={MenuProps}
             >
-              {names.map((name) => (
-                <MenuItem
-                  key={name}
-                  value={name}
-                  style={getStyles(name, personName, theme)}
-                >
-                  {name}
-                </MenuItem>
-              ))}
+              {names?.map(
+                (name) =>
+                   (
+                    <MenuItem
+                      key={name}
+                      value={name}
+                      style={getStyles(name, personName, theme)}
+                    >
+                      {name}
+                    </MenuItem>
+                  )
+              )}
             </Select>
           </FormControl>
         </div>
