@@ -4,7 +4,6 @@ import moment from "moment-timezone";
 import axios from "axios";
 
 function PrintProfile({ user }) {
-  console.log(user);
   const [datas, setDatas] = useState([]);
   useEffect(() => {
     const fetchInternships = async () => {
@@ -24,10 +23,16 @@ function PrintProfile({ user }) {
     <div
       className="printprofilepage"
       onPointerMove={() => (
-        window.print(), window.location.replace("/dashboard")
+        window.print(),
+        window.location.replace("/dashboard")
       )}
     >
-      <div className="printpage">
+      <div className="printpage page1">
+        <small
+          style={{ right: "0", position: "absolute", marginRight: "20px" }}
+        >
+          Page 1
+        </small>
         <div className="headdiv">Personal Details</div>
         {/* <hr /> */}
         <div className="personaldetails">
@@ -91,27 +96,27 @@ function PrintProfile({ user }) {
           </div>
           <div className="fullname">
             <div className="label">Sem 1 : </div>
-            <p>{user.sem1Sgpa} sgpa</p>
+            <p>{user.sem1Sgpa > 0 ? user.sem1Sgpa : "-"} sgpa</p>
             <div className="label">Sem 2 : </div>
-            <p>{user.sem2Sgpa} sgpa</p>
+            <p>{user.sem2Sgpa > 0 ? user.sem2Sgpa : "-"} sgpa</p>
           </div>
           <div className="fullname">
             <div className="label">Sem 3 : </div>
-            <p>{user.sem3Sgpa} sgpa</p>
+            <p>{user.sem3Sgpa > 0 ? user.sem3Sgpa : "-"} sgpa</p>
             <div className="label">Sem 4 : </div>
-            <p>{user.sem4Sgpa} sgpa</p>
+            <p>{user.sem4Sgpa > 0 ? user.sem4Sgpa : "-"} sgpa</p>
           </div>
           <div className="fullname">
             <div className="label">Sem 5 : </div>
-            <p>{user.sem5Sgpa} sgpa</p>
+            <p>{user.sem5Sgpa > 0 ? user.sem5Sgpa : "-"} sgpa</p>
             <div className="label">Sem 6 : </div>
-            <p>{user.sem6Sgpa} sgpa</p>
+            <p>{user.sem6Sgpa > 0 ? user.sem6Sgpa : "-"} sgpa</p>
           </div>
           <div className="fullname">
             <div className="label">Sem 7 : </div>
-            <p>{user.sem7Sgpa} sgpa</p>
+            <p>{user.sem7Sgpa > 0 ? user.sem7Sgpa : "-"} sgpa</p>
             <div className="label">Sem 8 : </div>
-            <p>{user.sem8Sgpa} sgpa</p>
+            <p>{user.sem8Sgpa > 0 ? user.sem8Sgpa : "-"} sgpa</p>
           </div>
         </div>
         {/* <hr /> */}
@@ -134,6 +139,15 @@ function PrintProfile({ user }) {
             </div>
           ))}
         </div>
+      </div>
+      <div className="printpage2 page2">
+        <small
+          style={{ right: "0", position: "absolute", marginRight: "20px" }}
+        >
+          Page 2
+        </small>
+
+        <div className="headdiv">Next</div>
       </div>
     </div>
   );

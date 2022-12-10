@@ -92,9 +92,20 @@ router.get("/getallInternships", async (req, res) => {
   }
 });
 
-router.get("/getbydiv",async(req,res)=>{
+router.get("/getbyroll/:roll",async(req,res)=>{
   try{
-    const div = req.body.div;
+    const roll = req.params.roll;
+    const internships = await Internship.find({student_roll: roll});
+    res.status(200).json(internships);
+  }
+  catch(err){
+    console.log(err);
+    res.status(500).json("Unable To Fetch");
+  }
+})
+router.get("/getbydiv/:div",async(req,res)=>{
+  try{
+    const div = req.params.div;
     const internships = await Internship.find({student_div: div});
     res.status(200).json(internships);
   }

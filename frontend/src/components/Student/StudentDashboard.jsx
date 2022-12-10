@@ -7,17 +7,16 @@ import axios from "axios";
 
 function StudentDashboard({ student }) {
   const student_box_contents = [
-    { title: "Personal Details", url: "/student/personaldetails" },
-    { title: "Academic Details", url: "/student/Academics" },
+    { title: "Personal Details", url: "/student/personaldetails" }, //done
+    { title: "Academic Details", url: "/student/Academics" },// done
     { title: "Placement Details", url: "" },
-    { title: "Extra Curricular", url: "/student/extracurricular" },
-    { title: "Internship data", url: "/student/internship" },
-    { title: "Competitive Exams", url: "" },
-    { title: "Technical Activities", url: "" },
-    { title: "LOR Application", url: "" },
-    { title: "Amcat Details", url: "" },
-    { title: "Print Profile", url: "/student/printprofile" },
-    { title: "Notices", url: "/notices" },
+    { title: "Extra Curricular", url: "/student/extracurricular" }, //done
+    { title: "Internship data", url: "/student/internship" }, //done
+    { title: "Competitive Exams", url: "" },  // done
+    { title: "Technical Activities", url: "" },   
+    { title: "LOR Application", url: "/student/LOR" },   // done
+    { title: "Amcat Details", url: "/student/amcat" },    // done
+    { title: "Notices", url: "/notices" },  //done
   ];
   const [notices, setNotices] = useState([]);
   const [bnotices, setBNotices] = useState([]);

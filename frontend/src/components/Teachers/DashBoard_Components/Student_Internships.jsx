@@ -23,6 +23,8 @@ import Fade from "@mui/material/Fade";
 
 function Student_Internships() {
   const [age, setAge] = React.useState("");
+  const [div, setDiv] = useState("");
+  const [roll, setRoll] = useState("");
   const [batch, setBatch] = useState("");
   const [status,setStatus] = useState("");
 
@@ -57,8 +59,18 @@ function Student_Internships() {
   // console.log(rowsdata)
   useEffect(() => {
     const internships = async () => {
-      if (batch !== "") {
+      if (batch) {
         const res = await axios.get("/api/internships/getbybatch/" + batch);
+        setRowdata(res.data);
+        // console.log(res.data);
+      }else
+      if (div) {
+        const res = await axios.get("/api/internships/getbydiv/" + div);
+        setRowdata(res.data);
+        // console.log(res.data);
+      }else
+      if (roll ) {
+        const res = await axios.get("/api/internships/getbyroll/" + roll);
         setRowdata(res.data);
         // console.log(res.data);
       }
@@ -132,7 +144,11 @@ function Student_Internships() {
       </center>
       <div className="t_dashboard">
         <center>
+          <div className="filters" style={{display: "flex", columnGap: "20px", justifyContent: "center"}}>
+          <input onChange={(e) => setDiv(e.target.value)} placeholder="Enter Division name" />
           <input onChange={(e) => setBatch(e.target.value)} placeholder="Enter batch name" />
+          <input onChange={(e) => setRoll(e.target.value)} placeholder="Enter Roll no" />
+          </div>
         </center>
         {/* <p>
           Filter By<i class="fa-solid fa-filter"></i>

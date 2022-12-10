@@ -20,11 +20,11 @@ import React, { useState, useEffect } from "react";
 import PrintProfile from "./components/PrintProfile/PrintProfile";
 import Notices from "./components/Notices/Notices";
 import GuardianBatch from "./components/Teachers/GuardianBatch/GuardianBatch";
+import AmcatDetails from "./components/AmcatDetails/AmcatDetails";
+// import LorForm from "./components/LOR/LorForm";
 
 function App() {
-
   const [user, setUser] = useState();
-
 
   const sednRequest = async () => {
     try {
@@ -40,7 +40,6 @@ function App() {
             withCredentials: true,
           })
           .catch((err) => console.log(err));
-        console.log(res);
         const data = await res.data;
         return data;
       }
@@ -65,11 +64,7 @@ function App() {
               path="/dashboard"
               element={<StudentDashboard student={user} />}
             />
-            <Route
-              exact
-              path="/"
-              element={<StudentDashboard user={user} />}
-            />
+            <Route exact path="/" element={<StudentDashboard user={user} />} />
             <Route exact path="/signup" element={<Form />} />
             <Route
               exact
@@ -86,9 +81,15 @@ function App() {
               path="/student/printprofile"
               element={<PrintProfile user={user} />}
             />
+            {/* <Route exact path="/student/LOR" element={<LorForm />} /> */}
+            <Route exact path="/student/amcat" element={<AmcatDetails />} />
             <Route exact path="/student/internship" element={<Internship />} />
             <Route exact path="/notices" element={<Notices user={user} />} />
-            <Route exact path="/printProfile" element={<PrintProfile user={user} />} />
+            <Route
+              exact
+              path="/printProfile"
+              element={<PrintProfile user={user} />}
+            />
             {/* <Route exact path="/student/extracurricular" element={<ExtraCurricular />} /> */}
             {/* <Route
               exact
@@ -128,13 +129,21 @@ function App() {
           <Routes>
             {/* <Route exact path="/" element={<LoginForm />} /> */}
 
-            <Route exact path="/" element={<TeachersDashboard user={user}/>} />
-            <Route exact path="/personaldetails" element={<PersonalDetails1 user={user}/>} />
-            <Route exact path="/batches" element={<GuardianBatch user={user}/>} />
+            <Route exact path="/" element={<TeachersDashboard user={user} />} />
+            <Route
+              exact
+              path="/personaldetails"
+              element={<PersonalDetails1 user={user} />}
+            />
+            <Route
+              exact
+              path="/batches"
+              element={<GuardianBatch user={user} />}
+            />
             <Route
               exact
               path="/teachersdashboard"
-              element={<TeachersDashboard user={user}/>}
+              element={<TeachersDashboard user={user} />}
             />
             <Route
               exact

@@ -522,6 +522,47 @@ router.get("/getallStudents", async (req, res) => {
     res.status(500).json(err);
   }
 });
+router.get("/getStudentroll/:roll", async (req, res) => {
+  try {
+    const rollno = req.params.roll;
+    const students_data = await Students.find({ rollno });
+    res.status(200).json(students_data);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+router.get("/getStudentbranch/:branch", async (req, res) => {
+  try {
+    const branch = req.params.branch;
+    const students_data = await Students.find({ branch });
+    res.status(200).json(students_data);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+router.get("/getStudentdiv/:div", async (req, res) => {
+  try {
+    const div = req.params.div;
+    const students_data = await Students.find({ div });
+    console.log(students_data.length);
+    res.status(200).json(students_data);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+router.get("/getStudentbatch/:batch", async (req, res) => {
+  try {
+    const batch = req.params.batch;
+    const students_data = await Students.find({ batch });
+    res.status(200).json(students_data);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
 router.get("/getStudent/:id", async (req, res) => {
   try {
     const collegeId = req.params.id;
