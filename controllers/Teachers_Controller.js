@@ -85,7 +85,7 @@ const login = async (req, res, next) => {
 
 const verifyToken = (req, res, next) => {
   const cookies = req.headers.cookie;
-  console.log(cookies);
+  // console.log(cookies);
   let token = cookies.split("=")[1];
   // token = token.split(";")[0];
   if (!token) {
@@ -104,7 +104,7 @@ const verifyToken = (req, res, next) => {
 
 const getUser = async (req, res, next) => {
   const userId = req.id;
-  console.log(userId);
+  // console.log(userId);
   let user;
   try {
     user = await Teacher.findById(userId, "-password");
@@ -118,7 +118,7 @@ const getUser = async (req, res, next) => {
 };
 const refreshToken = (req, res, next) => {
   const cookies = req.headers.cookie;
-  console.log(cookies);
+  // console.log(cookies);
   const prevToken = cookies.split("=")[1];
   if (!prevToken) {
     return res.status(400).json({ message: "Couldn't find token" });
@@ -134,7 +134,7 @@ const refreshToken = (req, res, next) => {
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET_KEY, {
       expiresIn: "35s",
     });
-    console.log("Regenerated Token\n", token);
+    // console.log("Regenerated Token\n", token);
 
     res.cookie(String(user.id), token, {
       path: "/",
@@ -213,7 +213,7 @@ const verifyOTP = async (req, res, next) => {
       const UserOTPVerificationRecords = await UserOTPVerification.find({
         collegeId,
       });
-      console.log(UserOTPVerificationRecords);
+      // console.log(UserOTPVerificationRecords);
       if (UserOTPVerificationRecords.length <= 0) {
         throw new Error("Account Does'nt exist or has been verified already");
       } else {

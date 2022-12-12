@@ -3,17 +3,7 @@ const Batches = require("../models/Batch");
 const nodemailer = require("nodemailer");
 const Students = require("../models/Students");
 const cloudinary = require("../utils/cloudinary");
-const multer = require("multer");
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/");
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  },
-});
-const upload = multer({ storage: storage });
 
 let transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",

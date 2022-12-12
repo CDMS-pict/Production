@@ -1,4 +1,3 @@
-import { TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Navbar from "../../navbar/Navbar";
 import Button from "@mui/material/Button";
@@ -22,13 +21,12 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 
 function Student_Internships() {
-  const [age, setAge] = React.useState("");
   const [div, setDiv] = useState("");
   const [roll, setRoll] = useState("");
   const [batch, setBatch] = useState("");
-  const [status,setStatus] = useState("");
+  const [status, setStatus] = useState("");
 
-  const divs = [];
+  let divs = [];
   const years = ["FE", "SE", "TE", "BE"];
   for (let j = 0; j < 4; j++) {
     for (let i = 1; i <= 11; i++) {
@@ -38,22 +36,18 @@ function Student_Internships() {
   const handleChange = (event) => {
     setStatus(event.target.value);
   };
-  const handleUpdateStatus=async(id)=>{
+  const handleUpdateStatus = async (id) => {
     const form_data = {
-      status: status
-    }
-    try{
-      await axios.put(
-        `/api/internships/updateInternshipInfo/${id}`,
-        form_data
-      );
+      status: status,
+    };
+    try {
+      await axios.put(`/api/internships/updateInternshipInfo/${id}`, form_data);
       window.alert("Status Updated Successfully");
-    }
-    catch(err){
+    } catch (err) {
       console.log(err);
       window.alert("Unable to update the status");
     }
-  }
+  };
 
   const [rowsdata, setRowdata] = useState([]);
   // console.log(rowsdata)
@@ -63,13 +57,11 @@ function Student_Internships() {
         const res = await axios.get("/api/internships/getbybatch/" + batch);
         setRowdata(res.data);
         // console.log(res.data);
-      }else
-      if (div) {
+      } else if (div) {
         const res = await axios.get("/api/internships/getbydiv/" + div);
         setRowdata(res.data);
         // console.log(res.data);
-      }else
-      if (roll ) {
+      } else if (roll) {
         const res = await axios.get("/api/internships/getbyroll/" + roll);
         setRowdata(res.data);
         // console.log(res.data);
@@ -92,7 +84,7 @@ function Student_Internships() {
       offer_letter: rowsdata[i].offer_letter,
       letter_of_completion: rowsdata[i].letter_of_completion,
       status: rowsdata[i].status,
-      iid: rowsdata[i]._id
+      iid: rowsdata[i]._id,
     });
   }
   const [open1, setOpen1] = React.useState(false);
@@ -136,6 +128,64 @@ function Student_Internships() {
     setLetter("completion_letter");
     setOpen1(true);
   };
+  const [branch, setBranch] = useState("");
+  if (branch === "FE") {
+    divs = [
+      "FE1",
+      "FE2",
+      "FE3",
+      "FE4",
+      "FE5",
+      "FE6",
+      "FE7",
+      "FE8",
+      "FE9",
+      "FE10",
+      "FE11",
+    ];
+  } else if (branch === "CS") {
+    divs = [
+      "SE1",
+      "SE2",
+      "SE3",
+      "SE4",
+      "TE1",
+      "TE2",
+      "TE3",
+      "TE4",
+      "BE1",
+      "BE2",
+      "BE3",
+      "BE4",
+    ];
+  } else if (branch === "IT") {
+    divs = [
+      "SE9",
+      "SE10",
+      "SE11",
+      "TE9",
+      "TE10",
+      "TE11",
+      "BE9",
+      "BE10",
+      "BE11",
+    ];
+  } else if (branch === "ENTC") {
+    divs = [
+      "SE5",
+      "SE6",
+      "SE7",
+      "SE8",
+      "TE5",
+      "TE6",
+      "TE7",
+      "TE8",
+      "BE5",
+      "BE6",
+      "BE7",
+      "BE8",
+    ];
+  }
   return (
     <div>
       <Navbar />
@@ -144,10 +194,56 @@ function Student_Internships() {
       </center>
       <div className="t_dashboard">
         <center>
-          <div className="filters" style={{display: "flex", columnGap: "20px", justifyContent: "center"}}>
-          <input onChange={(e) => setDiv(e.target.value)} placeholder="Enter Division name" />
-          <input onChange={(e) => setBatch(e.target.value)} placeholder="Enter batch name" />
-          <input onChange={(e) => setRoll(e.target.value)} placeholder="Enter Roll no" />
+          <div
+            className="filters"
+            style={{
+              display: "flex",
+              columnGap: "20px",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            <Select
+              value={branch}
+              onChange={(e) => setBranch(e.target.value)}
+              displayEmpty
+              inputProps={{ "aria-label": "Without label" }}
+              style={{ height: "52px" , width: "200px",textAlign: "left", border: "1px solid black"}}
+            >
+              <MenuItem value="">
+                <em>Branch</em>
+              </MenuItem>
+              <MenuItem value={"CS"}>CS</MenuItem>
+              <MenuItem value={"IT"}>IT</MenuItem>
+              <MenuItem value={"ENTC"}>ENTC</MenuItem>
+            </Select>
+            <Select
+              value={div}
+              onChange={(e) => setDiv(e.target.value)}
+              displayEmpty
+              inputProps={{ "aria-label": "Without label" }}
+              style={{ height: "52px", width: "200px",textAlign: "left",border: "1px solid black" }}
+            >
+              <MenuItem value="">
+                <em>Division</em>
+              </MenuItem>
+              {}
+              {divs.map((d) => (
+                <MenuItem value={d}>{d}</MenuItem>
+              ))}
+            </Select>
+            
+            <input
+              onChange={(e) => setBatch(e.target.value)}
+              placeholder="Enter batch name"
+              style={{border: "1px solid black"}}
+            />
+            <input
+              onChange={(e) => setRoll(e.target.value)}
+              placeholder="Enter Roll no"
+              style={{border: "1px solid black"}}
+
+            />
           </div>
         </center>
         {/* <p>
@@ -285,11 +381,7 @@ function Student_Internships() {
                     </TableCell>
                     <TableCell align="left">
                       {" "}
-                      <Button
-                        onClick={() =>
-                          handleUpdateStatus(row.iid)
-                        }
-                      >
+                      <Button onClick={() => handleUpdateStatus(row.iid)}>
                         Update
                       </Button>
                     </TableCell>

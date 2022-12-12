@@ -11,6 +11,9 @@ var TeacherSchema = new mongoose.Schema({
     unique: true,
     required: true,
   },
+  mail:{
+    type:String
+  },
   password: {
     type: String,
   },
@@ -18,8 +21,37 @@ var TeacherSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
-  mobile:{
+  mobile_no:{
+    type:Number,
+    default: 0
+  },
+  DOB:{
+    type: String,
+    default: ""
+  },
+  gender: {
+    type: String,
+    default: ""
+  },
+  category:{
+    type: String,
+    default: ""
+  },
+  pan: {
     type:String,
+    default: ""
+  },
+  aadhar:{
+    type: String,
+    default: ""
+  },
+  PWD:{
+    type:String,
+    default: ""
+  },
+  blood_grp:{
+    type:String,
+    default: ""
   }
 },
 {timestamps: true});
