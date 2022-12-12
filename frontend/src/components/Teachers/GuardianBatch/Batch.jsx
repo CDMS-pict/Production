@@ -27,6 +27,23 @@ function Batch({ batch }) {
   const [age, setAge] = React.useState("");
   const [students, setStudents] = useState([]);
   const [adding, setAdding] = useState(false);
+  const [sfilename, setFilename] = useState("");
+  const [selectedFile, setSelectedFile] = useState("");
+
+  const handleImage = (e) => {
+    const file = e.target.files[0];
+    setFileToBase(file);
+    // filename = file.name;
+    setFilename(file.name);
+    console.log(file);
+  };
+  const setFileToBase = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setSelectedFile(reader.result);
+    };
+  };
   useEffect(() => {
     const fetchStudents = async () => {
       const res = await axios.get(
@@ -41,7 +58,10 @@ function Batch({ batch }) {
       const data = {
         subject,
         mailbody: desc,
+        filename: sfilename,
+        attachment: selectedFile
       };
+      console.log(data);
       if (tostu) {
         await axios.post("/api/batches/sendmail/" + batch.batchid, data);
       }
@@ -203,6 +223,26 @@ function Batch({ batch }) {
                   onChange={(e) => setDesc(e.target.value)}
                 ></textarea>
               </div>
+              <br/>
+              <Button
+                  id="outlined-btn"
+                  variant="contained"
+                  component="label"
+                  size="small"
+                  className="offerbtn"
+                >
+                  <div className="uploadmarksheet">
+                    <i class="fa-solid fa-upload"></i>
+                    Offer Letter
+                  </div>
+                  <input
+                    hidden
+                    accept=".pdf,.png,.jpeg,.jpg,.doc"
+                    type="file"
+                    onChange={handleImage}
+                  />
+                </Button>
+                {sfilename}
               <div
                 className="checkbox"
                 style={{

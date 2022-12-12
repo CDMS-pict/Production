@@ -2,6 +2,18 @@ const router = require("express").Router();
 const Batches = require("../models/Batch");
 const nodemailer = require("nodemailer");
 const Students = require("../models/Students");
+const cloudinary = require("../utils/cloudinary");
+const multer = require("multer");
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+const upload = multer({ storage: storage });
 
 let transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
@@ -90,7 +102,6 @@ router.put("/addstudents/:batchid", async (req, res) => {
       { $push: { batch_Students: req.body.students } }
     );
 
-
     await Batches.findByIdAndUpdate(
       { _id: id },
       { $set: { student_mails: arr, parent_mails: parr } }
@@ -133,17 +144,38 @@ router.delete("/deletestudent/:id/:index", async (req, res) => {
 router.post("/sendmail/:id", async (req, res) => {
   const id = req.params.id;
 
-  const { subject, mailbody } = req.body;
+  const { subject, mailbody, attachment, filename } = req.body;
   try {
-    const batch = await Batches.findById({ _id: id });
-    const mailOptions = {
-      from: process.env.AUTH_EMAIL,
-      to: batch.student_mails,
-      subject: subject,
-      html: `${mailbody}`,
-    };
-    await transporter.sendMail(mailOptions);
-    console.log("mail sent to students");
+    if (filename && attachment) {
+      const file = attachment;
+      const result = await cloudinary.uploader.upload(file, {
+        folder: "batches/mail/",
+      });
+      const batch = await Batches.findById({ _id: id });
+      const mailOptions = {
+        from: process.env.AUTH_EMAIL,
+        to: batch.student_mails,
+        subject: subject,
+        html: `${mailbody}`,
+        attachments: [
+          {
+            filename: filename,
+            path: result.secure_url,
+          },
+        ],
+      };
+      await transporter.sendMail(mailOptions);
+      await cloudinary.uploader.destroy(result.public_id);
+    }else{
+      const batch = await Batches.findById({ _id: id });
+      const mailOptions = {
+        from: process.env.AUTH_EMAIL,
+        to: batch.student_mails,
+        subject: subject,
+        html: `${mailbody}`,
+      };
+      await transporter.sendMail(mailOptions);
+    }
     res.status(200).json("Mail Sent Successfully");
   } catch (err) {
     console.log(err);
@@ -155,17 +187,38 @@ router.post("/sendmail/:id", async (req, res) => {
 router.post("/sendmailp/:id", async (req, res) => {
   const id = req.params.id;
 
-  const { subject, mailbody } = req.body;
+  const { subject, mailbody, attachment, filename } = req.body;
   try {
-    const batch = await Batches.findById({ _id: id });
-    const mailOptions = {
-      from: process.env.AUTH_EMAIL,
-      to: batch.parent_mails,
-      subject: subject,
-      html: `<p><b>${mailbody}</b></p>`,
-    };
-    await transporter.sendMail(mailOptions);
-    console.log("mail sent to student parents");
+    if (filename && attachment) {
+      const file = attachment;
+      const result = await cloudinary.uploader.upload(file, {
+        folder: "batches/mail/",
+      });
+      const batch = await Batches.findById({ _id: id });
+      const mailOptions = {
+        from: process.env.AUTH_EMAIL,
+        to: batch.parent_mails,
+        subject: subject,
+        html: `${mailbody}`,
+        attachments: [
+          {
+            filename: filename,
+            path: result.secure_url,
+          },
+        ],
+      };
+      await transporter.sendMail(mailOptions);
+      await cloudinary.uploader.destroy(result.public_id);
+    }else{
+      const batch = await Batches.findById({ _id: id });
+      const mailOptions = {
+        from: process.env.AUTH_EMAIL,
+        to: batch.parent_mails,
+        subject: subject,
+        html: `${mailbody}`,
+      };
+      await transporter.sendMail(mailOptions);
+    }
     res.status(200).json("Mail Sent Successfully");
   } catch (err) {
     console.log(err);

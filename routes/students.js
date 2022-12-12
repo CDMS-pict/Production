@@ -546,7 +546,6 @@ router.get("/getStudentdiv/:div", async (req, res) => {
   try {
     const div = req.params.div;
     const students_data = await Students.find({ div });
-    console.log(students_data.length);
     res.status(200).json(students_data);
   } catch (err) {
     console.log(err);

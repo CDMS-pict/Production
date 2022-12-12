@@ -19,6 +19,8 @@ import { Document, Page, pdfjs } from "react-pdf";
 import { useEffect } from "react";
 
 function Notices({ user }) {
+  pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+
   const [open, setOpen] = React.useState(false);
   const [heading, setHeading] = React.useState("");
   const [desc, setDesc] = useState("");
@@ -31,7 +33,6 @@ function Notices({ user }) {
   const handleClose1 = () => setOpen1(false);
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
-  const [url, setUrl] = useState("");
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
   }
@@ -126,10 +127,11 @@ function Notices({ user }) {
     }
   };
   const handleFile = (n) => {
-    // console.log(n.file.url);
-    // setUrl(n.file.url);
+    console.log(n.file.url);
+    setNurl(n.file.url);
     setOpen1(true);
   };
+  const [nurl, setNurl] = useState("");
   return (
     <div>
       <Navbar />
@@ -179,51 +181,14 @@ function Notices({ user }) {
                         Delete
                       </Button>
                     )}
-                    {n.file?.url && <Button size="small" onClick={() => handleFile()}>
-                      File
-                    </Button>}
+                    {n.file?.url && (
+                      <Button size="small" onClick={() => handleFile(n)}>
+                        File
+                      </Button>
+                    )}
                   </CardActions>
                 </React.Fragment>
               </Card>
-              <Modal
-                aria-describedby="transition-modal-description"
-                open={open1}
-                onClose={handleClose1}
-                closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                  timeout: 500,
-                }}
-              >
-                <Fade in={open1}>
-                  <Box className="boxmodal pdfbox">
-                    <Document
-                      file={n.file?.url}
-                      onLoadSuccess={onDocumentLoadSuccess}
-                      className="pdfdoc"
-                    >
-                      <Page pageNumber={pageNumber} />
-                    </Document>
-                    <div className="change_page_div">
-                      <p
-                        onClick={() => setPageNumber(pageNumber - 1)}
-                        className="direction"
-                      >
-                        {"<"}
-                      </p>
-                      <p>
-                        Page {pageNumber} of {numPages}
-                      </p>
-                      <p
-                        onClick={() => setPageNumber(pageNumber + 1)}
-                        className="direction"
-                      >
-                        {">"}
-                      </p>
-                    </div>
-                  </Box>
-                </Fade>
-              </Modal>
             </div>
           ))}
           {bnotices.map((n) => (
@@ -258,51 +223,14 @@ function Notices({ user }) {
                         Delete
                       </Button>
                     )}
-                    {n.file?.url && <Button size="small" onClick={() => handleFile()}>
-                      File
-                    </Button>}
+                    {n.file?.url && (
+                      <Button size="small" onClick={() => handleFile(n)}>
+                        File
+                      </Button>
+                    )}
                   </CardActions>
                 </React.Fragment>
               </Card>
-              <Modal
-                aria-describedby="transition-modal-description"
-                open={open1}
-                onClose={handleClose1}
-                closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                  timeout: 500,
-                }}
-              >
-                <Fade in={open1}>
-                  <Box className="boxmodal pdfbox">
-                    <Document
-                      file={n.file?.url}
-                      onLoadSuccess={onDocumentLoadSuccess}
-                      className="pdfdoc"
-                    >
-                      <Page pageNumber={pageNumber} />
-                    </Document>
-                    <div className="change_page_div">
-                      <p
-                        onClick={() => setPageNumber(pageNumber - 1)}
-                        className="direction"
-                      >
-                        {"<"}
-                      </p>
-                      <p>
-                        Page {pageNumber} of {numPages}
-                      </p>
-                      <p
-                        onClick={() => setPageNumber(pageNumber + 1)}
-                        className="direction"
-                      >
-                        {">"}
-                      </p>
-                    </div>
-                  </Box>
-                </Fade>
-              </Modal>
             </div>
           ))}
         </div>
@@ -313,10 +241,6 @@ function Notices({ user }) {
         open={open}
         onClose={handleClose}
         closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
       >
         <Fade in={open}>
           <Box className="boxmodal noticeboxmodal">
@@ -423,6 +347,45 @@ function Notices({ user }) {
                 </Button>
               </div>
             </center>
+          </Box>
+        </Fade>
+      </Modal>
+      <Modal
+        aria-describedby="transition-modal-description"
+        open={open1}
+        onClose={handleClose1}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open1}>
+          <Box className="boxmodal pdfbox">
+            <Document
+              file={nurl}
+              onLoadSuccess={onDocumentLoadSuccess}
+              className="pdfdoc"
+            >
+              <Page pageNumber={pageNumber} />
+            </Document>
+            <div className="change_page_div">
+              <p
+                onClick={() => setPageNumber(pageNumber - 1)}
+                className="direction"
+              >
+                {"<"}
+              </p>
+              <p>
+                Page {pageNumber} of {numPages}
+              </p>
+              <p
+                onClick={() => setPageNumber(pageNumber + 1)}
+                className="direction"
+              >
+                {">"}
+              </p>
+            </div>
           </Box>
         </Fade>
       </Modal>
