@@ -233,7 +233,7 @@ function Batch({ batch }) {
                 >
                   <div className="uploadmarksheet">
                     <i class="fa-solid fa-upload"></i>
-                    Offer Letter
+                    File
                   </div>
                   <input
                     hidden

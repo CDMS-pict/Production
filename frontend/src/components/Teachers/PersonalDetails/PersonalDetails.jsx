@@ -7,6 +7,7 @@ import defaultimg from "../../PersonalDetails/default_userimg.png";
 import "../../PersonalDetails/personal_details.css";
 import moment from "moment-timezone";
 import axios from "axios";
+import Address from "./Address";
 
 function PersonalDetails({ user }) {
   const [edit_pesonal, setEdit_personal] = useState(true);
@@ -249,6 +250,7 @@ function PersonalDetails({ user }) {
           </div>
         </div>
       </div>
+      <Address user={user}/>
     </div>
   );
 }

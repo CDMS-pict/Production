@@ -52,6 +52,14 @@ var TeacherSchema = new mongoose.Schema({
   blood_grp:{
     type:String,
     default: ""
+  },
+  temporary_address:{
+    type:String,
+    default: ""
+  },
+  permenant_Address:{
+    type:String,
+    default: ""
   }
 },
 {timestamps: true});

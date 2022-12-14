@@ -4,12 +4,12 @@ import logo from "../../pict_logo.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { authActions } from "../../store/store";
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
 // import DialogContentText from '@mui/material/DialogContentText';
 // import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
+import DialogTitle from "@mui/material/DialogTitle";
 // import useMediaQuery from '@mui/material/useMediaQuery';
 // import { useTheme } from '@mui/material/styles';
 
@@ -44,9 +44,15 @@ function Navbar() {
     return new Error("Unable TO Logout. Please try again");
   };
   const handleLogout = () => {
-    sendLogoutReq().then(() => dispatch(authActions.logout())).then(()=>window.location.replace("/login"));
+    sendLogoutReq()
+      .then(() => dispatch(authActions.logout()))
+      .then(() => window.location.replace("/login"));
   };
-
+ 
+  window.onbeforeunload = function(e) {
+    window.alert("d")
+  };
+  
   return (
     <div className="navbar">
       <div className="logoside">
@@ -63,8 +69,9 @@ function Navbar() {
         {/* <a href="/dashboard">Home</a> */}
         {/* <a href="/dashboard">Home</a> */}
         {!isLoggedIn && (
-        <p onClick={handleClickOpen}><i class="fa-sharp fa-solid fa-right-from-bracket"></i></p>
-
+          <p onClick={handleClickOpen}>
+            <i class="fa-sharp fa-solid fa-right-from-bracket"></i>
+          </p>
         )}
       </div>
 
@@ -93,7 +100,7 @@ function Navbar() {
         </DialogActions>
       </Dialog>
     </div>
-  )
-};
+  );
+}
 
 export default Navbar;

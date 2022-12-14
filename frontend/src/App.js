@@ -21,6 +21,8 @@ import PrintProfile from "./components/PrintProfile/PrintProfile";
 import Notices from "./components/Notices/Notices";
 import GuardianBatch from "./components/Teachers/GuardianBatch/GuardianBatch";
 import AmcatDetails from "./components/AmcatDetails/AmcatDetails";
+// import Lorform from "./components/LOR/LorForm";
+// import ExtraCurricular from "./components/ExtraCurricular/ExtraCurricular";
 // import LorForm from "./components/LOR/LorForm";
 
 function App() {
@@ -85,6 +87,7 @@ function App() {
             <Route exact path="/student/amcat" element={<AmcatDetails />} />
             <Route exact path="/student/internship" element={<Internship />} />
             <Route exact path="/notices" element={<Notices user={user} />} />
+            {/* <Route  path="/student/LOR" element={<Lorform />} /> */}
             <Route
               exact
               path="/printProfile"
