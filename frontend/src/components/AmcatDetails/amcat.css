@@ -36,3 +36,16 @@ h2{
     overflow-y: scroll;
     width: fit-content;
 }
+
+.aboxes{
+    display: flex;
+    justify-content: center;
+    margin-top: 2%;
+}
+.abox1{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    justify-content: center;
+}

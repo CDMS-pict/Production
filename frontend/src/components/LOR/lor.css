@@ -1,0 +1,56 @@
+.mrugank{
+  /* padding: ; */
+  /* border-radius: 4px; */
+  height:max-content;
+   /* border: 1px solid black; */
+   /* margin-top: 3rem; */
+   background-color: whitesmoke;
+   color: darkslategray;
+}
+.mrugank0{
+    /* padding: ; */
+   /* border-radius: 4px; */
+   height:max-content;
+   /* border: 1px solid black; */
+   /* margin-top: 3rem; */
+   background-color: whitesmoke;
+   color: darkslategray;
+
+}
+.mrugank1{
+   /* padding: ; */
+   /* border-radius: 4px; */
+   height:max-content;
+    /* border: 1px solid black; */
+    /* margin-top: 3rem; */
+    background-color: whitesmoke;
+    color: darkslategray;
+}
+.mrugank2{
+   /* border-radius: 4px; */
+   height:max-content;
+    /* border: 1px solid black; */
+    /* margin-top: 3rem; */
+    background-color: whitesmoke;
+    color: darkslategray;
+
+}
+.mrugank5{
+   font-size: 15px;
+   font-weight: bold;
+
+}
+
+.formmrug{
+   /* width: 30rem; */
+   border-radius: 3px;
+}
+.formmrug2{
+   /* width: 30rem; */
+   border-radius: 3px;
+   display: flex;
+   flex-direction: column;
+}
+/* Textfield.label{
+   align-items: center;
+} */

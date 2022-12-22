@@ -5,6 +5,7 @@ import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
+import AmcatBox from "./AmcatBox";
 
 import Navbar from "../navbar/Navbar";
 function AmcatDetails() {
@@ -31,6 +32,15 @@ function AmcatDetails() {
         </div>
       </div>
 
+      <div className="aboxes">
+        
+      <div className="abox1">
+      <AmcatBox/>
+      <AmcatBox/>
+      <AmcatBox/>
+      </div>
+      </div>
+
       <Modal
         aria-describedby="transition-modal-description"
         open={open}
@@ -42,7 +52,7 @@ function AmcatDetails() {
         }}
       >
         <Fade in={open}>
-          <Box className="boxmodal boxmodal12">
+          <Box className="boxmodal boxmodal12" >
             <center>
               <h2>Amcat Details</h2>
               <form className="">
@@ -165,6 +175,7 @@ function AmcatDetails() {
           </Box>
         </Fade>
       </Modal>
+
     </div>
   );
 }

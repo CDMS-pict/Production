@@ -21,9 +21,8 @@ import PrintProfile from "./components/PrintProfile/PrintProfile";
 import Notices from "./components/Notices/Notices";
 import GuardianBatch from "./components/Teachers/GuardianBatch/GuardianBatch";
 import AmcatDetails from "./components/AmcatDetails/AmcatDetails";
-// import Lorform from "./components/LOR/LorForm";
-// import ExtraCurricular from "./components/ExtraCurricular/ExtraCurricular";
-// import LorForm from "./components/LOR/LorForm";
+import {LorForm} from "./components/LOR/LorForm"
+import Lor from "./components/LOR/Lor";
 
 function App() {
   const [user, setUser] = useState();
@@ -83,11 +82,10 @@ function App() {
               path="/student/printprofile"
               element={<PrintProfile user={user} />}
             />
-            {/* <Route exact path="/student/LOR" element={<LorForm />} /> */}
             <Route exact path="/student/amcat" element={<AmcatDetails />} />
             <Route exact path="/student/internship" element={<Internship />} />
+            <Route exact path="/student/LOR" element={<Lor />} />
             <Route exact path="/notices" element={<Notices user={user} />} />
-            {/* <Route  path="/student/LOR" element={<Lorform />} /> */}
             <Route
               exact
               path="/printProfile"
