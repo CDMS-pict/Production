@@ -7,6 +7,7 @@ const internshipRoute = require("./routes/internship");
 const batchRoute = require("./routes/batch");
 const noticeRoute = require("./routes/notices");
 const teachersRoute = require("./routes/teachers");
+const extraCRoute = require("./routes/extracurricular");
 const fileUpload = require("express-fileupload");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
@@ -47,6 +48,7 @@ app.use("/api/internships", internshipRoute);
 app.use("/api/notices", noticeRoute);
 app.use("/api/batches", batchRoute);
 app.use("/api/teachers", teachersRoute);
+app.use("/api/extracurricular", extraCRoute);
 
 if ((process.env.NODE_ENV = "production")) {
   app.use(express.static("frontend/build"));

@@ -151,7 +151,7 @@ function AmcatDetails() {
                   >
                     <div className="uploadoffer">
                       <i class="fa-solid fa-upload"></i>
-                      PDF of Dashboard
+                      Dashboard
                     </div>
                     <input
                       hidden

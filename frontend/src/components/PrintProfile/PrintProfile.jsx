@@ -23,8 +23,7 @@ function PrintProfile({ user }) {
     <div
       className="printprofilepage"
       onPointerMove={() => (
-        window.print(),
-        window.location.replace("/dashboard")
+        window.print(), window.location.replace("/dashboard")
       )}
     >
       <div className="printpage page1">

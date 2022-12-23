@@ -2,14 +2,14 @@
   text-align: center;
 }
 .btn-cancel3 {
-  margin-left: 5rem;
+  /* margin-left: 5rem; */
 }
 .amcatbtn {
   position: absolute;
 
   /* margin-bottom: 3rem; */
-  margin-left: 80rem;
-  margin-top: -73rem;
+  /* margin-left: 80rem; */
+  /* margin-top: -73rem; */
 }
 .amcat1 {
   display: flex;
@@ -62,8 +62,8 @@
 .button {
   display: flex;
   column-gap: 15px;
-  width: 500px;
-  margin-left: 200px;
+  /* width: 500px; */
+  /* margin-left: 200px; */
 }
 .amcatMrug {
   position: absolute;

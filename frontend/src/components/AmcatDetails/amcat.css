@@ -27,9 +27,8 @@ h2{
 }
 .button{
     display: flex;
-    column-gap: 15px;
-    width: 500px;
-    margin-left: 200px;
+    /* column-gap: 15px; */
+    justify-content: space-evenly;
 }
 .boxmodal12{
     height: 70vh;

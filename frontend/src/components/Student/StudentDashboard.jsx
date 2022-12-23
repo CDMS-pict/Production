@@ -10,10 +10,10 @@ function StudentDashboard({ student }) {
     { title: "Personal Details", url: "/student/personaldetails" }, //done
     { title: "Academic Details", url: "/student/Academics" },// done
     { title: "Placement Details", url: "" },
-    { title: "Extra Curricular", url: "/student/extracurricular" }, //done
+    { title: "Extra Curricular", url: "/student/extra_curricular" }, //done
     { title: "Internship data", url: "/student/internship" }, //done
-    { title: "Competitive Exams", url: "" },  // done
-    { title: "Technical Activities", url: "" },   
+    { title: "Competitive Exams", url: "/student/competitive_exams" },  // done
+    { title: "Technical Activities", url: "/student/technical_activities" },   
     { title: "LOR Application", url: "/student/LOR" },   // done
     { title: "Amcat Details", url: "/student/amcat" },    // done
     { title: "Notices", url: "/notices" },  //done

@@ -23,6 +23,9 @@ import GuardianBatch from "./components/Teachers/GuardianBatch/GuardianBatch";
 import AmcatDetails from "./components/AmcatDetails/AmcatDetails";
 import {LorForm} from "./components/LOR/LorForm"
 import Lor from "./components/LOR/Lor";
+import CompExams from "./components/CompetitiveExams/CompExams";
+import ExtraCurricular from "./components/ExtraCurricular/ExtraCurr";
+import TechnicalActivities from "./components/TechnicalActivities/Tech";
 
 function App() {
   const [user, setUser] = useState();
@@ -82,6 +85,9 @@ function App() {
               path="/student/printprofile"
               element={<PrintProfile user={user} />}
             />
+            <Route exact path="/student/competitive_exams" element={<CompExams />} />
+            <Route exact path="/student/extra_curricular" element={<ExtraCurricular  user={user}/>} />
+            <Route exact path="/student/technical_activities" element={<TechnicalActivities />} />
             <Route exact path="/student/amcat" element={<AmcatDetails />} />
             <Route exact path="/student/internship" element={<Internship />} />
             <Route exact path="/student/LOR" element={<Lor />} />
