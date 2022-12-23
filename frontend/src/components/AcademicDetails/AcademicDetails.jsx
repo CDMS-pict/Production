@@ -6,7 +6,7 @@ import YearDetails from "./YearDetails";
 function AcademicDetails({ user }) {
   return (
     <div>
-      <Navbar />
+      <Navbar user={user}/>
       <div className="years academic_years">
         <a href="#first">
           <p className="year">FE</p>

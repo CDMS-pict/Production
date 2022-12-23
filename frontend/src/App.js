@@ -85,12 +85,12 @@ function App() {
               path="/student/printprofile"
               element={<PrintProfile user={user} />}
             />
-            <Route exact path="/student/competitive_exams" element={<CompExams />} />
+            <Route exact path="/student/competitive_exams" element={<CompExams user={user}/>} />
             <Route exact path="/student/extra_curricular" element={<ExtraCurricular  user={user}/>} />
-            <Route exact path="/student/technical_activities" element={<TechnicalActivities />} />
-            <Route exact path="/student/amcat" element={<AmcatDetails />} />
-            <Route exact path="/student/internship" element={<Internship />} />
-            <Route exact path="/student/LOR" element={<Lor />} />
+            <Route exact path="/student/technical_activities" element={<TechnicalActivities user={user}/>} />
+            <Route exact path="/student/amcat" element={<AmcatDetails user={user}/>} />
+            <Route exact path="/student/internship" element={<Internship user={user}/>} />
+            <Route exact path="/student/LOR" element={<Lor user={user}/>} />
             <Route exact path="/notices" element={<Notices user={user} />} />
             <Route
               exact
@@ -155,12 +155,12 @@ function App() {
             <Route
               exact
               path="/teachersdashboard/internship"
-              element={<StudentInternships />}
+              element={<StudentInternships user={user}/>}
             />
             <Route
               exact
               path="/teachersdashboard/students"
-              element={<Studentsdata />}
+              element={<Studentsdata user={user} />}
             />
             <Route
               exact

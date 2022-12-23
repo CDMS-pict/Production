@@ -1,4 +1,4 @@
-.forminput {
+.forminputtech {
   display: flex;
   flex-direction: column;
   width: 280px;
@@ -24,12 +24,12 @@ label {
   max-width: 200px;
 }
 
-.dateforminput input{
+.dateforminputtech input{
   background-color: white;
   /* color: black; */
 }
 @media (max-width:600px) {
-  .dateforminput input{
+  .dateforminputtech input{
     width: 290px;
   }
   

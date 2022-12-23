@@ -44,7 +44,7 @@ function StudentDashboard({ student }) {
   const length = notices.length + bnotices.length;
   return (
     <div className="sdashboard">
-      <Navbar />
+      <Navbar user={student} />
 
       <div className="student_dashboard">
         <div className="profile_div">

@@ -11,7 +11,7 @@ import CompExamsBoxes from "./CompExamsBoxes";
 import axios from "axios";
 import DateInput from "./DateInput";
 
-function CompExams() {
+function CompExams({user}) {
   const [selectedFile, setSelectedFile] = useState("");
   const [exam_name, setExam_name] = useState("");
   const [date, setDate] = useState("");
@@ -38,7 +38,7 @@ function CompExams() {
   const handleClose = () => setOpen(false);
 
   const [datas, setDatas] = useState([]);
-  const [user, setUser] = useState("");
+  // const [user, setUser] = useState("");
 
   // const refreshToken = async () => {
   //   const res = await axios
@@ -112,7 +112,7 @@ function CompExams() {
 
   return (
     <>
-      <Navbar />
+      <Navbar user={user} />
       <div className="studentInternshipDashboard">
         <div className="dataheader">
           <p className="internship_data_header">Competitive Exams</p>

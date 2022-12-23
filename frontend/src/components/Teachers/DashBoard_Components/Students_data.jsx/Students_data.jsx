@@ -11,7 +11,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
-function Students_data() {
+function Students_data({user}) {
   // const [age, setAge] = React.useState("");
 
   // const handleChange = (event) => {
@@ -123,7 +123,7 @@ function Students_data() {
 
   return (
     <div>
-      <Navbar />
+      <Navbar user={user}/>
       <center>
         <h2 style={{ marginTop: "3%" }}>Students Data</h2>
       </center>

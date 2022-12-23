@@ -134,7 +134,7 @@ function Notices({ user }) {
   const [nurl, setNurl] = useState("");
   return (
     <div>
-      <Navbar />
+      <Navbar user={user}/>
 
       <div className="studentInternshipDashboard">
         <div className="dataheader" style={{ paddingInline: "1%" }}>

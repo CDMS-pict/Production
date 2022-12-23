@@ -13,7 +13,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 // import useMediaQuery from '@mui/material/useMediaQuery';
 // import { useTheme } from '@mui/material/styles';
 
-function Navbar() {
+function Navbar({user}) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -56,14 +56,25 @@ function Navbar() {
   return (
     <div className="navbar">
       <div className="logoside">
+       {user?.role==="student" &&
         <a href="/dashboard">
-          <div className="navlogo">
-            <img src={logo} alt="" />
-          </div>
-          <div className="navname">
-            <p>Digital Academic Passport</p>
-          </div>
-        </a>
+        <div className="navlogo">
+          <img src={logo} alt="" />
+        </div>
+        <div className="navname">
+          <p>Digital Academic Passport</p>
+        </div>
+      </a>}
+      {user?.role === "teacher" &&
+      <a href="/teachersdashboard">
+      <div className="navlogo">
+        <img src={logo} alt="" />
+      </div>
+      <div className="navname">
+        <p>Digital Academic Passport</p>
+      </div>
+    </a>
+      }
       </div>
       <div className="navlinks">
         {/* <a href="/dashboard">Home</a> */}

@@ -112,7 +112,7 @@ function GuardianBatch({ user }) {
   }
   return (
     <div>
-      <Navbar />
+      <Navbar user={user}/>
       <div className="batchbox">
         <h2>Add a Batch</h2>
         <div className="addbatch">

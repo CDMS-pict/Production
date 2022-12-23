@@ -8,7 +8,7 @@ import Fade from "@mui/material/Fade";
 import AmcatBox from "./AmcatBox";
 
 import Navbar from "../navbar/Navbar";
-function AmcatDetails() {
+function AmcatDetails({user}) {
   const [selectedFile, setSelectedFile] = useState();
   const [selectedFile2, setSelectedFile2] = useState();
   const [open, setOpen] = React.useState(false);
@@ -22,7 +22,7 @@ function AmcatDetails() {
   }
   return (
     <div>
-      <Navbar />
+      <Navbar user={user} />
       <div className="studentInternshipDashboard">
         <div className="dataheader">
           <p className="internship_data_header">Amcat Details</p>

@@ -78,7 +78,7 @@ function ExtraCurricular({user}) {
 
   return (
     <>
-      <Navbar />
+      <Navbar user={user} />
       <div className="studentInternshipDashboard">
         <div className="dataheader">
           <p className="internship_data_header">Extracurricular Activities</p>

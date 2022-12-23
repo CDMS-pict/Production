@@ -4,14 +4,14 @@ import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-import FormInput from "./FormInputTech";
+import FormInputTech from "./FormInputTech";
 import "./Tech.css";
 import axios from "axios";
-import DateInput from "./DateInputTech";
+import DateInputTech from "./DateInputTech";
 import moment from "moment-timezone";
 import { Document, Page, pdfjs } from "react-pdf";
 
-function ExtraCurrBoxes({ data, user }) {
+function TechnicalBoxes({ data, user }) {
   const [selectedFile, setSelectedFile] = useState("");
   const [open1, setOpen1] = React.useState(false);
   const [url, setUrl] = useState("");
@@ -130,38 +130,32 @@ function ExtraCurrBoxes({ data, user }) {
     <div>
       <div className="box">
         <div className="boxtop">
-          <p className="company_name">{data.company_name}</p>
+          <p className="company_name"></p>
           <p className="duration_date">
-            {moment(data.start_date).format("YYYY-MM-DD")} to{" "}
-            {moment(data.end_date).format("YYYY-MM-DD")}
+            
             {/* {starting_date.getFullYear()+'-' + (starting_date.getMonth()+1) + '-'+starting_date.getDate()} */}
           </p>
         </div>
         <br />
         <div className="box_desc">
           <p>
-            <b>Role: </b> {data.role}
+            <b>Club Name: </b> 
           </p>
-         {data.status==="Pending" && <p style={{color: "Orange"}}>
-            <b>Status: </b> {data.status}
-          </p>}
-         {data.status==="Approved" && <p style={{color: "Green"}}>
-            <b>Status: </b> {data.status}
-          </p>}
-         {data.status==="Rejected" && <p style={{color: "Red"}}>
-            <b>Status: </b> {data.status}
-          </p>}
           <p>
-            <b>Stipend: </b> {data.stipend}
+            <b>Contest Name: </b> 
           </p>
-          <b>Duration: </b> {data.duration}
           <p>
             <b>Description: </b>
-            {data.desc}
+          </p>
+          <p>
+            <b>Start Date:</b>
+          </p>
+          <p>
+            <b>End Date:</b>
           </p>
         </div>
         <div className="editbtndiv">
-          {data.offer_letter?.url && (
+          {/* {data.offer_letter?.url && (
             <Button
               variant="outlined"
               className="editbtn e1"
@@ -178,7 +172,7 @@ function ExtraCurrBoxes({ data, user }) {
             >
               Complition Letter{" "}
             </Button>
-          )}
+          )} */}
           <Button variant="outlined" className="editbtn" onClick={handleOpen}>
             Edit{" "}
           </Button>
@@ -200,63 +194,63 @@ function ExtraCurrBoxes({ data, user }) {
             <Box className="boxmodal">
               <center>
                 <h2>Edit Internship details</h2>
-                <FormInput
-                  name="Company Name"
-                  placeholder="Enter Company name"
-                  defaultValue={data.company_name}
+                <FormInputTech
+                  name="Club Name"
+                  placeholder="Enter club name"
+                  // defaultValue={data.company_name}
                   // disabled
                   onChange={(e) => setCompany_name(e.target.value)}
                 />
 
-                <FormInput
-                  name="Duration"
-                  placeholder="Duration"
-                  defaultValue={data.duration}
+                <FormInputTech
+                  name="ContestName"
+                  placeholder="Contest Name"
+                  // defaultValue={data.duration}
                   // disabled
                   onChange={(e) => setDuration(e.target.value)}
                 />
-                <FormInput
+                {/* <FormInputTech
                   name="Role"
                   placeholder="Role"
-                  defaultValue={data.role}
+                  // defaultValue={data.role}
                   // disabled
-                  onChange={(e) => setRole(e.target.value)}
-                />
-                  <FormInput
+                  onChange={(e) => setRole(e.target.value)} */}
+                {/* /> */}
+                  {/* <FormInputTech
                     name="Stipend"
                     placeholder="Stipend"
-                    defaultValue={data.stipend}
+                    // defaultValue={data.stipend}
                     // disabled
                     onChange={(e) => setStipend(e.target.value)}
-                  />
-                <FormInput
+                  /> */}
+                <FormInputTech
                   name="Description"
                   placeholder="Description"
-                  defaultValue={data.desc}
+                  // defaultValue={data.desc}
                   // disabled
                   onChange={(e) => setDesc(e.target.value)}
                 />
                 <center>
-                  <DateInput
+                  <DateInputTech
                     name="Start Date"
                     placeholder="Start Date"
                     label="Start Date"
-                    value={
-                      start_date === ""
-                        ? moment(data.start_date).format("YYYY-MM-DD")
-                        : start_date
-                    }
+                    // value={
+                    //   start_date === ""
+                    //     ? moment(data.start_date).format("YYYY-MM-DD")
+                    //     : start_date
+                    // }
                     onChange={(e) => setStart_date(e.target.value)}
                   />
-                  <DateInput
+                  <DateInputTech
                     name="Start Date"
                     placeholder="End Date"
                     label="End Date"
-                    value={
-                      end_date === ""
-                        ? moment(data.end_date).format("YYYY-MM-DD")
-                        : end_date
-                    }
+                    // value={
+                    //   end_date === ""
+                    //     ? moment(data.end_date).format("YYYY-MM-DD")
+                    //     : end_date
+                    // }
                     onChange={(e) => setEnd_date(e.target.value)}
                   />
                 </center>
@@ -269,7 +263,7 @@ function ExtraCurrBoxes({ data, user }) {
                   >
                     <div className="uploadmarksheet">
                       <i class="fa-solid fa-upload"></i>
-                      Completion Letter
+                      Proof
                     </div>
                     <input
                       hidden
@@ -346,4 +340,4 @@ function ExtraCurrBoxes({ data, user }) {
   );
 }
 
-export default ExtraCurrBoxes;
+export default TechnicalBoxes;

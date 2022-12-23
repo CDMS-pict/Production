@@ -11,7 +11,7 @@ import InternshipBoxes from "./InternshipBoxes";
 import axios from "axios";
 import DateInput from "./DateInput";
 
-function Internship() {
+function Internship({user}) {
   const [selectedFile, setSelectedFile] = useState("");
   const [company_name, setCompany_name] = useState("");
   const [start_date, setStart_date] = useState("");
@@ -42,7 +42,7 @@ function Internship() {
   const handleClose = () => setOpen(false);
 
   const [datas, setDatas] = useState([]);
-  const [user, setUser] = useState("");
+  // const [user, setUser] = useState("");
 
   // const refreshToken = async () => {
   //   const res = await axios
@@ -68,18 +68,7 @@ function Internship() {
     };
     fetchInternships();
   });
-  const sendRequest = async () => {
-    const res = await axios
-      .get("/api/students/user", {
-        withCredentials: true,
-      })
-      .catch((err) => console.log(err));
-    const data = await res.data;
-    return data;
-  };
-  useEffect(() => {
-    sendRequest().then((data) => setUser(data.user));
-  }, []);
+ 
   // console.log(user);
   const handleAddInternship = async (e) => {
     const data = {
@@ -122,7 +111,7 @@ function Internship() {
 
   return (
     <>
-      <Navbar />
+      <Navbar user={user}/>
       <div className="studentInternshipDashboard">
         <div className="dataheader">
           <p className="internship_data_header">Internship Data</p>

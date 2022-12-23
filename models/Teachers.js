@@ -60,6 +60,10 @@ var TeacherSchema = new mongoose.Schema({
   permenant_Address:{
     type:String,
     default: ""
+  },
+  role:{
+    type:String,
+    default: "teacher"
   }
 },
 {timestamps: true});

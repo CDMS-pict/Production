@@ -6,12 +6,12 @@ import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-import FormInput from "./FormInputTech";
-import ExtraCurrBoxes from "./TechnicalBoxes";
+import FormInputTech from "./FormInputTech";
+import TechnicalBoxes from "./TechnicalBoxes";
 import axios from "axios";
-import DateInput from "./DateInputTech";
+import DateInputTech from "./DateInputTech";
 
-function TechnicalActivities() {
+function Technical({user}) {
   const [selectedFile, setSelectedFile] = useState("");
   const [organization_name, setOrganization_name] = useState("");
   const [start_date, setStart_date] = useState("");
@@ -40,7 +40,7 @@ function TechnicalActivities() {
   const handleClose = () => setOpen(false);
 
   const [datas, setDatas] = useState([]);
-  const [user, setUser] = useState("");
+  // const [user, setUser] = useState("");
 
   // const refreshToken = async () => {
   //   const res = await axios
@@ -66,18 +66,8 @@ function TechnicalActivities() {
     };
     fetchInternships();
   });
-  const sendRequest = async () => {
-    const res = await axios
-      .get("/api/students/user", {
-        withCredentials: true,
-      })
-      .catch((err) => console.log(err));
-    const data = await res.data;
-    return data;
-  };
-  useEffect(() => {
-    sendRequest().then((data) => setUser(data.user));
-  }, []);
+ 
+ 
   // console.log(user);
   const handleAddInternship = async (e) => {
     const data = {
@@ -117,10 +107,10 @@ function TechnicalActivities() {
 
   return (
     <>
-      <Navbar />
+      <Navbar user={user}/>
       <div className="studentInternshipDashboard">
         <div className="dataheader">
-          <p className="internship_data_header">Extracurricular Activity Data</p>
+          <p className="internship_data_header">Technical Activity Data</p>
           <Button variant="contained" onClick={handleOpen}>
             Add{" "}
           </Button>
@@ -131,7 +121,7 @@ function TechnicalActivities() {
       <center>
         <div className="internshipboxes">
           {datas.map((d) => (
-            <ExtraCurrBoxes data={d} user={user} />
+            <TechnicalBoxes data={d} user={user} />
           ))}
         </div>
       </center>
@@ -148,11 +138,11 @@ function TechnicalActivities() {
         <Fade in={open}>
           <Box className="boxmodal">
             <center>
-              <h2>Enter your extracurricular activity details</h2>
+              <h2>Enter your technical activity details</h2>
 
-              <FormInput
+              <FormInputTech
                 name="Company Name"
-                placeholder="Name of the organization"
+                placeholder="Name of the club"
                 onChange={(e) => setOrganization_name(e.target.value)}
               />
               {/* <FormInput
@@ -165,26 +155,26 @@ function TechnicalActivities() {
                 placeholder="End date"
                 onChange={(e) => setEnd_date(e.target.value)}
               /> */}
-              <FormInput
+              <FormInputTech
                 name="Role"
-                placeholder="Role"
+                placeholder="Event Name"
                 onChange={(e) => setRole(e.target.value)}
               />
 
-              <FormInput
+              <FormInputTech
                 name="Description"
                 placeholder="Description"
                 onChange={(e) => setDesc(e.target.value)}
               />
 
               <center>
-                <DateInput
+                <DateInputTech
                   name="Start Date"
                   placeholder="Start Date"
                   label="Start Date"
                   onChange={(e) => setStart_date(e.target.value)}
                 />
-                <DateInput
+                <DateInputTech
                   name="Start Date"
                   placeholder="End Date"
                   label="End Date"
@@ -248,4 +238,4 @@ function TechnicalActivities() {
   );
 }
 
-export default TechnicalActivities;
+export default Technical;

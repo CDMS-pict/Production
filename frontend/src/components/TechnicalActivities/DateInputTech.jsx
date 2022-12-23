@@ -3,15 +3,15 @@ import "./formInputTech.css";
 
 
 
-function DateInput(props) {
+function DateInputTech(props) {
   const { label, ...inputProps } = props;
 
   return (
-      <div className="forminput dateforminput">
+      <div className="forminput dateforminputtech ">
         <label>{label}</label>
         <input type="date"  {...inputProps} />
       </div>
   );
 }
 
-export default DateInput;
+export default DateInputTech;

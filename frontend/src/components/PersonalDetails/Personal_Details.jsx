@@ -133,7 +133,7 @@ function Personal_Details() {
 
   return (
     <div>
-      <Navbar />
+      <Navbar user={user}/>
       <div className="personal_details_dashboard">
         <div className="student_details">
           <div className="details_header">

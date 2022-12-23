@@ -8,13 +8,13 @@ import Fade from "@mui/material/Fade";
 import LorForm from './LorForm'
 import './lorapplication.css'
 
-function Lor() {
+function Lor({user}) {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
   return (
     <>
-      <Navbar/>
+      <Navbar user={user}/>
       <div className="studentInternshipDashboard">
         <div className="dataheader">
           <p className="internship_data_header">Letter of Recommandation</p>

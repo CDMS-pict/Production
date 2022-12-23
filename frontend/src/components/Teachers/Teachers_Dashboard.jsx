@@ -14,7 +14,7 @@ function Teachers_Dashboard({user}) {
   ];
   return (
     <div>
-      <Navbar />
+      <Navbar user={user}/>
 
       <div className="student_dashboard">
         <div className="profile_div">

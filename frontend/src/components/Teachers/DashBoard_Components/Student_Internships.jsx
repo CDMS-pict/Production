@@ -20,7 +20,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 
-function Student_Internships() {
+function Student_Internships({user}) {
   const [div, setDiv] = useState("");
   const [roll, setRoll] = useState("");
   const [batch, setBatch] = useState("");
@@ -188,7 +188,7 @@ function Student_Internships() {
   }
   return (
     <div>
-      <Navbar />
+      <Navbar user={user}/>
       <center>
         <h2 style={{ marginTop: "3%" }}>Internship Data</h2>
       </center>
