@@ -21,7 +21,7 @@ import PrintProfile from "./components/PrintProfile/PrintProfile";
 import Notices from "./components/Notices/Notices";
 import GuardianBatch from "./components/Teachers/GuardianBatch/GuardianBatch";
 import AmcatDetails from "./components/AmcatDetails/AmcatDetails";
-import {LorForm} from "./components/LOR/LorForm"
+// import {LorForm} from "./components/LOR/LorForm"
 import Lor from "./components/LOR/Lor";
 import CompExams from "./components/CompetitiveExams/CompExams";
 import ExtraCurricular from "./components/ExtraCurricular/ExtraCurr";
@@ -85,12 +85,32 @@ function App() {
               path="/student/printprofile"
               element={<PrintProfile user={user} />}
             />
-            <Route exact path="/student/competitive_exams" element={<CompExams user={user}/>} />
-            <Route exact path="/student/extra_curricular" element={<ExtraCurricular  user={user}/>} />
-            <Route exact path="/student/technical_activities" element={<TechnicalActivities user={user}/>} />
-            <Route exact path="/student/amcat" element={<AmcatDetails user={user}/>} />
-            <Route exact path="/student/internship" element={<Internship user={user}/>} />
-            <Route exact path="/student/LOR" element={<Lor user={user}/>} />
+            <Route
+              exact
+              path="/student/competitive_exams"
+              element={<CompExams user={user} />}
+            />
+            <Route
+              exact
+              path="/student/extra_curricular"
+              element={<ExtraCurricular user={user} />}
+            />
+            <Route
+              exact
+              path="/student/technical_activities"
+              element={<TechnicalActivities user={user} />}
+            />
+            <Route
+              exact
+              path="/student/amcat"
+              element={<AmcatDetails user={user} />}
+            />
+            <Route
+              exact
+              path="/student/internship"
+              element={<Internship user={user} />}
+            />
+            <Route exact path="/student/LOR" element={<Lor user={user} />} />
             <Route exact path="/notices" element={<Notices user={user} />} />
             <Route
               exact
@@ -155,7 +175,7 @@ function App() {
             <Route
               exact
               path="/teachersdashboard/internship"
-              element={<StudentInternships user={user}/>}
+              element={<StudentInternships user={user} />}
             />
             <Route
               exact
@@ -169,13 +189,15 @@ function App() {
             />
           </Routes>
         ) : (
-          <Routes>
-            <Route exact path="/teachers" element={<Form1 />} />
-            <Route exact path="/teacherslogin" element={<LoginForm1 />} />
-            <Route exact path="/login" element={<LoginForm1 />} />
-            <Route exact path="/signup" element={<Form />} />
-            <Route exact path="/" element={<LoginForm1 />} />
-          </Routes>
+          user?.role !== "student" && (
+            <Routes>
+              <Route exact path="/teachers" element={<Form1 />} />
+              <Route exact path="/teacherslogin" element={<LoginForm1 />} />
+              <Route exact path="/login" element={<LoginForm1 />} />
+              <Route exact path="/signup" element={<Form />} />
+              <Route exact path="/" element={<LoginForm1 />} />
+            </Routes>
+          )
         )}
       </Router>
     </div>

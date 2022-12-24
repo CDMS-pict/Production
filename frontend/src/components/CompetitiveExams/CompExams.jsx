@@ -79,17 +79,15 @@ function CompExams({user}) {
   // console.log(user);
   const handleAddInternship = async (e) => {
     const data = {
-      exam_name,
+      exam: exam_name,
       date,
       score,
-      offer_letter: selectedFile,
+      file: selectedFile,
       student_id: user._id,
-      student_name: user.fullname,
-      student_div: user.div,
-      student_branch: user.branch,
-      student_roll: user.rollno,
-      batch: user.batch,
-      student_year: user.div[0] + user.div[1],
+      sname: user.fullname,
+      sdiv: user.div,
+      sbatch: user.branch,
+      srollno: user.rollno,
     };
 
     if (
@@ -102,10 +100,11 @@ function CompExams({user}) {
       return;
     }
     try {
-      // await axios.post("/api/internships/newInternship", data);
-      window.alert("Internship Data Added Successfully");
+      await axios.post("/api/compexams/newCompExam", data);
+      window.alert("Competitive Exam Data Added Successfully");
     } catch (err) {
       console.log(err);
+      window.alert("Something Went's Wrong");
     }
     // console.log(selectedFile);
   };

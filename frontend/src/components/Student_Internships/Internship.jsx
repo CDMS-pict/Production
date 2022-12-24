@@ -11,6 +11,8 @@ import InternshipBoxes from "./InternshipBoxes";
 import axios from "axios";
 import DateInput from "./DateInput";
 
+
+
 function Internship({user}) {
   const [selectedFile, setSelectedFile] = useState("");
   const [company_name, setCompany_name] = useState("");
@@ -37,7 +39,7 @@ function Internship({user}) {
     };
   };
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 

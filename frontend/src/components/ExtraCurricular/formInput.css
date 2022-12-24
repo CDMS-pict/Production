@@ -1,7 +1,7 @@
 .forminput {
   display: flex;
   flex-direction: column;
-  width: 280px;
+  /* width: 280px; */
 }
 input {
   padding: 15px;
@@ -30,7 +30,7 @@ label {
 }
 @media (max-width:600px) {
   .dateforminput input{
-    width: 290px;
+    width: 90%;
   }
   
 }

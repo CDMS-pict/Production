@@ -13,7 +13,7 @@ function Profile({ user }) {
       <div className="img_div">
         <div className="profileimg">
           {user?.profile ? (
-            <img src={user.profile.url} alt="Default Img" />
+            <img src={user?.profile.url} alt="Default Img" />
           ) : (
             <img src={defaultimg} alt="Default Img" />
           )}
@@ -21,17 +21,17 @@ function Profile({ user }) {
       </div>
       <div className="short_details">
         <p>
-          <div className="name_student">{user && user.fullname}</div>{" "}
-          {user && user.collegeId} <br />
+          <div className="name_student">{user?.fullname}</div>{" "}
+          {user?.collegeId} <br />
           <b>Mobile no.</b>
-          {user && user.mobile_no}
+          {user?.mobile_no}
         </p>
         {/* <br /> */}
         <p>
-          <b>DOB</b> : {user && moment(user.DOB).format("YYYY-MM-DD")} <br />
-          <b>Gender</b>: {user && user.gender} <br />
-          <b>Category</b>: {user && user.category} <br />
-          <b>PAN</b> : {user && user.pan}
+          <b>DOB</b> : {user && moment(user?.DOB).format("YYYY-MM-DD")} <br />
+          <b>Gender</b>: {user?.gender} <br />
+          <b>Category</b>: {user?.category} <br />
+          <b>PAN</b> : {user?.pan}
         </p>
         {/* <br /> */}
         <p>
@@ -40,7 +40,7 @@ function Profile({ user }) {
         </p>
         {/* <br /> */}
         <p>
-          <b>Current</b> <br /> {user && user.temporary_address}
+          <b>Current</b> <br /> {user?.temporary_address}
         </p>
       </div>
       {/* <div className="view_more">

@@ -7,11 +7,11 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import FormInput from "./FormInput";
-import ExtraCurrBoxes from "./ExtraCurrBoxes";
+// import ExtraCurrBoxes from "./ExtraCurrBoxes";
 import axios from "axios";
 import DateInput from "./DateInput";
 
-function ExtraCurricular({user}) {
+function ExtraCurricular({ user }) {
   const [selectedFile, setSelectedFile] = useState("");
   const [organization, setOrganization_name] = useState("");
   const [start_date, setStart_date] = useState("");
@@ -39,24 +39,23 @@ function ExtraCurricular({user}) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const [datas, setDatas] = useState([]);
-
+  // const [datas, setDatas] = useState([]);
 
   const handleAddExtraC = async (e) => {
     const data = {
       organization,
       role,
       desc,
-      sdate:start_date,
-      edate:end_date,
-      student_id:user._id,
-      file:selectedFile,
-      sname:user.fullname,
-      sdiv:user.div,
-      srollno:user.rollno,
-      sbatch:user.batch,
+      sdate: start_date,
+      edate: end_date,
+      student_id: user._id,
+      file: selectedFile,
+      sname: user.fullname,
+      sdiv: user.div,
+      srollno: user.rollno,
+      sbatch: user.batch,
     };
-
+    console.log(data);
     if (
       !organization ||
       !start_date ||
@@ -70,7 +69,7 @@ function ExtraCurricular({user}) {
     }
     try {
       await axios.post("/api/extracurricular/newExtrac", data);
-      window.alert("Internship Data Added Successfully");
+      window.alert("Extra Curricular Activity Added Successfully");
     } catch (err) {
       console.log(err);
     }
@@ -91,9 +90,9 @@ function ExtraCurricular({user}) {
       <br />
       <center>
         <div className="internshipboxes">
-          {datas.map((d) => (
+          {/* {datas.map((d) => (
             <ExtraCurrBoxes data={d} user={user} />
-          ))}
+          ))} */}
         </div>
       </center>
       <Modal
