@@ -38,45 +38,6 @@ function CompExams({user}) {
   const handleClose = () => setOpen(false);
 
   const [datas, setDatas] = useState([]);
-  // const [user, setUser] = useState("");
-
-  // const refreshToken = async () => {
-  //   const res = await axios
-  //     .get("/api/students/refresh", {
-  //       withCredentials: true,
-  //     })
-  //     .catch((err) => console.log(err));
-
-  //   const data = await res.data;
-  //   return data;
-  // };
-  // useEffect(() => {
-  //   const fetchInternships = async () => {
-  //     try {
-  //       const res = await axios.get(
-  //         `/api/internships/getallStudentInternships/${user._id}`
-  //       );
-  //       setDatas(res.data);
-  //       // console.log(res.data);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   fetchInternships();
-  // });
-  // const sendRequest = async () => {
-  //   const res = await axios
-  //     .get("/api/students/user", {
-  //       withCredentials: true,
-  //     })
-  //     .catch((err) => console.log(err));
-  //   const data = await res.data;
-  //   return data;
-  // };
-  // useEffect(() => {
-  //   sendRequest().then((data) => setUser(data.user));
-  // }, []);
-  // console.log(user);
   const handleAddInternship = async (e) => {
     const data = {
       exam: exam_name,
@@ -108,6 +69,19 @@ function CompExams({user}) {
     }
     // console.log(selectedFile);
   };
+  useEffect(()=>{
+    const fetchactivites = async()=>{
+      try{
+        const res = await axios.get("/api/compexams/getbysid/" + user._id);
+        setDatas(res.data);
+        console.log(res.data);
+      }
+      catch(err){
+        console.log(err);
+      }
+    }
+    fetchactivites();
+  })
 
   return (
     <>
@@ -123,7 +97,13 @@ function CompExams({user}) {
       <br />
       <br />
       <center>
-        <div className="internshipboxes">
+        <div className="internshipboxes compboxes">
+          {datas.map((d) => (
+            <CompExamsBoxes data={d} user={user} />
+          ))}
+          {datas.map((d) => (
+            <CompExamsBoxes data={d} user={user} />
+          ))}
           {datas.map((d) => (
             <CompExamsBoxes data={d} user={user} />
           ))}

@@ -46,7 +46,7 @@ router.post("/newCompExam", async (req, res) => {
 router.get("/getbysid/:id", async (req, res) => {
     const sid = req.params.id;
     try {
-      const extracs = CompExam.find({ student_id: sid });
+      const extracs = await CompExam.find({ student_id: sid });
       res.status(200).json(extracs);
     } catch (err) {
       console.log(err);
@@ -57,7 +57,7 @@ router.get("/getbysid/:id", async (req, res) => {
   router.get("/getbydiv/:div", async (req, res) => {
     const sdiv = req.params.div;
     try {
-      const extracs = CompExam.find({ sdiv });
+      const extracs = await CompExam.find({ sdiv });
       res.status(200).json(extracs);
     } catch (err) {
       console.log(err);
@@ -68,7 +68,7 @@ router.get("/getbysid/:id", async (req, res) => {
   router.get("/getbybatch/:batch", async (req, res) => {
     const sbatch = req.params.batch;
     try {
-      const extracs = CompExam.find({ sbatch });
+      const extracs = await CompExam.find({ sbatch });
       res.status(200).json(extracs);
     } catch (err) {
       console.log(err);
@@ -78,7 +78,7 @@ router.get("/getbysid/:id", async (req, res) => {
   router.get("/getbyroll/:rollno", async (req, res) => {
     const srollno = req.params.rollno;
     try {
-      const extracs = CompExam.find({ srollno });
+      const extracs = await CompExam.find({ srollno });
       res.status(200).json(extracs);
     } catch (err) {
       console.log(err);

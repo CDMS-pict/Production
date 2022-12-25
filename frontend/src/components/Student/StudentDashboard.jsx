@@ -9,7 +9,7 @@ function StudentDashboard({ student }) {
   const student_box_contents = [
     { title: "Personal Details", url: "/student/personaldetails" }, //done
     { title: "Academic Details", url: "/student/Academics" },// done
-    { title: "Placement Details", url: "" },
+    // { title: "Placement Details", url: "" },
     { title: "Extra Curricular", url: "/student/extra_curricular" }, //done
     { title: "Internship data", url: "/student/internship" }, //done
     { title: "Competitive Exams", url: "/student/competitive_exams" },  // done

@@ -109,6 +109,21 @@ h2 {
   margin-bottom: -12px;
 }
 
+.compboxes{
+  padding-left: 5%;
+  display: flex;
+  justify-content: flex-start;
+  column-gap: 20px;
+  flex-wrap: wrap;
+}
+
+.compbox{
+  border: 1px solid black;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: left;
+
+}
 @media (max-width: 600px) {
   .dataheader {
     margin-top: 8%;
@@ -132,5 +147,13 @@ h2 {
     justify-content: space-between;
     column-gap: 3px;
   }
+  .compboxes{
+    display: flex;
+    justify-content: center;
+    /* flex-direction: column; */
+    padding-left: 0;
+    row-gap: 10px;
+  }
+  
   
 }
