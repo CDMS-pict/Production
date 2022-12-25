@@ -8,7 +8,7 @@ function Boxes({ title, url, length }) {
         <a href={url}>
           <p>{title}</p>
         </a>
-      {length > 0 && <div className="lengthc">{length}</div>}
+        {length > 0 && <div className="lengthc">{length}</div>}
       </div>
     </>
   );

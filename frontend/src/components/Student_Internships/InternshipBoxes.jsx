@@ -197,7 +197,7 @@ function Internship_Boxes({ data, user }) {
           }}
         >
           <Fade in={open}>
-            <Box className="boxmodal">
+            <Box className="boxmodal" >
               <center>
                 <h2>Edit Internship details</h2>
                 <FormInput
@@ -312,7 +312,7 @@ function Internship_Boxes({ data, user }) {
           }}
         >
           <Fade in={open1}>
-            <Box className="boxmodal pdfbox">
+            <Box className="boxmodal pdfbox" >
               {url && <Button onClick={onButtonClick}>Download PDF</Button>}
               <Document
                 file={url}

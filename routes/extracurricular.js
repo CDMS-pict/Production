@@ -46,10 +46,10 @@ router.post("/newExtrac", async (req, res) => {
 
 // get by student id
 
-router.get("/getbysid/:id", async (req, res) => {
+router.get("/getbysidd/:id", async (req, res) => {
   const sid = req.params.id;
   try {
-    const extracs = ExtraC.find({ student_id: sid });
+    const extracs = await ExtraC.find({ student_id: sid });
     res.status(200).json(extracs);
   } catch (err) {
     console.log(err);
@@ -60,7 +60,7 @@ router.get("/getbysid/:id", async (req, res) => {
 router.get("/getbydiv/:div", async (req, res) => {
   const sdiv = req.params.div;
   try {
-    const extracs = ExtraC.find({ sdiv });
+    const extracs = await ExtraC.find({ sdiv });
     res.status(200).json(extracs);
   } catch (err) {
     console.log(err);
@@ -71,7 +71,7 @@ router.get("/getbydiv/:div", async (req, res) => {
 router.get("/getbybatch/:batch", async (req, res) => {
   const sbatch = req.params.batch;
   try {
-    const extracs = ExtraC.find({ sbatch });
+    const extracs = await ExtraC.find({ sbatch });
     res.status(200).json(extracs);
   } catch (err) {
     console.log(err);
@@ -81,7 +81,7 @@ router.get("/getbybatch/:batch", async (req, res) => {
 router.get("/getbyroll/:rollno", async (req, res) => {
   const srollno = req.params.rollno;
   try {
-    const extracs = ExtraC.find({ srollno });
+    const extracs = await ExtraC.find({ srollno });
     res.status(200).json(extracs);
   } catch (err) {
     console.log(err);
@@ -103,6 +103,5 @@ router.delete("/deleteactivitiy/:id", async (req, res) => {
     res.status(500).json(err);
   }
 });
-
 
 module.exports = router;

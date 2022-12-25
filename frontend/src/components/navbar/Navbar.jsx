@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./navbar.css";
 import logo from "../../pict_logo.jpg";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,6 +15,34 @@ import DialogTitle from "@mui/material/DialogTitle";
 
 function Navbar({user}) {
   const [open, setOpen] = React.useState(false);
+  const [user1, setUser] = useState();
+
+  const sednRequest = async () => {
+    try {
+      const res = await axios
+        .get("/api/students/user", {
+          withCredentials: true,
+        })
+        .catch((err) => console.log(err));
+      console.log(res);
+      if (res === undefined) {
+        const res = await axios
+          .get("/api/teachers/user", {
+            withCredentials: true,
+          })
+          .catch((err) => console.log(err));
+        const data = await res.data;
+        return data;
+      }
+      const data = await res.data;
+      return data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    sednRequest().then((data) => setUser(data.user));
+  }, []);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -56,7 +84,16 @@ function Navbar({user}) {
   return (
     <div className="navbar">
       <div className="logoside">
-       {user?.role==="student" &&
+        {!user1 && <>
+         <div className="navlogo">
+           <img src={logo} alt="" />
+         </div>
+         <div className="navname">
+           <p>Digital Academic Passport</p>
+         </div>
+        </>
+        }
+       {user1?.role==="student" &&
         <a href="/dashboard">
         <div className="navlogo">
           <img src={logo} alt="" />
@@ -65,7 +102,7 @@ function Navbar({user}) {
           <p>Digital Academic Passport</p>
         </div>
       </a>}
-      {user?.role === "teacher" &&
+      {user1?.role === "teacher" &&
       <a href="/teachersdashboard">
       <div className="navlogo">
         <img src={logo} alt="" />

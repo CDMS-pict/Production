@@ -19,7 +19,8 @@ var ExtraCurricular = new mongoose.Schema({
         type:Date
     },
     student_id:{
-        type:String
+        type:String,
+        required: true
     },
     sname:{
         type:String

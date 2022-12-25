@@ -97,7 +97,7 @@ h2 {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 400px;
+  /* width: 400px; */
   transform: translate(-50%, -50%);
   background-color: whitesmoke;
   border: 2px solid #000;
@@ -109,6 +109,13 @@ h2 {
   margin-bottom: -12px;
 }
 
+.extracc{
+  width: 90%;
+  /* background-color: black; */
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
 @media (max-width: 600px) {
   .dataheader {
     margin-top: 8%;
@@ -132,5 +139,4 @@ h2 {
     justify-content: space-between;
     column-gap: 3px;
   }
-  
 }

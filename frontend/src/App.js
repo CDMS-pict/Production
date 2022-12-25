@@ -141,7 +141,7 @@ function App() {
               <Route exact path="/teacherslogin" element={<LoginForm1 />} />
               <Route exact path="/login" element={<LoginForm />} />
               <Route exact path="/signup" element={<Form />} />
-              <Route exact path="/" element={<LoginForm />} />
+              {/* <Route exact path="/" element={<LoginForm />} /> */}
               {/* <Route exact path="/dashboard" element={<LoginForm />} />
             <Route exact path="/student/Academics" element={<LoginForm />} />
             <Route exact path="/student/personaldetails" element={<LoginForm />} />
@@ -197,7 +197,7 @@ function App() {
               <Route exact path="/teacherslogin" element={<LoginForm1 />} />
               <Route exact path="/login" element={<LoginForm1 />} />
               <Route exact path="/signup" element={<Form />} />
-              <Route exact path="/" element={<LoginForm1 />} />
+              {/* <Route exact path="/" element={<LoginForm1 />} /> */}
             </Routes>
           )
         )}

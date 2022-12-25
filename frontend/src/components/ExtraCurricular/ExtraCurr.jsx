@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../navbar/Navbar";
 import "./ExtraCurr.css";
 import Backdrop from "@mui/material/Backdrop";
@@ -10,6 +10,7 @@ import FormInput from "./FormInput";
 // import ExtraCurrBoxes from "./ExtraCurrBoxes";
 import axios from "axios";
 import DateInput from "./DateInput";
+import ExtraCurrBoxes from "./ExtraCurrBoxes";
 
 function ExtraCurricular({ user }) {
   const [selectedFile, setSelectedFile] = useState("");
@@ -67,13 +68,34 @@ function ExtraCurricular({ user }) {
       window.alert("All the fields are required");
       return;
     }
+    if(desc.length<40){
+      window.alert("Description Should be atleast of 40 words");
+      return ;
+    }
     try {
       await axios.post("/api/extracurricular/newExtrac", data);
       window.alert("Extra Curricular Activity Added Successfully");
+      setOpen(false);
     } catch (err) {
       console.log(err);
     }
   };
+
+  const [datas,setDatas ] = useState([]);
+
+  useEffect(()=>{
+    const fetchactivites = async()=>{
+      try{
+        const res = await axios.get("/api/extracurricular/getbysidd/" + user._id);
+        setDatas(res.data);
+        console.log(res.data);
+      }
+      catch(err){
+        console.log(err);
+      }
+    }
+    fetchactivites();
+  })
 
   return (
     <>
@@ -90,9 +112,9 @@ function ExtraCurricular({ user }) {
       <br />
       <center>
         <div className="internshipboxes">
-          {/* {datas.map((d) => (
+          {datas.map((d) => (
             <ExtraCurrBoxes data={d} user={user} />
-          ))} */}
+          ))}
         </div>
       </center>
       <Modal

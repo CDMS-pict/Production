@@ -20,6 +20,23 @@ function PrintProfile({ user }) {
     fetchInternships();
   });
 
+  const [extracdatas, setextracDatas] = useState([]);
+
+  useEffect(() => {
+    const fetchactivites = async () => {
+      try {
+        const res = await axios.get(
+          "/api/extracurricular/getbysidd/" + user._id
+        );
+        setextracDatas(res.data);
+        console.log(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchactivites();
+  });
+
   return (
     <div
       className="printprofilepage"
@@ -37,6 +54,10 @@ function PrintProfile({ user }) {
           <p>AFFILIATED TO SPPU | AICTE APPROVED | ISO 9001:2015</p>
         </div>
       </div>
+      <center>
+      <hr style={{width: "50%"}}/>
+
+      </center>
       <div className="headingline">
         <h2>Digital Academic Passport</h2>
       </div>
@@ -50,7 +71,7 @@ function PrintProfile({ user }) {
         </small>
         <div className="headdiv">Personal Details</div>
         {/* <hr /> */}
-        <div className="personaldetails">
+        <div className="personaldetailsp">
           <div className="imgdiv">
             <div className="pimg">
               <img src={user.profile.url} alt="" />
@@ -102,7 +123,7 @@ function PrintProfile({ user }) {
         </div>
         {/* <hr /> */}
         <div className="headdiv">Academic Details</div>
-        <div className="personaldetails">
+        <div className="personaldetailsp">
           <div className="fullname">
             <div className="label">10th : </div>
             <p>{user.tenth_p_c} %</p>
@@ -136,7 +157,7 @@ function PrintProfile({ user }) {
         </div>
         {/* <hr /> */}
         <div className="headdiv">Parent Details </div>
-        <div className="personaldetails">
+        <div className="personaldetailsp">
           <div className="fullname">
             <div className="label">Father's Name : </div>
             <p>{user.father_name} </p>
@@ -165,7 +186,7 @@ function PrintProfile({ user }) {
         </div>
         <div className="headdiv">Address Details </div>
         <div
-          className="personaldetails"
+          className="personaldetailsp"
           style={{ justifyContent: "flex-start" }}
         >
           <div className="fullname">
@@ -175,7 +196,6 @@ function PrintProfile({ user }) {
             <p>{user.temporary_address}</p>
           </div>
         </div>
-
       </div>
       <div className="printpage2 page1 ">
         <small
@@ -184,7 +204,7 @@ function PrintProfile({ user }) {
           Page 2
         </small>
         <div className="headdiv page2section">Internships </div>
-        <div className="personaldetails interndetails">
+        <div className="personaldetailsp interndetails">
           {datas.map((d) => (
             <div className="interndiv">
               <div className="internshipb">
@@ -204,41 +224,37 @@ function PrintProfile({ user }) {
         </div>
 
         <div className="headdiv">Extra Curricular</div>
-
-        <div className="extraactivity">
-          <div className="personaldetails edetails">
-            <div className="efullname">
-              <div className="label">Organization : </div>
-              <p>{user.tenth_p_c} %</p>
+        {extracdatas.map((data) => (
+          <div className="extraactivity">
+            <div className="personaldetailsp edetails" >
+              <div className="efullname">
+                <div className="label">Organization : </div>
+                <p>{data.organization} </p>
+              </div>
+              <div className="efullname">
+                <div className="label">Role : </div>
+                <p>{data.role}</p>
+              </div>
+              <div className="efullname">
+                <div className="label">Start Date: </div>
+                <p> &nbsp;{moment(data.start_date).format("YYYY-MM-DD")}</p>
+              </div>
+              <div className="efullname">
+                <div className="label">End Date :</div>
+                <p>&nbsp;{moment(data.end_date).format("YYYY-MM-DD")}</p>
+              </div>
             </div>
-            <div className="efullname">
-              <div className="label">Role : </div>
-              <p>{user.sem1Sgpa > 0 ? user.sem1Sgpa : "-"} sgpa</p>
-            </div>
-            <div className="efullname">
-              <div className="label">Start Date: </div>
-              <p>{user.sem3Sgpa > 0 ? user.sem3Sgpa : "-"} sgpa</p>
-            </div>
-            <div className="efullname">
-              <div className="label">End Date :</div>
-              <p>{user.sem5Sgpa > 0 ? user.sem5Sgpa : "-"} sgpa</p>
+            <div className="personaldetailsp epersonaldetails">
+              <p>
+                <div style={{ fontWeight: "600" }}>Desc:</div> {data.desc}
+              </p>
             </div>
           </div>
-          <div className="personaldetails epersonaldetails">
-            <p>
-              <div style={{ fontWeight: "600" }}>Desc:</div> Lorem ipsum dolor,
-              sit amet consectetur adipisicing elit. Harum unde pariatur sed,
-              iure, iusto quidem est sint quos molestias autem magnam enim
-              maxime veritatis laborum? Eum dolorem, possimus molestiae numquam
-              architecto quia nostrum aliquid. Totam fugit dolorum hic deserunt
-              illum!
-            </p>
-          </div>
-        </div>
+        ))}
         <div className="headdiv">Technical Acitivities</div>
 
         <div className="extraactivity">
-          <div className="personaldetails edetails">
+          <div className="personaldetailsp edetails">
             <div className="efullname">
               <div className="label">Club Name : </div>
               <p>{user.tenth_p_c} %</p>
@@ -256,7 +272,7 @@ function PrintProfile({ user }) {
               <p>{user.sem5Sgpa > 0 ? user.sem5Sgpa : "-"} sgpa</p>
             </div>
           </div>
-          <div className="personaldetails epersonaldetails">
+          <div className="personaldetailsp epersonaldetails">
             <p>
               <div style={{ fontWeight: "600" }}>Desc:</div> Lorem ipsum dolor,
               sit amet consectetur adipisicing elit. Harum unde pariatur sed,
