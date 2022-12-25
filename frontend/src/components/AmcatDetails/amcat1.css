@@ -1,9 +1,7 @@
 .amcathead {
   text-align: center;
 }
-.btn-cancel3 {
-  /* margin-left: 5rem; */
-}
+
 .amcatbtn {
   position: absolute;
 
@@ -118,15 +116,12 @@
   justify-content: flex-end;
   column-gap: 20px;
 }
-.editbtn {
-  /* background-color: #1a4870; */
-  /* padding-right: 5%; */
-}
+
 .amcatboxmodal {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 400px;
+  width: auto;
   transform: translate(-50%, -50%);
   background-color: whitesmoke;
   border: 2px solid #000;
@@ -145,7 +140,12 @@
   .amcatbox {
     width: 92%;
     padding: 3%;
-    margin-bottom: 8%;
+    /* margin-bottom: 8%; */
+    margin-top: 3%;
+  }
+  .amcatboxmodal{
+  width: 90%;
+
   }
   .amcatboxtop {
     flex-direction: column;

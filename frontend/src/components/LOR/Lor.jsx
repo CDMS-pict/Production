@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core";
+import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Navbar from "../navbar/Navbar";
 import Backdrop from "@mui/material/Backdrop";
@@ -6,7 +6,6 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import LorForm from "./LorForm";
-import LorBox from "./LorBox";
 import "./lorapplication.css";
 import LorCard from "./LorCard";
 import axios from "axios";

@@ -1,11 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./profile.css";
 import defaultimg from "./default_userimg.png";
 import axios from "axios";
 import moment from "moment-timezone";
 axios.defaults.withCredentials = true;
 // let firstRender = true;
-function Profile({ user }) {
+function Profile() {
+  const [user, setUser] = useState();
+
+  const sednRequest = async () => {
+    try {
+      const res = await axios
+        .get("/api/students/user", {
+          withCredentials: true,
+        })
+        .catch((err) => console.log(err));
+      console.log(res);
+      if (res === undefined) {
+        const res = await axios
+          .get("/api/teachers/user", {
+            withCredentials: true,
+          })
+          .catch((err) => console.log(err));
+        const data = await res.data;
+        return data;
+      }
+      const data = await res.data;
+      return data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    sednRequest().then((data) => setUser(data.user));
+  }, []);
 
   // console.log(user);
   return (
