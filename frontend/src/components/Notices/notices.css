@@ -35,7 +35,7 @@
     width: 32%;
     height: max-content;
     background-color: whitesmoke;
-    border-radius: 30px;
+    border-radius: 15px 50px 30px;
 }
 .imp{
     padding: 2px;
@@ -51,7 +51,8 @@
 .cardstyle{
     height: min-content;
     max-height: 300px;
-    border-radius: 30px;
+    
+    border-radius: 15px 50px 30px;
 }
 
 .cstyle::-webkit-scrollbar{
@@ -60,9 +61,9 @@
 @media (max-width: 600px) {
     .notices{
         width: 100%;
-
+        
         border: 1px solid black;
-        border-radius: 20px;
+        border-radius: 15px 50px 30px;
     }
     .noticediv{
         margin-bottom: 5%;

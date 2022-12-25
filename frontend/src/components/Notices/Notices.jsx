@@ -157,7 +157,7 @@ function Notices({ user }) {
                 className="cardstyle"
                 style={{
                   overflowY: "scroll",
-                  borderRadius: "20px",
+                  borderRadius: "15px 50px 30px",
                   backgroundColor: "whitesmoke",
                   scrollbarWidth: "5px",
                 }}
@@ -210,7 +210,7 @@ function Notices({ user }) {
                 className="cardstyle cstyle"
                 style={{
                   overflowY: "scroll",
-                  borderRadius: "20px",
+                  borderRadius: "15px 50px 30px",
                   backgroundColor: "whitesmoke",
                 }}
               >

@@ -44,6 +44,7 @@ router.post("/newLor/:id", async (req, res) => {
       date,
       yearpassing,
       sid: student._id,
+      sname: student.fullname,
       rollno: student.rollno,
       contact: student.mobile_no,
       email: student.mail,
@@ -74,6 +75,7 @@ router.post("/newLor/:id", async (req, res) => {
       branch,
       div,
       country,
+      status: "Pending"
     });
     const extra = await newExtra.save();
     res.status(200).json(extra);

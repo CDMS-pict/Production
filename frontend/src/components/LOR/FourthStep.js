@@ -26,10 +26,10 @@ export class FourthStep extends Component {
         return;
       }
       try {
-        // await axios.post("/api/LOR/newLor/" + this.props.user._id, values);
+        await axios.post("/api/LOR/newLor/" + this.props.user._id, values);
         console.log(values);
-        window.alert("applied for LOR");
-        // window.location.reload();
+        window.alert("Applied for LOR");
+        window.location.reload();
       } catch (err) {
         console.log(err);
       }
