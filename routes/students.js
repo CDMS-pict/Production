@@ -196,7 +196,7 @@ router.put("/student/profile/update/:id", async (req, res) => {
     const updatedstudent = await Students.findOne({
       _id: req.params.id,
     });
-    console.log(updatedstudent);
+    // console.log(updatedstudent);
     res.status(200).json(updatedstudent);
   } catch (err) {
     console.log(err);
@@ -206,18 +206,18 @@ router.put("/student/profile/update/:id", async (req, res) => {
 
 router.put("/student/profile/update_profile/:id", async (req, res) => {
   try {
+    const student = await Students.findById({ _id: req.params.id });
     const marksheet = student.profile?.public_id;
     if (marksheet) {
       await cloudinary.uploader.destroy(marksheet);
     }
-    const student = await Students.findById({ _id: req.params.id });
     const { profile } = req.body;
     const file = profile;
     const result = await cloudinary.uploader.upload(file, {
       folder: "students/" + student.rollno + "_" + student.fullname,
     });
     const data = {};
-    console.log(data);
+    // console.log(data);
     await student.updateOne({
       $set: {
         profile: {

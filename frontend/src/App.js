@@ -135,21 +135,23 @@ function App() {
             /> */}
           </Routes>
         ) : (
-          <Routes>
-            <Route exact path="/teachers" element={<Form1 />} />
-            <Route exact path="/teacherslogin" element={<LoginForm1 />} />
-            <Route exact path="/login" element={<LoginForm />} />
-            <Route exact path="/signup" element={<Form />} />
-            <Route exact path="/" element={<LoginForm />} />
-            {/* <Route exact path="/dashboard" element={<LoginForm />} />
+          user?.role !== "teacher" && (
+            <Routes>
+              <Route exact path="/teachers" element={<Form1 />} />
+              <Route exact path="/teacherslogin" element={<LoginForm1 />} />
+              <Route exact path="/login" element={<LoginForm />} />
+              <Route exact path="/signup" element={<Form />} />
+              <Route exact path="/" element={<LoginForm />} />
+              {/* <Route exact path="/dashboard" element={<LoginForm />} />
             <Route exact path="/student/Academics" element={<LoginForm />} />
             <Route exact path="/student/personaldetails" element={<LoginForm />} />
             <Route exact path="/student/internship" element={<LoginForm />} />
             <Route exact path="/teachersdashboard" element={<LoginForm />} />
             <Route exact path="/teachersdashboard/internship" element={<LoginForm />} />
           <Route exact path="/teachersdashboard/students" element={<LoginForm />} /> */}
-            {/* <Route exact path="/teachersdashboard/students" element={<LoginForm />} /> */}
-          </Routes>
+              {/* <Route exact path="/teachersdashboard/students" element={<LoginForm />} /> */}
+            </Routes>
+          )
         )}
 
         {user?.role === "teacher" ? (

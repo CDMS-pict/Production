@@ -1,36 +1,39 @@
 .mrugank{
   /* padding: ; */
-  /* border-radius: 4px; */
-  height:max-content;
-   /* border: 1px solid black; */
-   /* margin-top: 3rem; */
+  border-radius: 4px;
+  height:80rem;
+   border: 1px solid black;
+   margin-top: 3rem;
    background-color: whitesmoke;
    color: darkslategray;
 }
 .mrugank0{
     /* padding: ; */
-   /* border-radius: 4px; */
-   height:max-content;
-   /* border: 1px solid black; */
-   /* margin-top: 3rem; */
+  border-radius: 4px;
+  height:60rem;
+   border: 1px solid black;
+   margin-top: 3rem;
    background-color: whitesmoke;
    color: darkslategray;
 
 }
 .mrugank1{
    /* padding: ; */
-   /* border-radius: 4px; */
-   height:max-content;
-    /* border: 1px solid black; */
-    /* margin-top: 3rem; */
+   border-radius: 4px;
+   height:35rem;
+    border: 1px solid black;
+    margin-top: 3rem;
     background-color: whitesmoke;
     color: darkslategray;
 }
+.lorh{
+   font-weight: bold;
+}
 .mrugank2{
-   /* border-radius: 4px; */
-   height:max-content;
-    /* border: 1px solid black; */
-    /* margin-top: 3rem; */
+   border-radius: 4px;
+   height:59rem;
+    border: 1px solid black;
+    margin-top: 3rem;
     background-color: whitesmoke;
     color: darkslategray;
 
@@ -54,7 +57,6 @@
 /* Textfield.label{
    align-items: center;
 } */
-
 .lorboxes {
    padding-inline: 2%;
    display: flex;

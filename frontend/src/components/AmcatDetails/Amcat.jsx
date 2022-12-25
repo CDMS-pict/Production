@@ -10,7 +10,7 @@ import FormInput from "../Student_Internships//FormInput";
 import AmcatBox from "./AmcatBox";
 import axios from "axios";
 
-function Amcat() {
+function Amcat({user}) {
   const [selectedFile, setSelectedFile] = useState("");
   const [selectedFile2, setSelectedFile2] = useState("");
 
@@ -24,6 +24,7 @@ function Amcat() {
   const [average, setAverage] = useState("");
 
   const [sfilename, setFilename] = useState("");
+  const [sfilename2, setFilename2] = useState("");
   function changeHandler(event) {
     setSelectedFile2(event.target.files[0]);
   }
@@ -42,51 +43,27 @@ function Amcat() {
       setSelectedFile(reader.result);
     };
   };
+  function handleImage2(event) {
+    const file = setSelectedFile2(event.target.files[0]);
+    setFileToBase2(file);
+    // filename = file.name;
+    setFilename2(file.name);
+    console.log(file);
+  }
+
+  const setFileToBase2 = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setSelectedFile2(reader.result);
+    };
+  };
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const [datas, setDatas] = useState([]);
-  const [user, setUser] = useState("");
-
-  // const refreshToken = async () => {
-  //   const res = await axios
-  //     .get("/api/students/refresh", {
-  //       withCredentials: true,
-  //     })
-  //     .catch((err) => console.log(err));
-
-  //   const data = await res.data;
-  //   return data;
-  // };
-  useEffect(() => {
-    const fetchInternships = async () => {
-      try {
-        const res = await axios.get(
-          `/api/amcat/getallStudentAmcat/${user._id}`
-        );
-        setDatas(res.data);
-        console.log(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchInternships();
-  });
-  const sednRequest = async () => {
-    const res = await axios
-      .get("/api/students/user", {
-        withCredentials: true,
-      })
-      .catch((err) => console.log(err));
-    const data = await res.data;
-    return data;
-  };
-  useEffect(() => {
-    sednRequest().then((data) => setUser(data.user));
-  }, []);
-  console.log(user);
   const handleAddAmcat = async (e) => {
     const data = {
       english,
@@ -105,7 +82,6 @@ function Amcat() {
       student_div: user.div,
       student_branch: user.branch,
       student_roll: user.rollno,
-      student_year: user.div[0] + user.div[1],
     };
 
     if (

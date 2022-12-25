@@ -15,6 +15,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Document, Page, pdfjs } from "react-pdf";
+import moment from "moment-timezone";
 
 import { useEffect } from "react";
 
@@ -134,7 +135,7 @@ function Notices({ user }) {
   const [nurl, setNurl] = useState("");
   return (
     <div>
-      <Navbar user={user}/>
+      <Navbar user={user} />
 
       <div className="studentInternshipDashboard">
         <div className="dataheader" style={{ paddingInline: "1%" }}>
@@ -151,7 +152,16 @@ function Notices({ user }) {
         <div className="noticediv">
           {notices.map((n) => (
             <div className="notices">
-              <Card variant="outlined" className="cardstyle">
+              <Card
+                variant="outlined"
+                className="cardstyle"
+                style={{
+                  overflowY: "scroll",
+                  borderRadius: "20px",
+                  backgroundColor: "whitesmoke",
+                  scrollbarWidth: "5px",
+                }}
+              >
                 <React.Fragment>
                   <CardContent>
                     <Typography
@@ -159,7 +169,9 @@ function Notices({ user }) {
                       color="text.secondary"
                       gutterBottom
                     >
-                      {n.forw}
+                      {n.forw} &nbsp;
+                      {moment(n.createdAt).format("DD-MM-YYYY")}
+
                       {n.important && (
                         <small className="imp">Important !</small>
                       )}
@@ -193,7 +205,15 @@ function Notices({ user }) {
           ))}
           {bnotices.map((n) => (
             <div className="notices">
-              <Card variant="outlined" className="cardstyle">
+              <Card
+                variant="outlined"
+                className="cardstyle cstyle"
+                style={{
+                  overflowY: "scroll",
+                  borderRadius: "20px",
+                  backgroundColor: "whitesmoke",
+                }}
+              >
                 <React.Fragment>
                   <CardContent>
                     <Typography
@@ -201,7 +221,9 @@ function Notices({ user }) {
                       color="text.secondary"
                       gutterBottom
                     >
-                      {n.forw}
+                      {n.forw} &nbsp;
+                      {moment(n.createdAt).format("YYYY-MM-DD")}
+
                       {n.important && (
                         <small className="imp">Important !</small>
                       )}

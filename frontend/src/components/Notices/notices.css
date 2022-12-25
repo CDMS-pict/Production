@@ -33,9 +33,9 @@
 .notices{
 
     width: 32%;
-    height: 300px;
-    overflow-y: scroll;
-    overflow-x: visible;
+    height: max-content;
+    background-color: whitesmoke;
+    border-radius: 30px;
 }
 .imp{
     padding: 2px;
@@ -49,9 +49,14 @@
 }
 
 .cardstyle{
-    height: 300px;
+    height: min-content;
+    max-height: 300px;
+    border-radius: 30px;
 }
 
+.cstyle::-webkit-scrollbar{
+    width: 10px;
+}
 @media (max-width: 600px) {
     .notices{
         width: 100%;

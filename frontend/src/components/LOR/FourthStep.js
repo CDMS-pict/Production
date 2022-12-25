@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Container from "@material-ui/core/Container";
-
+import axios from "axios";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
@@ -16,6 +16,24 @@ export class FourthStep extends Component {
   };
   render() {
     const { values, handleChange } = this.props;
+    const handleApply = async (req, res) => {
+      if (
+        values.date === "" ||
+        values.yearpassing === "" ||
+        values.rollno === ""
+      ) {
+        window.alert("All the fields are required");
+        return;
+      }
+      try {
+        // await axios.post("/api/LOR/newLor/" + this.props.user._id, values);
+        console.log(values);
+        window.alert("applied for LOR");
+        // window.location.reload();
+      } catch (err) {
+        console.log(err);
+      }
+    };
     return (
       <Container maxWidth="sm" className="mrugank1">
         <h1>Letter Of Recommendation</h1>
@@ -65,7 +83,13 @@ export class FourthStep extends Component {
           autoComplete="off"
           fullWidth
         />
-        <div style={{ marginTop: "1rem",display: "flex", justifyContent: "space-between" }}>
+        <div
+          style={{
+            marginTop: "1rem",
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
           <Button
             onClick={this.back}
             variant="contained"
@@ -78,7 +102,7 @@ export class FourthStep extends Component {
             Back
           </Button>
           <Button
-            onClick={this.next}
+            onClick={handleApply}
             style={{ backgroundColor: "#1a4870", color: "white" }}
             variant="contained"
           >

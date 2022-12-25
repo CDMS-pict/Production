@@ -12,12 +12,16 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  
 }
 
 .profileimg {
   width: 150px;
   height: 150px;
   border-radius: 50%;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  border: 1px solid gray;
+  padding: 2px;
 }
 .profileimg img {
   height: 150px;
@@ -28,6 +32,7 @@
 
 .short_details {
   text-align: center;
+  font-weight: 600;
 }
 
 .view_more {

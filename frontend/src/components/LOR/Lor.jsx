@@ -6,6 +6,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import LorForm from './LorForm'
+import LorBox from "./LorBox"
 import './lorapplication.css'
 
 function Lor({user}) {
@@ -23,6 +24,7 @@ function Lor({user}) {
           </Button>
         </div>
       </div>
+      <LorBox/>
       <Modal
         aria-describedby="transition-modal-description"
         open={open}
@@ -35,7 +37,7 @@ function Lor({user}) {
       >
         <Fade in={open}>
           <Box className="boxmodal lorapplication">
-             <LorForm/>
+             <LorForm user={user}/>
           </Box>
         </Fade>
       </Modal>

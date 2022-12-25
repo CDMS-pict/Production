@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 
 var Amcat = new mongoose.Schema({
-    englishc:{
+    english:{
         type:Number
     },
     logical:{
@@ -29,7 +29,7 @@ var Amcat = new mongoose.Schema({
             type:String
         }
     },
-    attemp_no:{
+    attempt:{
         type:Number
     },
     sid:{
@@ -42,6 +42,9 @@ var Amcat = new mongoose.Schema({
         type:String
     },
     sbatch:{
+        type:String
+    },
+    srollno:{
         type:String
     }
 

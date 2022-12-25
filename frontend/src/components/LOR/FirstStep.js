@@ -14,21 +14,12 @@ export class FirstStep extends Component {
       <Container maxWidth="sm" className="mrugank0">
         <h1>Letter Of Recommendation</h1>
         <h2>Info</h2>
+       
         <TextField
           className="formmrug"
-          label="Name of the Student"
-          name="name"
-          margin="normal"
-          onChange={handleChange("name")}
-          defaultValue={values.name}
-          variant="outlined"
-          autoComplete="off"
-          fullWidth
-        />
-        <TextField
-          className="formmrug"
-          label="Date"
+          // label="Date"
           name="date"
+          type= "date"
           margin="normal"
           placeholder="DD/MM/YYYY"
           onChange={handleChange("date")}
@@ -50,7 +41,7 @@ export class FirstStep extends Component {
         />
         <TextField
           className="formmrug"
-          label="Roll NO./PRN NO."
+          label="Roll NO"
           name="rollno"
           margin="normal"
           onChange={handleChange("rollno")}
@@ -59,52 +50,10 @@ export class FirstStep extends Component {
           autoComplete="off"
           fullWidth
         />
-        <TextField
-          className="formmrug"
-          label="Your Contact"
-          name="contact"
-          margin="normal"
-          onChange={handleChange("contact")}
-          defaultValue={values.contact}
-          variant="outlined"
-          autoComplete="off"
-          fullWidth
-        />
-        <TextField
-          className="formmrug"
-          label="Email"
-          name="email"
-          margin="normal"
-          inputMode="email"
-          onChange={handleChange("email")}
-          defaultValue={values.email}
-          variant="outlined"
-          autoComplete="off"
-          fullWidth
-        />
-        <TextField
-          className="formmrug"
-          label="Parent's Email"
-          name="parentemail"
-          margin="normal"
-          onChange={handleChange("parentemail")}
-          defaultValue={values.parentemail}
-          variant="outlined"
-          autoComplete="off"
-          fullWidth
-        />
-        <TextField
-          className="formmrug"
-          label="Parent's Contact"
-          name="parentcontact"
-          margin="normal"
-          onChange={handleChange("parentcontact")}
-          defaultValue={values.parentcontact}
-          variant="outlined"
-          autoComplete="off"
-          fullWidth
-        />
-        <TextField
+        
+       
+      
+        {/* <TextField
           className="formmrug"
           label="Correspondence Address"
           name="address"
@@ -136,7 +85,7 @@ export class FirstStep extends Component {
           </div>
           <input hidden accept=".jpg" multiple type="file" />
         </Button>
-        <span></span>
+        <span></span> */}
 
         <Button
           className="mrugbtn"

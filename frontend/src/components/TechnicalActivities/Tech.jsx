@@ -13,11 +13,11 @@ import DateInputTech from "./DateInputTech";
 
 function Technical({user}) {
   const [selectedFile, setSelectedFile] = useState("");
-  const [organization_name, setOrganization_name] = useState("");
-  const [start_date, setStart_date] = useState("");
-  const [end_date, setEnd_date] = useState("");
-  const [role, setRole] = useState("");
+  const [club, setClub] = useState("");
+  const [event, setEvent] = useState("");
   const [desc, setDesc] = useState("");
+  const [sdate, setSdate] = useState("");
+  const [edate, setEdate] = useState("");
 
   const [sfilename, setFilename] = useState("");
   const handleImage = (e) => {
@@ -52,44 +52,28 @@ function Technical({user}) {
   //   const data = await res.data;
   //   return data;
   // };
-  useEffect(() => {
-    const fetchInternships = async () => {
-      try {
-        const res = await axios.get(
-          `/api/internships/getallStudentInternships/${user._id}`
-        );
-        setDatas(res.data);
-        // console.log(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchInternships();
-  });
  
  
   // console.log(user);
   const handleAddInternship = async (e) => {
     const data = {
-      organization_name,
-      start_date,
-      end_date,
-      role,
+      club,
+      sdate,
+      edate,
       desc,
-      offer_letter: selectedFile,
-      student_id: user._id,
-      student_name: user.fullname,
-      student_div: user.div,
-      student_branch: user.branch,
-      student_roll: user.rollno,
-      batch: user.batch,
-      student_year: user.div[0] + user.div[1],
+      event,
+      sid: user._id,
+      sname: user.fullname,
+      sdiv: user.div,
+      sbatch: user.batch,
+      srollno: user.rollno,
+      file:selectedFile
     };
 
     if (
-      !organization_name ||
-      !start_date ||
-      !role ||
+      !club ||
+      !sdate ||
+      !event ||
       !desc ||
       !selectedFile
     ) {
@@ -97,8 +81,8 @@ function Technical({user}) {
       return;
     }
     try {
-      await axios.post("/api/internships/newInternship", data);
-      window.alert("Internship Data Added Successfully");
+      await axios.post("/api/techActivity/newTechActivity", data);
+      window.alert("Technical Activity Added Successfully");
     } catch (err) {
       console.log(err);
     }
@@ -141,9 +125,9 @@ function Technical({user}) {
               <h2>Enter your technical activity details</h2>
 
               <FormInputTech
-                name="Company Name"
+                name="Club"
                 placeholder="Name of the club"
-                onChange={(e) => setOrganization_name(e.target.value)}
+                onChange={(e) => setClub(e.target.value)}
               />
               {/* <FormInput
                 name="Start Date"
@@ -156,9 +140,9 @@ function Technical({user}) {
                 onChange={(e) => setEnd_date(e.target.value)}
               /> */}
               <FormInputTech
-                name="Role"
+                name="event"
                 placeholder="Event Name"
-                onChange={(e) => setRole(e.target.value)}
+                onChange={(e) => setEvent(e.target.value)}
               />
 
               <FormInputTech
@@ -172,13 +156,13 @@ function Technical({user}) {
                   name="Start Date"
                   placeholder="Start Date"
                   label="Start Date"
-                  onChange={(e) => setStart_date(e.target.value)}
+                  onChange={(e) => setSdate(e.target.value)}
                 />
                 <DateInputTech
                   name="Start Date"
                   placeholder="End Date"
                   label="End Date"
-                  onChange={(e) => setEnd_date(e.target.value)}
+                  onChange={(e) => setEdate(e.target.value)}
                 />
               </center>
               <div className="intern1">

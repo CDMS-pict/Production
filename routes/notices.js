@@ -100,8 +100,8 @@ router.delete("/deleteNotice/:id", async (req, res) => {
     const id = req.params.id;
     const notice = await Notices.findOne({ _id: id });
     // console.log(notice);
-    const fileId = notice.file.public_id;
-    await cloudinary.uploader.destroy(fileId);
+    const fileId = notice.file?.public_id;
+    fileId && await cloudinary.uploader.destroy(fileId);
     await Notices.findOneAndDelete({ _id: id });
     res.status(200).json("Deleted Successfully");
   } catch (err) {

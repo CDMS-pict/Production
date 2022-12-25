@@ -29,35 +29,35 @@ export class ThirdStep extends Component {
           onChange={handleChange("exam")}
           defaultValue={values.exam}
         >
-          <label className="mrugank5">Select the exam</label>
+          <label className="mrugank5">Select the exam(only one )</label>
           <br />
           <div className="examname">
             <label htmlFor="">GRE</label>
-            <Checkbox />
+            <Checkbox value="GRE" onChange={handleChange("exam")} />
           </div>
           <div className="examname">
             <label htmlFor="">TOEFL</label>
-            <Checkbox />
+            <Checkbox value="TOEFL" onChange={handleChange("exam")} />
           </div>
           <div className="examname">
             <label htmlFor="">IELTS</label>
-            <Checkbox />
+            <Checkbox value="IELTS" onChange={handleChange("exam")} />
           </div>
           <div className="examname">
             <label htmlFor="">GMAT</label>
-            <Checkbox />
+            <Checkbox value="GMAT" onChange={handleChange("exam")} />
           </div>
           <div className="examname">
             <label htmlFor="">GATE</label>
-            <Checkbox />
+            <Checkbox value="GATE" onChange={handleChange("exam")} />
           </div>
           <div className="examname">
             <label htmlFor="">CAT</label>
-            <Checkbox />
+            <Checkbox value="CAT" onChange={handleChange("exam")} />
           </div>
           <div className="examname">
             <label htmlFor="">OTHER</label>
-            <Checkbox />
+            <Checkbox value="OTHER" onChange={handleChange("exam")} />
           </div>
         </div>
         <TextField

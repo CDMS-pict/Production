@@ -24,13 +24,17 @@ label {
   max-width: 200px;
 }
 
+.dateforminputtech{
+  width: 100%;
+
+}
 .dateforminputtech input{
   background-color: white;
   /* color: black; */
 }
 @media (max-width:600px) {
   .dateforminputtech input{
-    width: 290px;
+    width: 90%;
   }
   
 }

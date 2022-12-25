@@ -128,6 +128,7 @@ function Personal_Details() {
       window.alert("Profile Updated Successfully");
     } catch (err) {
       console.log("Something Wents Wrong");
+      console.log(err);
     }
   };
 

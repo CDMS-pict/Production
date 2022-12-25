@@ -65,16 +65,10 @@ export class LorForm extends Component{
 
   render() {
     const { step } = this.state;
-    const {name,
+    const {
     date,
     yearpassing,
     rollno,
-    contact,
-    email,
-    parentemail,
-    parentcontact,
-    address,
-    passportphoto,
     year,
     marks,
     percentage,
@@ -98,16 +92,10 @@ export class LorForm extends Component{
     branch,
     div,
     country } = this.state;
-    const values = { name,
+    const values = { 
       date,
       yearpassing,
       rollno,
-      contact,
-      email,
-      parentemail,
-      parentcontact,
-      address,
-      passportphoto,
       year,
       marks,
       percentage,
@@ -132,6 +120,7 @@ export class LorForm extends Component{
       div,
       country };
       console.log(values);
+      const user = this.props.user;
         
     switch (step) {
       case 1:
@@ -166,7 +155,7 @@ export class LorForm extends Component{
         nextStep={this.nextStep}
             prevStep={this.prevStep}
             handleChange={this.handleChange}
-
+            user={user}
             values={values}
             />;
         //     case 4:
