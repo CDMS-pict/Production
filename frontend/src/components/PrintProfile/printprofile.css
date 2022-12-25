@@ -12,6 +12,13 @@
     column-gap: 20px;
     height: max-content;
 }
+.epersonaldetails{
+padding-top: 0;
+text-align: left;
+}
+.edetails{
+    justify-content: space-between;
+}
 .printprofilepage{
     display: flex;
     justify-content: center;
@@ -57,7 +64,7 @@
     text-align:left;
 }
 .interndiv{
-    margin-bottom: 4%;
+    margin-bottom: 2%;
     border-bottom: 1px solid black;
     border-top: 1px solid black;
     padding-bottom: 2%;
@@ -71,4 +78,46 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
+}
+.headerprofile{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.headerprofile img{
+    height: 100px;
+    width: 100px;
+    padding-left: auto;
+}
+.headertext{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.headertext p{
+    color: red;
+    font-weight: 600;
+}
+.headertext h2{
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.headingline{
+    text-align: center;
+}
+
+.efullname{
+    display: flex;
+}
+.efullname .label,
+.internshipb .label{
+    font-weight: 600;
+}
+
+.extraactivity{
+    border-bottom: 1px solid black;
+}
+.page1{
+    height: 900px;
 }

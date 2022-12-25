@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./printprofile.css";
 import moment from "moment-timezone";
 import axios from "axios";
+import collegeimg from "../../pict_logo4.jpg";
 
 function PrintProfile({ user }) {
   const [datas, setDatas] = useState([]);
@@ -22,10 +23,25 @@ function PrintProfile({ user }) {
   return (
     <div
       className="printprofilepage"
-      onPointerMove={() => (
-        window.print(), window.location.replace("/dashboard")
-      )}
+      // onPointerMove={() => (
+      //   window.print(), window.location.replace("/dashboard")
+      // )}
     >
+      <br />
+
+      <div className="headerprofile">
+        <img src={collegeimg} alt="" />
+        <div className="headertext">
+          <p>Society for Computer Technology and Research's</p>
+          <h2>Pune Institute of Computer Technology</h2>
+          <p>AFFILIATED TO SPPU | AICTE APPROVED | ISO 9001:2015</p>
+        </div>
+      </div>
+      <div className="headingline">
+        <h2>Digital Academic Passport</h2>
+      </div>
+      <br />
+
       <div className="printpage page1">
         <small
           style={{ right: "0", position: "absolute", marginRight: "20px" }}
@@ -119,7 +135,55 @@ function PrintProfile({ user }) {
           </div>
         </div>
         {/* <hr /> */}
-        <div className="headdiv">Internships </div>
+        <div className="headdiv">Parent Details </div>
+        <div className="personaldetails">
+          <div className="fullname">
+            <div className="label">Father's Name : </div>
+            <p>{user.father_name} </p>
+            <div className="label">Mother's Name : </div>
+            <p>{user.mother_name} </p>
+          </div>
+          <div className="fullname">
+            <div className="label">Occupation : </div>
+            <p>{user.father_occupation} </p>
+
+            <div className="label">Occupation : </div>
+            <p>{user.mother_occupation} </p>
+          </div>
+          <div className="fullname">
+            <div className="label">Mail : </div>
+            <p>{user.father_mail || "-"} </p>
+            <div className="label">Mail : </div>
+            <p>{user?.mother_mail || "-"} </p>
+          </div>
+          <div className="fullname">
+            <div className="label">Contact : </div>
+            <p>{user?.father_contact || "-"} </p>
+            <div className="label">Contact : </div>
+            <p>{user?.mother_contact || "-"} </p>
+          </div>
+        </div>
+        <div className="headdiv">Address Details </div>
+        <div
+          className="personaldetails"
+          style={{ justifyContent: "flex-start" }}
+        >
+          <div className="fullname">
+            <div className="label">Permanant Address : </div>
+            <p>{user.permenant_Address}</p>
+            <div className="label">Local Address : </div>
+            <p>{user.temporary_address}</p>
+          </div>
+        </div>
+
+      </div>
+      <div className="printpage2 page1 ">
+        <small
+          style={{ right: "0", position: "absolute", marginRight: "20px" }}
+        >
+          Page 2
+        </small>
+        <div className="headdiv page2section">Internships </div>
         <div className="personaldetails interndetails">
           {datas.map((d) => (
             <div className="interndiv">
@@ -138,15 +202,71 @@ function PrintProfile({ user }) {
             </div>
           ))}
         </div>
-      </div>
-      <div className="printpage2 page2">
-        <small
-          style={{ right: "0", position: "absolute", marginRight: "20px" }}
-        >
-          Page 2
-        </small>
 
-        <div className="headdiv">Next</div>
+        <div className="headdiv">Extra Curricular</div>
+
+        <div className="extraactivity">
+          <div className="personaldetails edetails">
+            <div className="efullname">
+              <div className="label">Organization : </div>
+              <p>{user.tenth_p_c} %</p>
+            </div>
+            <div className="efullname">
+              <div className="label">Role : </div>
+              <p>{user.sem1Sgpa > 0 ? user.sem1Sgpa : "-"} sgpa</p>
+            </div>
+            <div className="efullname">
+              <div className="label">Start Date: </div>
+              <p>{user.sem3Sgpa > 0 ? user.sem3Sgpa : "-"} sgpa</p>
+            </div>
+            <div className="efullname">
+              <div className="label">End Date :</div>
+              <p>{user.sem5Sgpa > 0 ? user.sem5Sgpa : "-"} sgpa</p>
+            </div>
+          </div>
+          <div className="personaldetails epersonaldetails">
+            <p>
+              <div style={{ fontWeight: "600" }}>Desc:</div> Lorem ipsum dolor,
+              sit amet consectetur adipisicing elit. Harum unde pariatur sed,
+              iure, iusto quidem est sint quos molestias autem magnam enim
+              maxime veritatis laborum? Eum dolorem, possimus molestiae numquam
+              architecto quia nostrum aliquid. Totam fugit dolorum hic deserunt
+              illum!
+            </p>
+          </div>
+        </div>
+        <div className="headdiv">Technical Acitivities</div>
+
+        <div className="extraactivity">
+          <div className="personaldetails edetails">
+            <div className="efullname">
+              <div className="label">Club Name : </div>
+              <p>{user.tenth_p_c} %</p>
+            </div>
+            <div className="efullname">
+              <div className="label">Event Name : </div>
+              <p>{user.sem1Sgpa > 0 ? user.sem1Sgpa : "-"} sgpa</p>
+            </div>
+            <div className="efullname">
+              <div className="label">Start Date: </div>
+              <p>{user.sem3Sgpa > 0 ? user.sem3Sgpa : "-"} sgpa</p>
+            </div>
+            <div className="efullname">
+              <div className="label">End Date :</div>
+              <p>{user.sem5Sgpa > 0 ? user.sem5Sgpa : "-"} sgpa</p>
+            </div>
+          </div>
+          <div className="personaldetails epersonaldetails">
+            <p>
+              <div style={{ fontWeight: "600" }}>Desc:</div> Lorem ipsum dolor,
+              sit amet consectetur adipisicing elit. Harum unde pariatur sed,
+              iure, iusto quidem est sint quos molestias autem magnam enim
+              maxime veritatis laborum? Eum dolorem, possimus molestiae numquam
+              architecto quia nostrum aliquid. Totam fugit dolorum hic deserunt
+              illum!
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

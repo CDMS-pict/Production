@@ -102,6 +102,7 @@ function Amcat({user}) {
     try {
       await axios.post("/api/amcat/newAmcat", data);
       window.alert("Amcat Data Added Successfully");
+      setOpen(false);
     } catch (err) {
       console.log(err);
     }

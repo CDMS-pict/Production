@@ -28,7 +28,7 @@ function AmcatDetails({ user }) {
     setFileToBase(file);
     // filename = file.name;
     setFilename(file.name);
-    console.log(file);
+    // console.log(file);
   };
   const setFileToBase = (file) => {
     const reader = new FileReader();
@@ -43,7 +43,7 @@ function AmcatDetails({ user }) {
     setFileToBase2(file);
     // filename = file.name;
     setFilename2(file.name);
-    console.log(file);
+    // console.log(file);
   };
   const setFileToBase2 = (file) => {
     const reader2 = new FileReader();
@@ -103,10 +103,12 @@ function AmcatDetails({ user }) {
       // console.log(data);
       await axios.post("/api/amcat/newamcat", data);
       window.alert("Amcat Data Added Successfully");
+      setOpen(false);
+
     } catch (err) {
       console.log(err);
     }
-    console.log(selectedFile);
+    // console.log(selectedFile);
   };
   return (
     <div>

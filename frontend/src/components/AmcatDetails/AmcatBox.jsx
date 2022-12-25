@@ -135,6 +135,9 @@ function AmcatBox({ data, user }) {
         <br />
         <div className="amcatbox_desc">
           <p>
+            <h2 style={{paddingTop: "0"}}>Attemp No.: {data.attempt}</h2>
+          </p>
+          <p>
             <b>English Comprehension: {data.english}</b>
           </p>
           <p>
@@ -145,7 +148,7 @@ function AmcatBox({ data, user }) {
             <b>Automata: {data.automata}</b>
           </p>
           <p>
-            <b>Average ELQ:  {avgelq}</b>
+            <b>Average ELQ:  {parseFloat(avgelq).toFixed(2)}</b>
           </p>
         </div>
         <div className="editbtndiv">
