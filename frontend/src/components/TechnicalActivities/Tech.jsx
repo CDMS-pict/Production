@@ -40,21 +40,7 @@ function Technical({user}) {
   const handleClose = () => setOpen(false);
 
   const [datas, setDatas] = useState([]);
-  // const [user, setUser] = useState("");
-
-  // const refreshToken = async () => {
-  //   const res = await axios
-  //     .get("/api/students/refresh", {
-  //       withCredentials: true,
-  //     })
-  //     .catch((err) => console.log(err));
-
-  //   const data = await res.data;
-  //   return data;
-  // };
  
- 
-  // console.log(user);
   const handleAddInternship = async (e) => {
     const data = {
       club,
@@ -89,6 +75,19 @@ function Technical({user}) {
     // console.log(selectedFile);
   };
 
+  useEffect(()=>{
+    const fetchactivites = async()=>{
+      try{
+        const res = await axios.get("/api/techActivity/getbysid/" + user._id);
+        setDatas(res.data);
+        console.log(res.data);
+      }
+      catch(err){
+        console.log(err);
+      }
+    }
+    fetchactivites();
+  })
   return (
     <>
       <Navbar user={user}/>

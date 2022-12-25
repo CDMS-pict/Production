@@ -12,7 +12,8 @@ import moment from "moment-timezone";
 import { Document, Page, pdfjs } from "react-pdf";
 
 function TechnicalBoxes({ data, user }) {
-  const [selectedFile, setSelectedFile] = useState("");
+
+
   const [open1, setOpen1] = React.useState(false);
   const [url, setUrl] = useState("");
   const handleClose1 = () => setOpen1(false);
@@ -41,89 +42,22 @@ function TechnicalBoxes({ data, user }) {
   };
 
   const handleOffer = () => {
-    setUrl(data.offer_letter?.url);
+    setUrl(data.file?.url);
     setOpen1(true);
   };
-  const handleCompletion = () => {
-    setUrl(data.letter_of_complition?.url);
-    setOpen1(true);
-  };
-  const [company_name, setCompany_name] = useState("");
-  const [start_date, setStart_date] = useState("");
-  const [end_date, setEnd_date] = useState("");
-  const [duration, setDuration] = useState("");
-  const [role, setRole] = useState("");
-  const [desc, setDesc] = useState("");
-  const [stipend, setStipend] = useState(0);
 
-  const [sfilename, setFilename] = useState("");
-  const handleImage = (e) => {
-    const file = e.target.files[0];
-    setFileToBase(file);
-    // filename = file.name;
-    setFilename(file.name);
-    console.log(file);
-  };
-  const setFileToBase = (file) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setSelectedFile(reader.result);
-    };
-  };
 
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
-  const handleUpdateInternship = async (e) => {
-    const datas = {
-      letter_of_complition: selectedFile,
-      student_id: user._id,
-    };
-    const form_data = {
-      company_name:
-        company_name !== ""
-          ? company_name
-          : data.company_name
-          ? data.company_name
-          : "",
-      start_date:
-        start_date !== "" ? start_date : data.start_date ? data.start_date : "",
-      end_date: end_date !== "" ? end_date : data.end_date ? data.end_date : "",
-      duration: duration !== "" ? duration : data.duration ? data.duration : "",
-      role: role !== "" ? role : data.role ? data.role : "",
-      desc: desc !== "" ? desc : data.desc ? data.desc : "",
-      stipend: stipend !== "" ? stipend : data.stipend ? data.stipend : "",
-    };
-
-    try {
-      await axios.put(
-        `/api/internships/updateInternshipInfo/${data._id}`,
-        form_data
-      );
-      if (selectedFile) {
-        await axios.put(`/api/internships/updateInternship/${data._id}`, datas);
-      }
-      console.log(form_data);
-      window.alert("Internship Data Updated Successfully");
-      // window.location.reload();
-    } catch (err) {
-      console.log(err);
-    }
-    // console.log(selectedFile);
-  };
+ 
 
   const handleDelete = async () => {
     try {
       await axios.delete(
-        `/api/internships/deleteInternship/${user._id}/${data._id}`
+        `/api/techActivity/deletetechactivity/${data._id}`
       );
-      window.alert("Internship Details Deleted Successfully");
-      window.location.reload();
+      window.alert("Technical Activity Deleted Successfully");
     } catch (err) {
       console.log(err);
-      window.alert("Currently Not able to delete the internship data");
+      window.alert("Currently Not able to delete the Technical Activity");
     }
   };
   return (
@@ -139,162 +73,39 @@ function TechnicalBoxes({ data, user }) {
         <br />
         <div className="box_desc">
           <p>
-            <b>Club Name: </b> 
+            <b>Club Name : </b> 
+            {data.club}
+          </p>
+        
+          <p>
+            <b>Start Date : </b>
+            {moment(data.sdate).format("YYYY-MM-DD")}
           </p>
           <p>
-            <b>Contest Name: </b> 
+            <b>End Date : </b>
+            {moment(data.edate).format("YYYY-MM-DD")}
           </p>
           <p>
-            <b>Description: </b>
-          </p>
-          <p>
-            <b>Start Date:</b>
-          </p>
-          <p>
-            <b>End Date:</b>
+            <b>Description :  </b>
+            {data.desc}
           </p>
         </div>
         <div className="editbtndiv">
-          {/* {data.offer_letter?.url && (
+     
+            {data.file?.url && (
             <Button
               variant="outlined"
               className="editbtn e1"
               onClick={handleOffer}
             >
-              Offer Letter
+              Proof
             </Button>
           )}
-          {data.letter_of_complition?.url && (
-            <Button
-              variant="outlined"
-              className="editbtn e1"
-              onClick={handleCompletion}
-            >
-              Complition Letter{" "}
-            </Button>
-          )} */}
-          <Button variant="outlined" className="editbtn" onClick={handleOpen}>
-            Edit{" "}
-          </Button>
           <Button variant="outlined" className="editbtn" onClick={handleDelete}>
             Delete{" "}
           </Button>
         </div>
-        <Modal
-          aria-describedby="transition-modal-description"
-          open={open}
-          onClose={handleClose}
-          closeAfterTransition
-          BackdropComponent={Backdrop}
-          BackdropProps={{
-            timeout: 500,
-          }}
-        >
-          <Fade in={open}>
-            <Box className="boxmodal">
-              <center>
-                <h2>Edit Internship details</h2>
-                <FormInputTech
-                  name="Club Name"
-                  placeholder="Enter club name"
-                  // defaultValue={data.company_name}
-                  // disabled
-                  onChange={(e) => setCompany_name(e.target.value)}
-                />
-
-                <FormInputTech
-                  name="ContestName"
-                  placeholder="Contest Name"
-                  // defaultValue={data.duration}
-                  // disabled
-                  onChange={(e) => setDuration(e.target.value)}
-                />
-                {/* <FormInputTech
-                  name="Role"
-                  placeholder="Role"
-                  // defaultValue={data.role}
-                  // disabled
-                  onChange={(e) => setRole(e.target.value)} */}
-                {/* /> */}
-                  {/* <FormInputTech
-                    name="Stipend"
-                    placeholder="Stipend"
-                    // defaultValue={data.stipend}
-                    // disabled
-                    onChange={(e) => setStipend(e.target.value)}
-                  /> */}
-                <FormInputTech
-                  name="Description"
-                  placeholder="Description"
-                  // defaultValue={data.desc}
-                  // disabled
-                  onChange={(e) => setDesc(e.target.value)}
-                />
-                <center>
-                  <DateInputTech
-                    name="Start Date"
-                    placeholder="Start Date"
-                    label="Start Date"
-                    // value={
-                    //   start_date === ""
-                    //     ? moment(data.start_date).format("YYYY-MM-DD")
-                    //     : start_date
-                    // }
-                    onChange={(e) => setStart_date(e.target.value)}
-                  />
-                  <DateInputTech
-                    name="Start Date"
-                    placeholder="End Date"
-                    label="End Date"
-                    // value={
-                    //   end_date === ""
-                    //     ? moment(data.end_date).format("YYYY-MM-DD")
-                    //     : end_date
-                    // }
-                    onChange={(e) => setEnd_date(e.target.value)}
-                  />
-                </center>
-                <div className="intern1">
-                  <Button
-                    id="outlined-btn"
-                    variant="contained"
-                    component="label"
-                    size="small"
-                  >
-                    <div className="uploadmarksheet">
-                      <i class="fa-solid fa-upload"></i>
-                      Proof
-                    </div>
-                    <input
-                      hidden
-                      accept=".pdf"
-                      multiple
-                      type="file"
-                      onChange={handleImage}
-                    />
-                  </Button>
-                </div>
-                <span
-                  style={{
-                    fontSize: "12px",
-                    color: "black",
-                    fontWeight: "600",
-                  }}
-                >
-                  {sfilename}
-                </span>
-                <div className="submitbtndiv">
-                  <Button
-                    className="internsubtn"
-                    onClick={handleUpdateInternship}
-                  >
-                    Update
-                  </Button>
-                </div>
-              </center>
-            </Box>
-          </Fade>
-        </Modal>
+       
         <Modal
           aria-describedby="transition-modal-description"
           open={open1}
@@ -306,7 +117,7 @@ function TechnicalBoxes({ data, user }) {
           }}
         >
           <Fade in={open1}>
-            <Box className="boxmodal pdfbox">
+            <Box className="boxmodal pdfbox" >
               {url && <Button onClick={onButtonClick}>Download PDF</Button>}
               <Document
                 file={url}
