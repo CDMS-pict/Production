@@ -36,13 +36,41 @@ function PrintProfile({ user }) {
     };
     fetchactivites();
   });
+  const [compexams, setCompExams] = useState([]);
+
+  useEffect(() => {
+    const fetchactivites = async () => {
+      try {
+        const res = await axios.get("/api/compexams/getbysid/" + user._id);
+
+        setCompExams(res.data);
+        console.log(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchactivites();
+  });
+
+  const [amcat, setAmcat] = useState([]);
+  useEffect(() => {
+    const fetchAmcatData = async () => {
+      try {
+        const res = await axios.get(`/api/amcat/getbysid/${user._id}`);
+        setAmcat(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchAmcatData();
+  });
 
   return (
     <div
       className="printprofilepage"
-      // onPointerMove={() => (
-      //   window.print(), window.location.replace("/dashboard")
-      // )}
+      onPointerMove={async() => (
+        await window.print(), setInterval(window.location.replace("/dashboard"))
+      )}
     >
       <br />
 
@@ -55,8 +83,7 @@ function PrintProfile({ user }) {
         </div>
       </div>
       <center>
-      <hr style={{width: "50%"}}/>
-
+        <hr style={{ width: "50%" }} />
       </center>
       <div className="headingline">
         <h2>Digital Academic Passport</h2>
@@ -197,7 +224,10 @@ function PrintProfile({ user }) {
           </div>
         </div>
       </div>
-      <div className="printpage2 page1 ">
+      <div
+        className="printpage2 page2 "
+        style={{ backgroundColor: "whiesmoke" }}
+      >
         <small
           style={{ right: "0", position: "absolute", marginRight: "20px" }}
         >
@@ -226,7 +256,7 @@ function PrintProfile({ user }) {
         <div className="headdiv">Extra Curricular</div>
         {extracdatas.map((data) => (
           <div className="extraactivity">
-            <div className="personaldetailsp edetails" >
+            <div className="personaldetailsp edetails">
               <div className="efullname">
                 <div className="label">Organization : </div>
                 <p>{data.organization} </p>
@@ -251,7 +281,14 @@ function PrintProfile({ user }) {
             </div>
           </div>
         ))}
-        <div className="headdiv">Technical Acitivities</div>
+      </div>
+      <div className="page1">
+      <small
+          style={{ right: "0", position: "absolute", marginRight: "20px" }}
+        >
+          Page 3
+        </small>
+        <div className="headdiv ">Technical Acitivities</div>
 
         <div className="extraactivity">
           <div className="personaldetailsp edetails">
@@ -282,6 +319,69 @@ function PrintProfile({ user }) {
               illum!
             </p>
           </div>
+        </div>
+
+        <div className="headdiv">Comp Exams</div>
+        <div className="personaldetailsp amcatdetails">
+          {compexams.map((comp) => (
+            <div className="compexambox">
+              <div className="fullname">
+                <div className="label" style={{ display: "flex" }}>
+                  Exam Name : &nbsp;{" "}
+                  <p style={{ fontWeight: "400" }}>{comp.exam} </p>
+                </div>
+
+                <div className="label" style={{ display: "flex" }}>
+                  Exam Date : &nbsp;{" "}
+                  <p style={{ fontWeight: "400" }}>
+                    {moment(comp.date).format("YYYY-MM-DD")}{" "}
+                  </p>
+                </div>
+
+                <div className="label" style={{ display: "flex" }}>
+                  Exam Score : &nbsp;{" "}
+                  <p style={{ fontWeight: "400" }}>{comp.score} </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="headdiv">Amcat Details</div>
+        <div className="personaldetailsp amcatdetails ">
+          {amcat.map((comp) => (
+            <div className="compexambox">
+              <div className="fullname">
+                <div className="label" style={{ display: "flex" }}>
+                  Attemp No : &nbsp;{" "}
+                  <p style={{ fontWeight: "400" }}>{comp.attempt} </p>
+                </div>
+                <div className="label" style={{ display: "flex" }}>
+                  English Comprehension : &nbsp;{" "}
+                  <p style={{ fontWeight: "400" }}>{comp.english} </p>
+                </div>
+
+                <div className="label" style={{ display: "flex" }}>
+                  Logical Ability : &nbsp;{" "}
+                  <p style={{ fontWeight: "400" }}>{comp.logical}</p>
+                </div>
+
+                <div className="label" style={{ display: "flex" }}>
+                  Quantitaive Ability : &nbsp;{" "}
+                  <p style={{ fontWeight: "400" }}>{comp.quantitative} </p>
+                </div>
+                <div className="label" style={{ display: "flex" }}>
+                  Automata : &nbsp;{" "}
+                  <p style={{ fontWeight: "400" }}>{comp.automata} </p>
+                </div>
+                <div className="label" style={{ display: "flex" }}>
+                  Average ELQ : &nbsp;{" "}
+                  <p style={{ fontWeight: "400" }}>
+                    {(comp.english + comp.quantitative + comp.logical) / 27}{" "}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

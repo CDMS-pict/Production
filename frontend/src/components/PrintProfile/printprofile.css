@@ -121,3 +121,17 @@ text-align: left;
 .page1{
     height: 900px;
 }
+
+.compexambox{
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+    padding-inline: 20px;
+}
+.page2{
+    height: 1100px;
+}
+.amcatdetailsp{
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 10px;
+}
