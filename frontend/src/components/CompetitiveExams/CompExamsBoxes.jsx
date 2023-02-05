@@ -10,6 +10,15 @@ import axios from "axios";
 import DateInput from "./DateInput";
 import moment from "moment-timezone";
 import { Document, Page, pdfjs } from "react-pdf";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Slide from "@mui/material/Slide";
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 function CompExamsBoxes({ data, user }) {
   const [open1, setOpen1] = React.useState(false);
@@ -48,13 +57,24 @@ function CompExamsBoxes({ data, user }) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const [opend, setOpend] = React.useState(false);
+
+  const handleClickOpend = () => {
+    setOpend(true);
+  };
+
+  const handleClosed = () => {
+    setOpend(false);
+  };
+
+  const [deleting, setDeleting] = useState(false);
   const handleDelete = async () => {
     try {
-      await axios.delete(
-        `/api/internships/deleteInternship/${user._id}/${data._id}`
-      );
-      window.alert("Internship Details Deleted Successfully");
-      window.location.reload();
+      setDeleting(true);
+
+      await axios.delete(`/api/compexams/deletecomexam/${data._id}`);
+      setOpend(false);
+      setDeleting(false);
     } catch (err) {
       console.log(err);
       window.alert("Currently Not able to delete the internship data");
@@ -80,6 +100,9 @@ function CompExamsBoxes({ data, user }) {
             Proof
           </Button>
         )}
+        <Button className="editbtn e1" onClick={handleClickOpend}>
+          Delete
+        </Button>
       </div>
       <Modal
         aria-describedby="transition-modal-description"
@@ -121,6 +144,32 @@ function CompExamsBoxes({ data, user }) {
           </Box>
         </Fade>
       </Modal>
+      <Dialog
+        open={opend}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClosed}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle>
+          {"Are You Sure You Want To Delete This Exam Data ?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            Exam Name: {data.exam} <br />
+            Score: {data.score} <br />
+            Exam Date: {moment(data.date).format("YYYY-MM-DD")} <br />
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          {deleting ? (
+            "Deleting..."
+          ) : (
+            <Button onClick={handleDelete}>Yes</Button>
+          )}
+          <Button onClick={handleClosed}>No</Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }

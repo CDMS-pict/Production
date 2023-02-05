@@ -10,6 +10,16 @@ import axios from "axios";
 import DateInput from "./DateInput";
 import moment from "moment-timezone";
 import { Document, Page, pdfjs } from "react-pdf";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Slide from "@mui/material/Slide";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 function Internship_Boxes({ data, user }) {
   const [selectedFile, setSelectedFile] = useState("");
@@ -72,11 +82,22 @@ function Internship_Boxes({ data, user }) {
     };
   };
 
+  const [opend, setOpend] = React.useState(false);
+
+  const handleClickOpend = () => {
+    setOpend(true);
+  };
+
+  const handleClosed = () => {
+    setOpend(false);
+  };
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const[updating,setUpdating] = useState(false);
   const handleUpdateInternship = async (e) => {
+    setUpdating(true);
     const datas = {
       letter_of_complition: selectedFile,
       student_id: user._id,
@@ -106,21 +127,27 @@ function Internship_Boxes({ data, user }) {
         await axios.put(`/api/internships/updateInternship/${data._id}`, datas);
       }
       console.log(form_data);
+      setUpdating(false);
       window.alert("Internship Data Updated Successfully");
       // window.location.reload();
+      setOpen(false);
     } catch (err) {
       console.log(err);
     }
     // console.log(selectedFile);
   };
 
+  const [deleting, setDeleting] = useState(false);
   const handleDelete = async () => {
     try {
+      setDeleting(true);
       await axios.delete(
         `/api/internships/deleteInternship/${user._id}/${data._id}`
       );
-      window.alert("Internship Details Deleted Successfully");
-      window.location.reload();
+      setOpend(false);
+      setDeleting(false);
+      // window.alert("Internship Details Deleted Successfully");
+      // window.location.reload();
     } catch (err) {
       console.log(err);
       window.alert("Currently Not able to delete the internship data");
@@ -142,15 +169,21 @@ function Internship_Boxes({ data, user }) {
           <p>
             <b>Role: </b> {data.role}
           </p>
-         {data.status==="Pending" && <p style={{color: "Orange"}}>
-            <b>Status: </b> {data.status}
-          </p>}
-         {data.status==="Approved" && <p style={{color: "Green"}}>
-            <b>Status: </b> {data.status}
-          </p>}
-         {data.status==="Rejected" && <p style={{color: "Red"}}>
-            <b>Status: </b> {data.status}
-          </p>}
+          {data.status === "Pending" && (
+            <p style={{ color: "Orange" }}>
+              <b>Status: </b> {data.status}
+            </p>
+          )}
+          {data.status === "Approved" && (
+            <p style={{ color: "Green" }}>
+              <b>Status: </b> {data.status}
+            </p>
+          )}
+          {data.status === "Rejected" && (
+            <p style={{ color: "Red" }}>
+              <b>Status: </b> {data.status}
+            </p>
+          )}
           <p>
             <b>Stipend: </b> {data.stipend}
           </p>
@@ -182,7 +215,11 @@ function Internship_Boxes({ data, user }) {
           <Button variant="outlined" className="editbtn" onClick={handleOpen}>
             Edit{" "}
           </Button>
-          <Button variant="outlined" className="editbtn" onClick={handleDelete}>
+          <Button
+            variant="outlined"
+            className="editbtn"
+            onClick={handleClickOpend}
+          >
             Delete{" "}
           </Button>
         </div>
@@ -197,7 +234,7 @@ function Internship_Boxes({ data, user }) {
           }}
         >
           <Fade in={open}>
-            <Box className="boxmodal" >
+            <Box className="boxmodal">
               <center>
                 <h2>Edit Internship details</h2>
                 <FormInput
@@ -206,6 +243,7 @@ function Internship_Boxes({ data, user }) {
                   defaultValue={data.company_name}
                   // disabled
                   onChange={(e) => setCompany_name(e.target.value)}
+                  maxlength={20}
                 />
 
                 <FormInput
@@ -214,6 +252,7 @@ function Internship_Boxes({ data, user }) {
                   defaultValue={data.duration}
                   // disabled
                   onChange={(e) => setDuration(e.target.value)}
+                  maxlength={20}
                 />
                 <FormInput
                   name="Role"
@@ -221,20 +260,22 @@ function Internship_Boxes({ data, user }) {
                   defaultValue={data.role}
                   // disabled
                   onChange={(e) => setRole(e.target.value)}
+                  maxlength={20}
                 />
-                  <FormInput
-                    name="Stipend"
-                    placeholder="Stipend"
-                    defaultValue={data.stipend}
-                    // disabled
-                    onChange={(e) => setStipend(e.target.value)}
-                  />
+                <FormInput
+                  name="Stipend"
+                  placeholder="Stipend"
+                  defaultValue={data.stipend}
+                  // disabled
+                  onChange={(e) => setStipend(e.target.value)}
+                />
                 <FormInput
                   name="Description"
                   placeholder="Description"
                   defaultValue={data.desc}
                   // disabled
                   onChange={(e) => setDesc(e.target.value)}
+                  maxlength={300}
                 />
                 <center>
                   <DateInput
@@ -290,12 +331,12 @@ function Internship_Boxes({ data, user }) {
                   {sfilename}
                 </span>
                 <div className="submitbtndiv">
-                  <Button
+                  {updating? "Updating..." :<Button
                     className="internsubtn"
                     onClick={handleUpdateInternship}
                   >
                     Update
-                  </Button>
+                  </Button>}
                 </div>
               </center>
             </Box>
@@ -312,7 +353,7 @@ function Internship_Boxes({ data, user }) {
           }}
         >
           <Fade in={open1}>
-            <Box className="boxmodal pdfbox" >
+            <Box className="boxmodal pdfbox">
               {url && <Button onClick={onButtonClick}>Download PDF</Button>}
               <Document
                 file={url}
@@ -341,6 +382,36 @@ function Internship_Boxes({ data, user }) {
             </Box>
           </Fade>
         </Modal>
+        <Dialog
+          open={opend}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={handleClosed}
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle>
+            {"Are You Sure You Want To Delete This Internship Data ?"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+              Company Name: {data.company_name} <br />
+              Role: {data.role} <br />
+              Duration: {data.duration} <br />
+              Stipend: {data.stipend} <br />
+              Status: {data.status} <br />
+              Start Date: {moment(data.start_date).format("YYYY-MM-DD")} <br />
+              End Date: {moment(data.end_date).format("YYYY-MM-DD")}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            {deleting ? (
+              "Deleting..."
+            ) : (
+              <Button onClick={handleDelete}>Yes</Button>
+            )}
+            <Button onClick={handleClosed}>No</Button>
+          </DialogActions>
+        </Dialog>
       </div>
     </div>
   );

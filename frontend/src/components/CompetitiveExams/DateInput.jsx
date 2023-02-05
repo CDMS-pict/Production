@@ -8,7 +8,7 @@ function DateInput(props) {
 
   return (
       <div className="forminput dateforminput">
-        <label>{label}</label>
+        <label style={{marginTop: "7px"}}>{label}</label>
         <input type="date"  {...inputProps} />
       </div>
   );

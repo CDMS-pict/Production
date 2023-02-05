@@ -11,6 +11,7 @@ import FormInput from "./FormInput";
 import axios from "axios";
 import DateInput from "./DateInput";
 import ExtraCurrBoxes from "./ExtraCurrBoxes";
+import Skeleton from "@mui/material/Skeleton";
 
 function ExtraCurricular({ user }) {
   const [selectedFile, setSelectedFile] = useState("");
@@ -36,13 +37,15 @@ function ExtraCurricular({ user }) {
     };
   };
 
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   // const [datas, setDatas] = useState([]);
-
+  const[adding,setAdding] = useState(false);
   const handleAddExtraC = async (e) => {
+    setAdding(true);
     const data = {
       organization,
       role,
@@ -68,34 +71,39 @@ function ExtraCurricular({ user }) {
       window.alert("All the fields are required");
       return;
     }
-    if(desc.length<40){
+    if (desc.length < 40) {
       window.alert("Description Should be atleast of 40 words");
-      return ;
+      return;
     }
     try {
       await axios.post("/api/extracurricular/newExtrac", data);
-      window.alert("Extra Curricular Activity Added Successfully");
+      // window.alert("Extra Curricular Activity Added Successfully");
       setOpen(false);
+      setAdding(false);
     } catch (err) {
       console.log(err);
     }
   };
 
-  const [datas,setDatas ] = useState([]);
+  const [datas, setDatas] = useState([]);
 
-  useEffect(()=>{
-    const fetchactivites = async()=>{
-      try{
-        const res = await axios.get("/api/extracurricular/getbysidd/" + user._id);
-        setDatas(res.data);
-        console.log(res.data);
-      }
-      catch(err){
-        console.log(err);
-      }
+  const fetchactivites = async () => {
+    try {
+      const res = await axios
+        .get("/api/extracurricular/getbysidd/" + user._id)
+        .catch((err) => console.log(err));
+      // setDatas(res.data);
+      const data = await res.data;
+      console.log(data);
+      return data;
+    } catch (err) {
+      console.log(err);
     }
-    fetchactivites();
-  })
+  };
+
+  useEffect(() => {
+    fetchactivites().then((data) => setDatas(data));
+  });
 
   return (
     <>
@@ -112,9 +120,18 @@ function ExtraCurricular({ user }) {
       <br />
       <center>
         <div className="internshipboxes">
-          {datas.map((d) => (
-            <ExtraCurrBoxes data={d} user={user} />
-          ))}
+          {!datas ? (
+            <>
+              <Skeleton variant="rectangular" style={{width: "80%", height: "200px", borderRadius: "10px"}} />
+              <br/>
+              <Skeleton variant="rectangular" style={{width: "80%", height: "200px", borderRadius: "10px"}} />
+              <br/>
+              <Skeleton variant="rectangular" style={{width: "80%", height: "200px", borderRadius: "10px"}} />
+              <br/>
+            </>
+          ) : (
+            datas.map((d) => <ExtraCurrBoxes data={d} user={user} />)
+          )}
         </div>
       </center>
       <Modal
@@ -136,17 +153,22 @@ function ExtraCurricular({ user }) {
                 name="Company Name"
                 placeholder="Name of the organization"
                 onChange={(e) => setOrganization_name(e.target.value)}
-              />
+                maxlength={30}
+                
+                />
               <FormInput
                 name="Role"
                 placeholder="Role"
                 onChange={(e) => setRole(e.target.value)}
+                maxlength={30}
               />
 
               <FormInput
                 name="Description"
-                placeholder="Description"
+                placeholder="Description (upto 300 Characters)"
                 onChange={(e) => setDesc(e.target.value)}
+                maxlength={300}
+                label = {desc.length +" /300"}
               />
 
               <center>
@@ -190,9 +212,9 @@ function ExtraCurricular({ user }) {
                 {sfilename}
               </span>
               <div className="submitbtndiv">
-                <Button className="internsubtn" onClick={handleAddExtraC}>
+               {adding? "Processing..." : <Button className="internsubtn" onClick={handleAddExtraC}>
                   Submit
-                </Button>
+                </Button>}
               </div>
             </center>
           </Box>

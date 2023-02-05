@@ -10,10 +10,9 @@ import FormInput from "./FormInput";
 import InternshipBoxes from "./InternshipBoxes";
 import axios from "axios";
 import DateInput from "./DateInput";
+import Skeleton from "@mui/material/Skeleton";
 
-
-
-function Internship({user}) {
+function Internship({ user }) {
   const [selectedFile, setSelectedFile] = useState("");
   const [company_name, setCompany_name] = useState("");
   const [start_date, setStart_date] = useState("");
@@ -70,11 +69,13 @@ function Internship({user}) {
     };
     fetchInternships();
   });
- 
+
   // console.log(user);
+  const [adding,setAdding] = useState(false);
   const handleAddInternship = async (e) => {
-    const data = {
-      company_name,
+  setAdding(true);
+  const data = {
+    company_name,
       start_date,
       end_date,
       duration,
@@ -104,7 +105,9 @@ function Internship({user}) {
     }
     try {
       await axios.post("/api/internships/newInternship", data);
-      window.alert("Internship Data Added Successfully");
+      // window.alert("Internship Data Added Successfully");
+      setOpen(false);
+      setAdding(false);
     } catch (err) {
       console.log(err);
     }
@@ -113,7 +116,7 @@ function Internship({user}) {
 
   return (
     <>
-      <Navbar user={user}/>
+      <Navbar user={user} />
       <div className="studentInternshipDashboard">
         <div className="dataheader">
           <p className="internship_data_header">Internship Data</p>
@@ -126,9 +129,27 @@ function Internship({user}) {
       <br />
       <center>
         <div className="internshipboxes">
-          {datas.map((d) => (
-            <InternshipBoxes data={d} user={user} />
-          ))}
+          {!datas ? (
+            <>
+              <Skeleton
+                variant="rectangular"
+                style={{ width: "80%", height: "250px", borderRadius: "10px" }}
+              />
+              <br />
+              <Skeleton
+                variant="rectangular"
+                style={{ width: "80%", height: "250px", borderRadius: "10px" }}
+              />
+              <br />
+              <Skeleton
+                variant="rectangular"
+                style={{ width: "80%", height: "250px", borderRadius: "10px" }}
+              />
+              <br />
+            </>
+          ) : (
+            datas.map((d) => <InternshipBoxes data={d} user={user} />)
+          )}
         </div>
       </center>
       <Modal
@@ -150,7 +171,8 @@ function Internship({user}) {
                 name="Company Name"
                 placeholder="Enter Company name"
                 onChange={(e) => setCompany_name(e.target.value)}
-              />
+                maxlength={20}
+                />
               {/* <FormInput
                 name="Start Date"
                 placeholder="Start Date"
@@ -165,22 +187,26 @@ function Internship({user}) {
                 name="Duration"
                 placeholder="Duration"
                 onChange={(e) => setDuration(e.target.value)}
+                maxlength={20}
               />
               <FormInput
                 name="Role"
                 placeholder="Role"
                 onChange={(e) => setRole(e.target.value)}
+                maxlength={20}
               />
               <FormInput
                 name="Stipend"
                 type="number"
                 placeholder="Stipend"
                 onChange={(e) => setStipend(e.target.value)}
+                maxlength={20}
               />
               <FormInput
                 name="Description"
                 placeholder="Description"
                 onChange={(e) => setDesc(e.target.value)}
+                maxlength={300}
               />
 
               <center>
@@ -242,9 +268,9 @@ function Internship({user}) {
                 {sfilename}
               </span>
               <div className="submitbtndiv">
-                <Button className="internsubtn" onClick={handleAddInternship}>
+                {adding? "Processing..." : <Button className="internsubtn" onClick={handleAddInternship}>
                   Submit
-                </Button>
+                </Button>}
               </div>
             </center>
           </Box>

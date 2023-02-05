@@ -10,6 +10,17 @@ import axios from "axios";
 import DateInputTech from "./DateInputTech";
 import moment from "moment-timezone";
 import { Document, Page, pdfjs } from "react-pdf";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Slide from "@mui/material/Slide";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
 
 function TechnicalBoxes({ data, user }) {
 
@@ -47,14 +58,27 @@ function TechnicalBoxes({ data, user }) {
   };
 
 
+  const [opend, setOpend] = React.useState(false);
+
+  const handleClickOpend = () => {
+    setOpend(true);
+  };
+
+  const handleClosed = () => {
+    setOpend(false);
+  };
+  const [deleting, setDeleting] = useState(false);
+ 
  
 
   const handleDelete = async () => {
     try {
+      setDeleting(true);
       await axios.delete(
         `/api/techActivity/deletetechactivity/${data._id}`
       );
-      window.alert("Technical Activity Deleted Successfully");
+      setOpend(false);
+      setDeleting(false);
     } catch (err) {
       console.log(err);
       window.alert("Currently Not able to delete the Technical Activity");
@@ -63,14 +87,7 @@ function TechnicalBoxes({ data, user }) {
   return (
     <div>
       <div className="box">
-        <div className="boxtop">
-          <p className="company_name"></p>
-          <p className="duration_date">
-            
-            {/* {starting_date.getFullYear()+'-' + (starting_date.getMonth()+1) + '-'+starting_date.getDate()} */}
-          </p>
-        </div>
-        <br />
+        <br/>
         <div className="box_desc">
           <p>
             <b>Club Name : </b> 
@@ -101,7 +118,7 @@ function TechnicalBoxes({ data, user }) {
               Proof
             </Button>
           )}
-          <Button variant="outlined" className="editbtn" onClick={handleDelete}>
+          <Button variant="outlined" className="editbtn" onClick={handleClickOpend}>
             Delete{" "}
           </Button>
         </div>
@@ -146,6 +163,32 @@ function TechnicalBoxes({ data, user }) {
             </Box>
           </Fade>
         </Modal>
+        <Dialog
+          open={opend}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={handleClosed}
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle>
+            {"Are You Sure You Want To Delete This Activity ?"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+              Club Name: {data.club} <br />
+              Start Date: {moment(data.sdate).format("YYYY-MM-DD")} <br />
+              End Date: {moment(data.edate).format("YYYY-MM-DD")}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            {deleting ? (
+              "Deleting..."
+            ) : (
+              <Button onClick={handleDelete}>Yes</Button>
+            )}
+            <Button onClick={handleClosed}>No</Button>
+          </DialogActions>
+        </Dialog>
       </div>
     </div>
   );

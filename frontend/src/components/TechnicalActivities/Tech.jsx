@@ -10,6 +10,8 @@ import FormInputTech from "./FormInputTech";
 import TechnicalBoxes from "./TechnicalBoxes";
 import axios from "axios";
 import DateInputTech from "./DateInputTech";
+import Skeleton from "@mui/material/Skeleton";
+
 
 function Technical({user}) {
   const [selectedFile, setSelectedFile] = useState("");
@@ -40,8 +42,9 @@ function Technical({user}) {
   const handleClose = () => setOpen(false);
 
   const [datas, setDatas] = useState([]);
- 
+ const[adding,setAdding] = useState(false);
   const handleAddInternship = async (e) => {
+    setAdding(true);
     const data = {
       club,
       sdate,
@@ -68,7 +71,8 @@ function Technical({user}) {
     }
     try {
       await axios.post("/api/techActivity/newTechActivity", data);
-      window.alert("Technical Activity Added Successfully");
+      setOpen(false);
+      setAdding(false);
     } catch (err) {
       console.log(err);
     }
@@ -103,7 +107,17 @@ function Technical({user}) {
       <br />
       <center>
         <div className="internshipboxes">
-          {datas.map((d) => (
+          {!datas ?
+          <>
+          <Skeleton variant="rectangular" style={{width: "80%", height: "200px", borderRadius: "10px"}} />
+          <br/>
+          <Skeleton variant="rectangular" style={{width: "80%", height: "200px", borderRadius: "10px"}} />
+          <br/>
+          <Skeleton variant="rectangular" style={{width: "80%", height: "200px", borderRadius: "10px"}} />
+          <br/>
+        </>
+        :
+          datas.map((d) => (
             <TechnicalBoxes data={d} user={user} />
           ))}
         </div>
@@ -209,9 +223,9 @@ function Technical({user}) {
                 {sfilename}
               </span>
               <div className="submitbtndiv">
-                <Button className="internsubtn" onClick={handleAddInternship}>
+              {adding ? "Processing..." :  <Button className="internsubtn" onClick={handleAddInternship}>
                   Submit
-                </Button>
+                </Button>}
               </div>
             </center>
           </Box>

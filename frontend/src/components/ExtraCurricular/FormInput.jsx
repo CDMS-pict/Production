@@ -5,7 +5,7 @@ function FormInput(props) {
   const { label, ...inputProps } = props;
   return (
     <div className="forminput">
-      <label>{label}</label>
+      <label style={{paddingTop: "6px"}}>{label}</label>
       <input {...inputProps} />
     </div>
   );

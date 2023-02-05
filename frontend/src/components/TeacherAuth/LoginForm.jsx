@@ -6,6 +6,8 @@ import "./login.css";
 import logo from "../../pict_logo.jpg";
 import { authActions } from "../../store/store";
 import { useDispatch } from "react-redux";
+import CircularProgress from "@mui/material/CircularProgress";
+
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -32,14 +34,16 @@ const LoginForm = () => {
   ];
 
   const [alert, setAlert] = useState("");
-
+  const [loading, setLoading] = useState(false);
   const sendRequest = async () => {
+    setLoading(true);
     const res = await axios
       .post("/api/teachers/login", {
         collegeId: values.collegeId,
         password: values.password,
       })
       .catch((err) => setAlert("User Not Found"));
+      setLoading(false);
     const data = await res.data;
     return data;
   };
@@ -73,7 +77,9 @@ const LoginForm = () => {
             />
           ))}
 
-          <button className="loginbtn">Submit</button>
+          <button className="loginbtn">
+          {loading ? <CircularProgress color="inherit" size={30} /> : <p>Submit</p>}
+          </button>
           {alert !== "" && (
             <p style={{ color: "red", textAlign: "center", fontWeight: "600" }}>
               {alert}

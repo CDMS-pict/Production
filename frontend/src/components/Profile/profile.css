@@ -32,8 +32,9 @@
 
 .short_details {
   text-align: center;
-  font-weight: 600;
+  /* font-weight: 600; */
 }
+
 
 .view_more {
   /* background-color: black; */

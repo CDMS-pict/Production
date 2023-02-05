@@ -8,6 +8,16 @@ import "./ExtraCurr.css";
 import axios from "axios";
 import moment from "moment-timezone";
 import { Document, Page, pdfjs } from "react-pdf";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Slide from "@mui/material/Slide";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 function ExtraCurrBoxes({ data, user }) {
   const [open1, setOpen1] = React.useState(false);
@@ -42,14 +52,26 @@ function ExtraCurrBoxes({ data, user }) {
     setOpen1(true);
   };
 
+  const [opend, setOpend] = React.useState(false);
 
+  const handleClickOpend = () => {
+    setOpend(true);
+  };
+
+  const handleClosed = () => {
+    setOpend(false);
+  };
+  const [deleting, setDeleting] = useState(false);
   const handleDelete = async () => {
     try {
+      setDeleting(true);
       await axios.delete(
         `/api/extracurricular/deleteactivitiy/${data._id}`
       );
-      window.alert("ExtraCurricular Activity Deleted Successfully");
-      window.location.reload();
+      // window.alert("ExtraCurricular Activity Deleted Successfully");
+      setOpend(false);
+      setDeleting(false);
+      // window.location.reload();
     } catch (err) {
       console.log(err);
       window.alert("Currently Not able to delete the internship data");
@@ -59,7 +81,7 @@ function ExtraCurrBoxes({ data, user }) {
     <div>
       <div className="box">
         <div className="boxtop" style={{ padding: "0" }}>
-          <div className="extraactivity" style={{ border: "none" }}>
+          <div className="extraactivity ebox" style={{ border: "none" }}>
             <div
               className="personaldetails edetails extracc"
               style={{ paddingInline: "2%" }}
@@ -102,7 +124,7 @@ function ExtraCurrBoxes({ data, user }) {
             </Button>
           )}
 
-          <Button variant="outlined" className="editbtn" onClick={handleDelete}>
+          <Button variant="outlined" className="editbtn" onClick={handleClickOpend}>
             Delete{" "}
           </Button>
         </div>
@@ -147,6 +169,33 @@ function ExtraCurrBoxes({ data, user }) {
             </Box>
           </Fade>
         </Modal>
+        <Dialog
+          open={opend}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={handleClosed}
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle>
+            {"Are You Sure You Want To Delete This Activity ?"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+              Organization Name: {data.organization} <br />
+              Role: {data.role} <br />
+              Start Date: {moment(data.start_date).format("YYYY-MM-DD")} <br />
+              End Date: {moment(data.end_date).format("YYYY-MM-DD")}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            {deleting ? (
+              "Deleting..."
+            ) : (
+              <Button onClick={handleDelete}>Yes</Button>
+            )}
+            <Button onClick={handleClosed}>No</Button>
+          </DialogActions>
+        </Dialog>
       </div>
     </div>
   );

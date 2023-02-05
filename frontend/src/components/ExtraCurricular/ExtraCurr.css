@@ -71,6 +71,9 @@ h2 {
     rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   background-color: whitesmoke;
 }
+.ebox{
+  padding-top: 1%;
+}
 .box_desc {
   padding-inline: 2%;
 }

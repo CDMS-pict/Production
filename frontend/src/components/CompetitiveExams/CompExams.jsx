@@ -11,6 +11,7 @@ import CompExamsBoxes from "./CompExamsBoxes";
 import axios from "axios";
 import DateInput from "./DateInput";
 
+
 function CompExams({user}) {
   const [selectedFile, setSelectedFile] = useState("");
   const [exam_name, setExam_name] = useState("");
@@ -38,7 +39,9 @@ function CompExams({user}) {
   const handleClose = () => setOpen(false);
 
   const [datas, setDatas] = useState([]);
+  const [adding,setAdding] = useState(false);
   const handleAddInternship = async (e) => {
+    setAdding(true);
     const data = {
       exam: exam_name,
       date,
@@ -63,6 +66,8 @@ function CompExams({user}) {
     try {
       await axios.post("/api/compexams/newCompExam", data);
       window.alert("Competitive Exam Data Added Successfully");
+      setAdding(false);
+      setOpen(false);
     } catch (err) {
       console.log(err);
       window.alert("Something Went's Wrong");
@@ -83,6 +88,7 @@ function CompExams({user}) {
     fetchactivites();
   })
 
+ 
   return (
     <>
       <Navbar user={user} />
@@ -101,12 +107,7 @@ function CompExams({user}) {
           {datas.map((d) => (
             <CompExamsBoxes data={d} user={user} />
           ))}
-          {datas.map((d) => (
-            <CompExamsBoxes data={d} user={user} />
-          ))}
-          {datas.map((d) => (
-            <CompExamsBoxes data={d} user={user} />
-          ))}
+         
         </div>
       </center>
       <Modal
@@ -197,14 +198,15 @@ function CompExams({user}) {
                 {sfilename}
               </span>
               <div className="submitbtndiv">
-                <Button className="internsubtn" onClick={handleAddInternship}>
+                {adding? "Processing..." :<Button className="internsubtn" onClick={handleAddInternship}>
                   Submit
-                </Button>
+                </Button>}
               </div>
             </center>
           </Box>
         </Fade>
       </Modal>
+      
     </>
   );
 }
