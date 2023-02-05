@@ -40,7 +40,7 @@ app.use(
     origin: [
       "http://localhost:3000",
       "http://192.168.65.34:3000",
-      "https://digital-academic-passport.herokuapp.com",
+      "https://academic-passport.vercel.app",
     ],
   })
 );
@@ -58,11 +58,11 @@ app.use("/api/batches", batchRoute);
 app.use("/api/teachers", teachersRoute);
 app.use("/api/extracurricular", extraCRoute);
 
-if ((process.env.NODE_ENV = 'production')) {
+if ((process.env.NODE_ENV = "production")) {
   const path = require("path");
-  app.get("/", (req, res) => {
-    app.use(express.static(path.resolve(__dirname,'frontend','build')));
-    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+  app.get("*", (req, res) => {
+    app.use(express.static(path.resolve(__dirname, "frontend", "build")));
+    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
   });
 }
 
