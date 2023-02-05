@@ -58,14 +58,14 @@ app.use("/api/batches", batchRoute);
 app.use("/api/teachers", teachersRoute);
 app.use("/api/extracurricular", extraCRoute);
 
-if ((process.env.NODE_ENV = "production")) {
-  app.use(express.static("frontend/build"));
+if ((process.env.NODE_ENV = 'production')) {
   const path = require("path");
   app.get("/", (req, res) => {
-    res.sendfile(path.resolve(__dirname, "frontend", "build", "index.html"));
+    app.use(express.static(path.resolve(__dirname,'frontend','build')));
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
   });
 }
 
-app.listen(process.env.PORT || 5000, () => {
+app.listen(PORT || 5000, () => {
   console.log("Backend is running!");
 });
