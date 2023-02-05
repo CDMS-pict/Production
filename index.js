@@ -61,7 +61,7 @@ app.use("/api/extracurricular", extraCRoute);
 if ((process.env.NODE_ENV = "production")) {
   app.use(express.static("frontend/build"));
   const path = require("path");
-  app.get("*", (req, res) => {
+  app.get("/", (req, res) => {
     res.sendfile(path.resolve(__dirname, "frontend", "build", "index.html"));
   });
 }
