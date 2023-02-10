@@ -35,6 +35,11 @@ var Notices = new mongoose.Schema({
           },
     },
 
+    views:{
+        type:Array,
+        default:[]
+    }
+
 },
 {timestamps: true})
 

@@ -7,6 +7,20 @@ import Fade from "@mui/material/Fade";
 import "./amcat1.css";
 import axios from "axios";
 import { Document, Page, pdfjs } from "react-pdf";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Slide from "@mui/material/Slide";
+import moment from "moment-timezone";
+
+
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
 
 function AmcatBox({ data, user }) {
   const [open1, setOpen1] = React.useState(false);
@@ -51,13 +65,27 @@ function AmcatBox({ data, user }) {
   // const [open, setOpen] = React.useState(false);
   // const handleOpen = () => setOpen(true);
   // const handleClose = () => setOpen(false);
+  const [opend, setOpend] = React.useState(false);
+
+  const handleClickOpend = () => {
+    setOpend(true);
+  };
+
+  const handleClosed = () => {
+    setOpend(false);
+  };
+  const [deleting, setDeleting] = useState(false);
 
   const handleDelete = async () => {
     try {
+      setDeleting(true);
       await axios.delete(`/api/amcat/deleteAmcat/${data._id}`);
-      window.alert("Amcat Details Deleted Successfully");
+      // window.alert("Amcat Details Deleted Successfully");
+      setOpend(false);
+      setDeleting(false);
       // window.location.reload();
     } catch (err) {
+      
       console.log(err);
       window.alert("Currently Not able to delete the amcat data");
     }
@@ -109,7 +137,7 @@ function AmcatBox({ data, user }) {
           {/* <Button variant="outlined" className="editbtn" onClick={handleOpen}>
             Edit{" "}
           </Button> */}
-          <Button variant="outlined" className="editbtn" onClick={handleDelete}>
+          <Button variant="outlined" className="editbtn" onClick={handleClickOpend}>
             Delete{" "}
           </Button>
         </div>
@@ -154,6 +182,31 @@ function AmcatBox({ data, user }) {
             </Box>
           </Fade>
         </Modal>
+        <Dialog
+          open={opend}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={handleClosed}
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle>
+            {"Are You Sure You Want To Delete This Amacat Data ?"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+              Attempt Number : {data.attempt} <br />
+              Average ELQ:  {parseFloat(avgelq).toFixed(2)}<br />
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            {deleting ? (
+              "Deleting..."
+            ) : (
+              <Button onClick={handleDelete}>Yes</Button>
+            )}
+            <Button onClick={handleClosed}>No</Button>
+          </DialogActions>
+        </Dialog>
       </div>
     </div>
   );

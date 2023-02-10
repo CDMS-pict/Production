@@ -11,7 +11,12 @@ let transporter = nodemailer.createTransport({
     pass: process.env.AUTH_PASS,
   },
 });
-const signup = async ({ fullname, collegeId, password, rollno, div, branch },req, res, next) => {
+const signup = async (
+  { fullname, collegeId, password, rollno, div, branch },
+  req,
+  res,
+  next
+) => {
   try {
     const emailRegex = /@ms.pict.edu/;
     if (!emailRegex.test(collegeId)) throw "CollgeId is not valid";
@@ -79,7 +84,7 @@ const login = async (req, res, next) => {
 
 const verifyToken = (req, res, next) => {
   const cookies = req.headers.cookie;
-  console.log(cookies);
+  // console.log(cookies);
   // let token = cookies.split("=")[1];
   let token = cookies.split("=")[2];
   // token = token.split(";")[0];
@@ -164,7 +169,7 @@ const logout = (req, res, next) => {
 
 const sendOTPverificationEmail = async (req, res) => {
   try {
-    const collegeId =  req.body.collegeId;
+    const collegeId = req.body.collegeId;
     const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
     const mailOptions = {
       from: process.env.AUTH_EMAIL,
@@ -187,7 +192,7 @@ const sendOTPverificationEmail = async (req, res) => {
       status: "PENDING",
       message: "Verification otp mail sent",
       data: {
-        collegeId: collegeId
+        collegeId: collegeId,
       },
     });
   } catch (err) {
@@ -199,14 +204,14 @@ const sendOTPverificationEmail = async (req, res) => {
   }
 };
 
-const verifyOTP = async (req, res,next) => {
+const verifyOTP = async (req, res, next) => {
   try {
     let { collegeId, otp } = req.body;
     if (!collegeId || !otp) {
       throw Error("Empty otp detials are not allowed");
     } else {
       const UserOTPVerificationRecords = await UserOTPVerification.find({
-        collegeId
+        collegeId,
       });
       // console.log(UserOTPVerificationRecords);
       if (UserOTPVerificationRecords.length <= 0) {
@@ -223,10 +228,16 @@ const verifyOTP = async (req, res,next) => {
             throw new Error("Invalid Code");
           } else {
             // await User.updateOne({ _id: studentId }, { verified: true });
-            const { fullname, collegeId, password, rollno, div, branch } = req.body;
+            const { fullname, collegeId, password, rollno, div, branch } =
+              req.body;
 
             await UserOTPVerification.deleteMany({ collegeId });
-            await signup({ fullname, collegeId, password, rollno, div, branch },req,res,next);
+            await signup(
+              { fullname, collegeId, password, rollno, div, branch },
+              req,
+              res,
+              next
+            );
             res.json({
               status: "VERIFIED",
               message: "User email verified successfully",

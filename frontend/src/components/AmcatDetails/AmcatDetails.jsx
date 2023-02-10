@@ -58,6 +58,7 @@ function AmcatDetails({ user }) {
   const handleClose = () => setOpen(false);
 
   const [datas, setDatas] = useState([]);
+  
   useEffect(() => {
     const fetchAmcatData = async () => {
       try {
@@ -71,7 +72,10 @@ function AmcatDetails({ user }) {
     };
     fetchAmcatData();
   });
+  const[adding,setAdding] = useState(false);
   const handleAddAmcat = async (e) => {
+    setAdding(true);
+
     const data = {
       english,
       logical,
@@ -104,7 +108,8 @@ function AmcatDetails({ user }) {
       await axios.post("/api/amcat/newamcat", data);
       window.alert("Amcat Data Added Successfully");
       setOpen(false);
-
+      setAdding(false);
+      // setOpen(false);
     } catch (err) {
       console.log(err);
     }
@@ -252,9 +257,10 @@ function AmcatDetails({ user }) {
                   </Button>
                 </div>
                 <br />
-                <Button className="internsubtn" onClick={handleAddAmcat}>
+                
+                {adding? "Processing..." : <Button className="internsubtn" onClick={handleAddAmcat}>
                   Submit
-                </Button>
+                </Button>}
               </form>
             </center>
           </Box>

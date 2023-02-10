@@ -21,6 +21,23 @@ router.post("/newNotice", async (req, res) => {
   }
 });
 
+// add view
+router.put("/addview/:id", async (req, res) => {
+  const noticeid = req.params.id;
+  const sid = req.body.uid;
+  try {
+    await Notices.findByIdAndUpdate(
+      { _id: noticeid },
+      { $push: {views: sid } }
+    );
+    // console.log(sid);
+    res.status(200).json("view increased by 1");
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
 router.post("/newNoticefile", async (req, res) => {
   const { heading, notice_by, desc, forw, teacher_id, important, file } =
     req.body;
@@ -101,7 +118,7 @@ router.delete("/deleteNotice/:id", async (req, res) => {
     const notice = await Notices.findOne({ _id: id });
     // console.log(notice);
     const fileId = notice.file?.public_id;
-    fileId && await cloudinary.uploader.destroy(fileId);
+    fileId && (await cloudinary.uploader.destroy(fileId));
     await Notices.findOneAndDelete({ _id: id });
     res.status(200).json("Deleted Successfully");
   } catch (err) {

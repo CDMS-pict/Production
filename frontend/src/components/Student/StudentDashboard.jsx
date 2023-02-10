@@ -20,6 +20,9 @@ function StudentDashboard({ student }) {
   ];
   const [notices, setNotices] = useState([]);
   const [bnotices, setBNotices] = useState([]);
+  const [allnotices, setAllNotices] = useState([]);
+  
+  const [pending,setPending] = useState(0);
 
   useEffect(() => {
     const fetchNotices = async () => {
@@ -27,7 +30,9 @@ function StudentDashboard({ student }) {
         if (student.role === "student") {
           const res = await axios.get("/api/notices/getbyforw/" + student?.branch);
           const resb = await axios.get("/api/notices/getbyforw/" + student?.batch);
+          const resall = await axios.get("/api/notices/getbyforw/All");
           setBNotices(resb.data);
+          setAllNotices(resall.data);
           setNotices(res.data);
         } else if (student.role === "teacher") {
           const res = await axios.get(
@@ -35,13 +40,41 @@ function StudentDashboard({ student }) {
           );
           setNotices(res.data);
         }
+
+
+
+        for(let i = 0;i<notices.length;i++){
+          if(!notices[i].views.includes(student._id)){
+            setPending( pending + 1);
+            console.log(pending);
+          }
+        }
+        for(let i = 0;i<bnotices.length;i++){
+          if(!bnotices[i].views.includes(student._id)){
+            setPending( pending + 1);
+            console.log(pending);
+          }
+        }
+        for(let i = 0;i<allnotices.length;i++){
+          if(!allnotices[i].views.includes(student._id)){
+            setPending( pending + 1);
+            console.log(pending);
+          }
+        }
+      
       } catch (err) {
         console.log(err);
       }
     };
     fetchNotices();
-  });
-  const length = notices.length + bnotices.length;
+  },[]);
+
+ 
+ 
+  // const length = notices.length + bnotices.length + allnotices.length;
+  const length = pending;
+  
+  // console.log(allnotices[0].views.includes(student._id));
   return (
     <div className="sdashboard">
       <Navbar user={student} />

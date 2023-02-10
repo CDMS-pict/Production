@@ -55,7 +55,9 @@ function Notices({ user }) {
     };
   };
 
+  const [adding, setAdding] = useState(false);
   const handleaddNotice = async () => {
+    setAdding(true);
     const data = {
       heading,
       desc,
@@ -69,22 +71,29 @@ function Notices({ user }) {
     }
     if (!heading || !desc || !forw) {
       window.alert("All the Fields are required");
+      setAdding(false);
+
       return;
     }
     try {
       if (selectedFile) {
         await axios.post("/api/notices/newNoticefile", data);
+        setAdding(false);
       } else {
         await axios.post("/api/notices/newNotice", data);
+        setAdding(false);
       }
+      setOpen(false);
       // console.log(data);
     } catch (err) {
       console.log(err);
       window.alert("Unable To Add a Notice");
+      setAdding(false);
     }
   };
   const [notices, setNotices] = useState([]);
   const [bnotices, setBNotices] = useState([]);
+  const [allnotices, setAllNotices] = useState([]);
   const [batches, setBatches] = useState([]);
   useEffect(() => {
     const fetchNotices = async () => {
@@ -92,8 +101,10 @@ function Notices({ user }) {
         if (user.role === "student") {
           const res = await axios.get("/api/notices/getbyforw/" + user?.branch);
           const resb = await axios.get("/api/notices/getbyforw/" + user?.batch);
-          setBNotices(resb.data);
+          const resall = await axios.get("/api/notices/getbyforw/All");          setBNotices(resb.data);
+          setAllNotices(resall.data);
           setNotices(res.data);
+          // console.log(resb.data);
         } else if (user.role === "teacher") {
           const res = await axios.get(
             "/api/notices/getallTeacherNotices/" + user?._id
@@ -117,14 +128,17 @@ function Notices({ user }) {
     fetchNotices();
     fetchBatches();
   });
+  const [deleting, setDeleting] = useState(false);
   const handleDelete = async (id) => {
+    setDeleting(true);
     try {
       console.log(id);
       await axios.delete("/api/notices/deleteNotice/" + id);
-      window.alert("Notice Deleted Successfully");
+      setDeleting(false);
     } catch (err) {
       console.log(err);
       window.alert("Unable To Delete The Notice");
+      setDeleting(false);
     }
   };
   const handleFile = (n) => {
@@ -133,6 +147,18 @@ function Notices({ user }) {
     setOpen1(true);
   };
   const [nurl, setNurl] = useState("");
+
+  const handleAddView = async (nid, uid) => {
+    const data = { uid };
+
+    try {
+      await axios.put(`/api/notices/addview/${nid}`, data);
+      console.log(data.views);
+      // window.alert("Done");
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div>
       <Navbar user={user} />
@@ -171,7 +197,6 @@ function Notices({ user }) {
                     >
                       {n.forw} &nbsp;
                       {moment(n.createdAt).format("DD-MM-YYYY")}
-
                       {n.important && (
                         <small className="imp">Important !</small>
                       )}
@@ -198,6 +223,7 @@ function Notices({ user }) {
                         File
                       </Button>
                     )}
+                    <p style={{marginLeft: "auto"}}><i class="fa-solid fa-eye"></i> {n.views.length}</p>
                   </CardActions>
                 </React.Fragment>
               </Card>
@@ -223,7 +249,6 @@ function Notices({ user }) {
                     >
                       {n.forw} &nbsp;
                       {moment(n.createdAt).format("YYYY-MM-DD")}
-
                       {n.important && (
                         <small className="imp">Important !</small>
                       )}
@@ -250,6 +275,79 @@ function Notices({ user }) {
                         File
                       </Button>
                     )}
+                    <Button
+                      size="small"
+                      onClick={() => handleAddView(n._id, user._id)}
+                    >
+                      Mark As Read
+                    </Button>
+                    <p style={{marginLeft: "auto"}}><i class="fa-solid fa-eye"></i> {n.views.length()}</p>
+                  </CardActions>
+                </React.Fragment>
+              </Card>
+            </div>
+          ))}
+          {allnotices.map((n) => (
+            <div className="notices">
+              <Card
+                variant="outlined"
+                className="cardstyle cstyle"
+                style={{
+                  overflowY: "scroll",
+                  borderRadius: "15px 50px 30px",
+                  backgroundColor: "whitesmoke",
+                }}
+              >
+                <React.Fragment>
+                  <CardContent>
+                    <Typography
+                      sx={{ fontSize: 14 }}
+                      color="text.secondary"
+                      gutterBottom
+                    >
+                      {n.forw} &nbsp;
+                      {moment(n.createdAt).format("YYYY-MM-DD")}
+                      {n.important && (
+                        <small className="imp">Important !</small>
+                      )}
+                    </Typography>
+                    <Typography variant="h5" component="div">
+                      {n.heading}
+                    </Typography>
+
+                    <Typography
+                      variant="body2"
+                      style={{ whiteSpace: "break-spaces" }}
+                    >
+                      {n.desc}
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    {n.teacher_id === user?._id &&
+                      (deleting ? (
+                        "Deleting..."
+                      ) : (
+                        <Button
+                          size="small"
+                          onClick={() => handleDelete(n._id)}
+                        >
+                          Delete
+                        </Button>
+                      ))}
+                    {n.file?.url && (
+                      <Button size="small" onClick={() => handleFile(n)}>
+                        File
+                      </Button>
+                    )}
+                    {!n.views.includes(user._id) && (
+                      <Button
+                        size="small"
+                        onClick={() => handleAddView(n._id, user._id)}
+                      >
+                        Mark As Read
+                      </Button>
+                    )}
+                    <p style={{marginLeft: "auto"}}><i class="fa-solid fa-eye"></i> {n.views.length}</p>
                   </CardActions>
                 </React.Fragment>
               </Card>
@@ -364,9 +462,13 @@ function Notices({ user }) {
                 Marks as Important (optional)
               </div>
               <div className="submitbtndiv">
-                <Button className="internsubtn" onClick={handleaddNotice}>
-                  Submit
-                </Button>
+                {adding ? (
+                  "Processing"
+                ) : (
+                  <Button className="internsubtn" onClick={handleaddNotice}>
+                    Submit
+                  </Button>
+                )}
               </div>
             </center>
           </Box>

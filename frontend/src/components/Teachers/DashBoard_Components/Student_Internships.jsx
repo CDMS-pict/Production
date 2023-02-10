@@ -20,7 +20,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 
-function Student_Internships({user}) {
+function Student_Internships({ user }) {
   const [div, setDiv] = useState("");
   const [roll, setRoll] = useState("");
   const [batch, setBatch] = useState("");
@@ -188,7 +188,7 @@ function Student_Internships({user}) {
   }
   return (
     <div>
-      <Navbar user={user}/>
+      <Navbar user={user} />
       <center>
         <h2 style={{ marginTop: "3%" }}>Internship Data</h2>
       </center>
@@ -200,7 +200,7 @@ function Student_Internships({user}) {
               display: "flex",
               columnGap: "20px",
               justifyContent: "center",
-              alignItems: "center"
+              alignItems: "center",
             }}
           >
             <Select
@@ -208,7 +208,12 @@ function Student_Internships({user}) {
               onChange={(e) => setBranch(e.target.value)}
               displayEmpty
               inputProps={{ "aria-label": "Without label" }}
-              style={{ height: "52px" , width: "200px",textAlign: "left", border: "1px solid black"}}
+              style={{
+                height: "52px",
+                width: "200px",
+                textAlign: "left",
+                border: "1px solid black",
+              }}
             >
               <MenuItem value="">
                 <em>Branch</em>
@@ -222,7 +227,12 @@ function Student_Internships({user}) {
               onChange={(e) => setDiv(e.target.value)}
               displayEmpty
               inputProps={{ "aria-label": "Without label" }}
-              style={{ height: "52px", width: "200px",textAlign: "left",border: "1px solid black" }}
+              style={{
+                height: "52px",
+                width: "200px",
+                textAlign: "left",
+                border: "1px solid black",
+              }}
             >
               <MenuItem value="">
                 <em>Division</em>
@@ -232,17 +242,16 @@ function Student_Internships({user}) {
                 <MenuItem value={d}>{d}</MenuItem>
               ))}
             </Select>
-            
+
             <input
               onChange={(e) => setBatch(e.target.value)}
               placeholder="Enter batch name"
-              style={{border: "1px solid black"}}
+              style={{ border: "1px solid black" }}
             />
             <input
               onChange={(e) => setRoll(e.target.value)}
               placeholder="Enter Roll no"
-              style={{border: "1px solid black"}}
-
+              style={{ border: "1px solid black" }}
             />
           </div>
         </center>
@@ -390,6 +399,9 @@ function Student_Internships({user}) {
               </TableBody>
             </Table>
           </TableContainer>
+          <center>
+            {rows.length === 0 && <h3>Please Select The Fields First</h3>}
+          </center>
         </div>
       </div>
       <Modal

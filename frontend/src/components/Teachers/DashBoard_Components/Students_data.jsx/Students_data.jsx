@@ -212,6 +212,11 @@ function Students_data({user}) {
               </TableBody>
             </Table>
           </TableContainer>
+          {rows.length === 0 && 
+          <center>
+
+            <h3>Please Select The Fields First</h3>
+          </center>}
         </div>
       </div>
     </div>
