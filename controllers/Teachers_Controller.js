@@ -19,7 +19,7 @@ const signup = async (
   next
 ) => {
   try {
-    const emailRegex = /@ms.pict.edu/;
+    const emailRegex = /@pict.edu/;
     if (!emailRegex.test(collegeId)) throw "CollgeId is not valid";
     if (password.length < 6) throw "Password must be of atleast 6 characters";
     const user = await Teacher.findOne({ collegeId });

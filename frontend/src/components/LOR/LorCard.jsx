@@ -3,11 +3,29 @@ import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
+import { Button } from "@mui/material";
+import axios from "axios";
 
 function LorCard({ data }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const handleUpdateR = async () => {
+    try {
+      await axios.put("/api/LOR/updatestatusR/" + data._id );
+      setOpen(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const handleUpdateA = async () => {
+    try {
+      await axios.put("/api/LOR/updatestatusA/" + data._id );
+      setOpen(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div className="lcard" onClick={handleOpen}>
       <i class="fa-solid fa-file-lines"></i> &nbsp; &nbsp;
@@ -24,7 +42,7 @@ function LorCard({ data }) {
       >
         <Fade in={open}>
           <Box className="boxmodal lorapplication">
-            <h2>{data.program}</h2>
+            <h2>{data.program}{data.status==="Rejected" && <small style={{color: "Red"}}> &#10060; </small>}{data.status==="Pending" && <small style={{color: "Yellow"}}>  &#9632;</small>} {data.status==="Approved" && <small style={{color: "green"}}> &#x2713;</small>}</h2>
             <p>
               <b>Name :</b>
               {data.sname}
@@ -51,7 +69,7 @@ function LorCard({ data }) {
               <b>Address : </b>
               {data.address}
             </p>
-            <br/>
+            <br />
             <p>
               <h3>First Year</h3>
               <b>Year : </b>
@@ -65,7 +83,7 @@ function LorCard({ data }) {
               <b>Percentage : </b>
               {data.percentage}
             </p>
-            <br/>
+            <br />
             <p>
               <h3>Second Year</h3>
 
@@ -80,7 +98,7 @@ function LorCard({ data }) {
               <b>Percentage : </b>
               {data.percentage1}
             </p>
-            <br/>
+            <br />
 
             <p>
               <h3>Third Year</h3>
@@ -95,7 +113,7 @@ function LorCard({ data }) {
               <b>Percentage : </b>
               {data.percentage2}
             </p>
-            <br/>
+            <br />
             <p>
               <h3 className="lorh">Fourth year</h3>
               <b>Year : </b>
@@ -110,7 +128,7 @@ function LorCard({ data }) {
               {data.percentage3}
             </p>
 
-            <br/>
+            <br />
             <p>
               <b>Email : </b>
               {data.email}
@@ -136,6 +154,14 @@ function LorCard({ data }) {
               <b>Country : </b>
               {data.country}
             </p>
+
+           {data.status==="Pending" && <div
+              className="btndiva"
+              style={{ display: "flex", float: "right", columnGap: "20px" }}
+            >
+              <Button variant="contained" onClick={()=>handleUpdateR("Rejected")} >Reject</Button>
+              <Button variant="contained" onClick={()=>handleUpdateA("Approved")} >Aprrove</Button>
+            </div>}
           </Box>
         </Fade>
       </Modal>

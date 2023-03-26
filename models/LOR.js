@@ -98,6 +98,7 @@ var LORSchema = new mongoose.Schema({
   },
   faculty: {
     type: String,
+    required: true
   },
   program: {
     type: String,
@@ -113,7 +114,7 @@ var LORSchema = new mongoose.Schema({
   },
   country: {
     type: String,
-  },
+  }
 });
 
 module.exports = mongoose.model("LOR", LORSchema);

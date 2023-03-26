@@ -75,7 +75,7 @@ router.post("/newLor/:id", async (req, res) => {
       branch,
       div,
       country,
-      status: "Pending"
+      status: "Pending",
     });
     const extra = await newExtra.save();
     res.status(200).json(extra);
@@ -85,7 +85,40 @@ router.post("/newLor/:id", async (req, res) => {
   }
 });
 
+// get by teachers id
+router.get("/getbytid/:tid", async (req, res) => {
+  try {
+    const faculty = req.params.tid;
+    const facultyid = faculty.split("@")[0] + "@pict.edu";
+    const lors = await Lor.find( {faculty: facultyid} );
+    res.status(200).json(lors);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
 
+//update status
+router.put("/updatestatusR/:id",async(req,res)=>{
+  try{
+    const id = req.params.id;
+    const lor = await Lor.findByIdAndUpdate({_id: id},{status: "Rejected"})
+    res.status(200).json("Status Updated Successfully");
+  }catch(err){
+    console.log(err);
+    res.status(500).json(err);
+  }
+})
+router.put("/updatestatusA/:id",async(req,res)=>{
+  try{
+    const id = req.params.id;
+    const lor = await Lor.findByIdAndUpdate({_id: id},{status: "Approved"})
+    res.status(200).json("Status Updated Successfully");
+  }catch(err){
+    console.log(err);
+    res.status(500).json(err);
+  }
+})
 
 router.get("/getbysid/:id", async (req, res) => {
   const sid = req.params.id;
@@ -117,7 +150,6 @@ router.get("/getbydiv/:div", async (req, res) => {
     res.status(500).json(err);
   }
 });
-
 
 router.delete("/deleteLOR/:id", async (req, res) => {
   try {

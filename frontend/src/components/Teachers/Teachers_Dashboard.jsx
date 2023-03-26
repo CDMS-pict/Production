@@ -10,6 +10,7 @@ function Teachers_Dashboard({user}) {
     { title: "Internship data", url: "/teachersdashboard/internship" },
     { title: "Students data", url: "/teachersdashboard/students" },
     { title: "Guardian Batch", url: "/batches" },
+    { title: "LORs", url: "/teachersdashboard/lors" },
     { title: "Notices", url: "/teachersdashboard/notices" },
   ];
   return (

@@ -26,6 +26,7 @@ import Lor from "./components/LOR/Lor";
 import CompExams from "./components/CompetitiveExams/CompExams";
 import ExtraCurricular from "./components/ExtraCurricular/ExtraCurr";
 import TechnicalActivities from "./components/TechnicalActivities/Tech";
+import Lors from "./components/Teachers/LORs/Lors";
 
 function App() {
   const [user, setUser] = useState();
@@ -178,6 +179,11 @@ function App() {
               exact
               path="/teachersdashboard/notices"
               element={<Notices user={user} />}
+            />
+            <Route
+              exact
+              path="/teachersdashboard/lors"
+              element={<Lors user={user} />}
             />
           </Routes>
         ) : (

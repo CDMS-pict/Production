@@ -34,7 +34,7 @@ function Lor({ user }) {
       <div className="studentInternshipDashboard">
         <div className="dataheader">
           <p className="internship_data_header">Letter of Recommandation</p>
-          <Button variant="contained" onClick={handleOpen}>
+          <Button onClick={handleOpen}>
             Add{" "}
           </Button>
         </div>

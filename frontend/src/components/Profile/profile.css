@@ -2,7 +2,6 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  
 }
 .img_div {
   /* height: max-content; */
@@ -12,7 +11,6 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  
 }
 
 .profileimg {
@@ -22,6 +20,7 @@
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
   border: 1px solid gray;
   padding: 2px;
+  background-color: whitesmoke;
 }
 .profileimg img {
   height: 150px;

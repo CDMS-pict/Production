@@ -33,13 +33,13 @@ var BatchSchema = new mongoose.Schema(
       type: Array,
       default: [],
     },
-    student_mails:{
+    student_mails: {
       type: Array,
-      default: []
+      default: [],
     },
-    parent_mails:{
+    parent_mails: {
       type: Array,
-      default: []
+      default: [],
     },
     batch_Students_Parents: {
       type: Array,
