@@ -1,6 +1,5 @@
 <div id="top"></div>
 
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
@@ -36,10 +35,21 @@
   <img src="view_pdf.png" alt="Uploaded PDFs" width="100%" height="100%">
    
    <br/>
-  
+    <h2>Teachers Dashboard</h2>
+  <img src="Teachers_Dashboard.png" alt="Teachers Dashboard" width="100%" height="100%">
+   
+   <br/>
+     <h2>Intern's Data</h2>
+       <p><b>Teachers can verify the Student's Internship Data</b></p>
+  <img src="InternData.png" alt="Intern  Data" width="100%" height="100%">
+   
+   <br/>
+     <h2>Batches</h2>
+       <p><b>Teachers can create student's batches and can also add there parents to the mail group as well.</b></p>
+  <img src="batch.png" alt="Intern  Data" width="100%" height="100%">
+   
+   <br/>
   
 
 
 </div>
-
-
