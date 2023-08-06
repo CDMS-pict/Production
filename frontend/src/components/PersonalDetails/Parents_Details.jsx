@@ -1,5 +1,7 @@
 import { Button } from "@mui/material";
 import axios from "axios";
+import { BASE_URL } from "../../base";
+
 import React, { useState } from "react";
 import FormInput from "../Student_Internships/FormInput";
 
@@ -71,7 +73,7 @@ function Parents_Details({ user }) {
       data.father_contact = parseInt(data.father_contact);
       data.mother_contact = parseInt(data.mother_contact);
       // console.log(data);
-      await axios.put(`/api/students/student/profile/update/${user._id}`, data);
+      await axios.put(`${BASE_URL}/api/students/student/profile/update/${user._id}`, data);
       setEdit_personal_value("EDIT");
       setEdit_personal(true);
       window.alert("Profile Updated Successfully");

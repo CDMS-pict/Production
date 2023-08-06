@@ -37,11 +37,7 @@ app.use(
 app.use(
   cors({
     credentials: true,
-    origin: [
-      "http://localhost:3000",
-      "http://192.168.65.34:3000",
-      "https://academic-passport.vercel.app",
-    ],
+    origin: ["http://localhost:3000", "https://academic-passport.vercel.app"],
   })
 );
 // app.use(cookieParser);
@@ -58,11 +54,24 @@ app.use("/api/batches", batchRoute);
 app.use("/api/teachers", teachersRoute);
 app.use("/api/extracurricular", extraCRoute);
 
+// if ((process.env.NODE_ENV = "production")) {
+//   app.get("*", (req, res) => {
+//     app.use(express.static(path.join(__dirname, "./frontend/build")));
+//     res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+//   });
+// }
+
+const path = require("path");
+const __dirname1 = path.resolve();
 if ((process.env.NODE_ENV = "production")) {
-  const path = require("path");
+  app.use(express.static(path.join(__dirname1, "/frontend/build")));
+
   app.get("*", (req, res) => {
-    app.use(express.static(path.join(__dirname, "./frontend/build")));
-    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+    res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"));
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.send("API Is Running Successfully");
   });
 }
 

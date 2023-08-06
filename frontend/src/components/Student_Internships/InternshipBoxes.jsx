@@ -7,6 +7,8 @@ import Fade from "@mui/material/Fade";
 import FormInput from "./FormInput";
 import "./internship.css";
 import axios from "axios";
+import { BASE_URL } from "../../base";
+
 import DateInput from "./DateInput";
 import moment from "moment-timezone";
 import { Document, Page, pdfjs } from "react-pdf";
@@ -120,11 +122,11 @@ function Internship_Boxes({ data, user }) {
 
     try {
       await axios.put(
-        `/api/internships/updateInternshipInfo/${data._id}`,
+        `${BASE_URL}/api/internships/updateInternshipInfo/${data._id}`,
         form_data
       );
       if (selectedFile) {
-        await axios.put(`/api/internships/updateInternship/${data._id}`, datas);
+        await axios.put(`${BASE_URL}/api/internships/updateInternship/${data._id}`, datas);
       }
       console.log(form_data);
       setUpdating(false);
@@ -142,7 +144,7 @@ function Internship_Boxes({ data, user }) {
     try {
       setDeleting(true);
       await axios.delete(
-        `/api/internships/deleteInternship/${user._id}/${data._id}`
+        `${BASE_URL}/api/internships/deleteInternship/${user._id}/${data._id}`
       );
       setOpend(false);
       setDeleting(false);

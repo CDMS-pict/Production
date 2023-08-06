@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 import axios from "axios";
 import React, { useState } from "react";
 import FormInput from "../Student_Internships/FormInput";
+import { BASE_URL } from "../../base";
 
 function Address_Details({ user }) {
   const [edit_pesonal, setEdit_personal] = useState(true);
@@ -26,7 +27,7 @@ function Address_Details({ user }) {
             ? user.temporary_address
             : "",
       };
-      await axios.put(`/api/students/student/profile/update/${user._id}`, data);
+      await axios.put(`${BASE_URL}/api/students/student/profile/update/${user._id}`, data);
       setEdit_personal_value("EDIT");
       setEdit_personal(true);
       window.alert("Profile Updated Successfully");

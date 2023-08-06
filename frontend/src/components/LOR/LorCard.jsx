@@ -5,6 +5,8 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import { Button } from "@mui/material";
 import axios from "axios";
+import { BASE_URL } from "../../base";
+
 
 function LorCard({ data }) {
   const [open, setOpen] = React.useState(false);
@@ -12,7 +14,7 @@ function LorCard({ data }) {
   const handleClose = () => setOpen(false);
   const handleUpdateR = async () => {
     try {
-      await axios.put("/api/LOR/updatestatusR/" + data._id );
+      await axios.put(BASE_URL+"/api/LOR/updatestatusR/" + data._id );
       setOpen(false);
     } catch (err) {
       console.log(err);
@@ -20,7 +22,7 @@ function LorCard({ data }) {
   };
   const handleUpdateA = async () => {
     try {
-      await axios.put("/api/LOR/updatestatusA/" + data._id );
+      await axios.put(BASE_URL+"/api/LOR/updatestatusA/" + data._id );
       setOpen(false);
     } catch (err) {
       console.log(err);

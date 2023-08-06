@@ -8,6 +8,8 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Chip from "@mui/material/Chip";
 import axios from "axios";
+import { BASE_URL } from "../../base";
+
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -82,7 +84,7 @@ function InterestedDomains({ user }) {
     try {
       if (personName.length !== 0) {
         await axios.put(
-          `/api/students/student/profile/update/${user._id}`,
+          `${BASE_URL}/api/students/student/profile/update/${user._id}`,
           data
         );
       }

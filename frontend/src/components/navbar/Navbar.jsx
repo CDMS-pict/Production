@@ -3,6 +3,8 @@ import "./navbar.css";
 import logo from "../../pict_logo.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { BASE_URL } from "../../base";
+
 import { authActions } from "../../store/store";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -20,14 +22,14 @@ function Navbar({user}) {
   const sednRequest = async () => {
     try {
       const res = await axios
-        .get("/api/students/user", {
+        .get(BASE_URL+"/api/students/user", {
           withCredentials: true,
         })
         .catch((err) => console.log(err));
       console.log(res);
       if (res === undefined) {
         const res = await axios
-          .get("/api/teachers/user", {
+          .get(BASE_URL+"/api/teachers/user", {
             withCredentials: true,
           })
           .catch((err) => console.log(err));
@@ -55,11 +57,11 @@ function Navbar({user}) {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const sendLogoutReq = async () => {
-    const res = await axios.post("/api/students/logout", null, {
+    const res = await axios.post(BASE_URL+"/api/students/logout", null, {
       withCredentials: true,
     });
     if (res === undefined) {
-      const res = await axios.post("/api/teachers/logout", null, {
+      const res = await axios.post(BASE_URL+"/api/teachers/logout", null, {
         withCredentials: true,
       });
       if (res.status === 200) {

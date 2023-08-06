@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 import logo from "../../pict_logo.jpg";
+import { BASE_URL } from "../../base";
+
+
 
 export class Confirm extends Component {
   continue = (e) => {
@@ -21,7 +24,7 @@ export class Confirm extends Component {
       e.preventDefault();
       try {
         // console.log(values);
-        await axios.post("/api/students/signupVerify", values);
+        await axios.post(BASE_URL+"/api/students/signupVerify", values);
         window.alert("Signup successfull");
         window.location.replace("/");
       } catch (err) {

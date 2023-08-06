@@ -13,6 +13,8 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import "./student_internship.css";
 import axios from "axios";
+import { BASE_URL } from "../../../base";
+
 import moment from "moment-timezone";
 import { Document, Page, pdfjs } from "react-pdf";
 import Backdrop from "@mui/material/Backdrop";
@@ -41,7 +43,7 @@ function Student_Internships({ user }) {
       status: status,
     };
     try {
-      await axios.put(`/api/internships/updateInternshipInfo/${id}`, form_data);
+      await axios.put(`${BASE_URL}/api/internships/updateInternshipInfo/${id}`, form_data);
       window.alert("Status Updated Successfully");
     } catch (err) {
       console.log(err);
@@ -54,15 +56,15 @@ function Student_Internships({ user }) {
   useEffect(() => {
     const internships = async () => {
       if (batch) {
-        const res = await axios.get("/api/internships/getbybatch/" + batch);
+        const res = await axios.get(BASE_URL+"/api/internships/getbybatch/" + batch);
         setRowdata(res.data);
         // console.log(res.data);
       } else if (div) {
-        const res = await axios.get("/api/internships/getbydiv/" + div);
+        const res = await axios.get(BASE_URL+"/api/internships/getbydiv/" + div);
         setRowdata(res.data);
         // console.log(res.data);
       } else if (roll) {
-        const res = await axios.get("/api/internships/getbyroll/" + roll);
+        const res = await axios.get(BASE_URL+"/api/internships/getbyroll/" + roll);
         setRowdata(res.data);
         // console.log(res.data);
       }

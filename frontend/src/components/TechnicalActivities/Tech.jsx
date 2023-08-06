@@ -9,6 +9,8 @@ import Fade from "@mui/material/Fade";
 import FormInputTech from "./FormInputTech";
 import TechnicalBoxes from "./TechnicalBoxes";
 import axios from "axios";
+import { BASE_URL } from "../../base";
+
 import DateInputTech from "./DateInputTech";
 import Skeleton from "@mui/material/Skeleton";
 
@@ -70,7 +72,7 @@ function Technical({user}) {
       return;
     }
     try {
-      await axios.post("/api/techActivity/newTechActivity", data);
+      await axios.post(BASE_URL+"/api/techActivity/newTechActivity", data);
       setOpen(false);
       setAdding(false);
     } catch (err) {
@@ -82,7 +84,7 @@ function Technical({user}) {
   useEffect(()=>{
     const fetchactivites = async()=>{
       try{
-        const res = await axios.get("/api/techActivity/getbysid/" + user._id);
+        const res = await axios.get(BASE_URL+"/api/techActivity/getbysid/" + user._id);
         setDatas(res.data);
         console.log(res.data);
       }

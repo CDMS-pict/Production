@@ -7,6 +7,8 @@ import Fade from "@mui/material/Fade";
 import FormInputTech from "./FormInputTech";
 import "./Tech.css";
 import axios from "axios";
+import { BASE_URL } from "../../base";
+
 import DateInputTech from "./DateInputTech";
 import moment from "moment-timezone";
 import { Document, Page, pdfjs } from "react-pdf";
@@ -75,7 +77,7 @@ function TechnicalBoxes({ data, user }) {
     try {
       setDeleting(true);
       await axios.delete(
-        `/api/techActivity/deletetechactivity/${data._id}`
+        `${BASE_URL}/api/techActivity/deletetechactivity/${data._id}`
       );
       setOpend(false);
       setDeleting(false);

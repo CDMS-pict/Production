@@ -10,6 +10,8 @@ import axios from "axios";
 import DateInput from "./DateInput";
 import moment from "moment-timezone";
 import { Document, Page, pdfjs } from "react-pdf";
+import { BASE_URL } from "../../base";
+
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -72,7 +74,7 @@ function CompExamsBoxes({ data, user }) {
     try {
       setDeleting(true);
 
-      await axios.delete(`/api/compexams/deletecomexam/${data._id}`);
+      await axios.delete(`${BASE_URL}/api/compexams/deletecomexam/${data._id}`);
       setOpend(false);
       setDeleting(false);
     } catch (err) {

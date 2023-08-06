@@ -4,6 +4,8 @@ import Boxes from "../Boxes/Boxes";
 import Profile from "../Profile/Profile";
 import Navbar from "../navbar/Navbar";
 import axios from "axios";
+import { BASE_URL } from "../../base";
+
 
 function StudentDashboard({ student }) {
   const student_box_contents = [
@@ -28,15 +30,15 @@ function StudentDashboard({ student }) {
     const fetchNotices = async () => {
       try {
         if (student.role === "student") {
-          const res = await axios.get("/api/notices/getbyforw/" + student?.branch);
-          const resb = await axios.get("/api/notices/getbyforw/" + student?.batch);
-          const resall = await axios.get("/api/notices/getbyforw/All");
+          const res = await axios.get(BASE_URL+"/api/notices/getbyforw/" + student?.branch);
+          const resb = await axios.get(BASE_URL+"/api/notices/getbyforw/" + student?.batch);
+          const resall = await axios.get(BASE_URL+"/api/notices/getbyforw/All");
           setBNotices(resb.data);
           setAllNotices(resall.data);
           setNotices(res.data);
         } else if (student.role === "teacher") {
           const res = await axios.get(
-            "/api/notices/getallTeacherNotices/" + student?._id
+            BASE_URL+"/api/notices/getallTeacherNotices/" + student?._id
           );
           setNotices(res.data);
         }

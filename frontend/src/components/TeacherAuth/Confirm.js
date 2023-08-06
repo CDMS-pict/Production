@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { BASE_URL } from "../../base";
+
 import logo from "../../pict_logo.jpg";
 
 export class Confirm extends Component {
@@ -21,7 +23,7 @@ export class Confirm extends Component {
       e.preventDefault();
       try {
         // console.log(values);
-        await axios.post("/api/teachers/signupVerify", values);
+        await axios.post(BASE_URL+"/api/teachers/signupVerify", values);
         window.alert("Signup successfull");
         window.location.replace("/teacherslogin");
       } catch (err) {

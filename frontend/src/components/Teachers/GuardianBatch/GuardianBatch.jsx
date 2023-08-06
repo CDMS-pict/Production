@@ -1,4 +1,6 @@
 import axios from "axios";
+import { BASE_URL } from "../../../base";
+
 import React, { useEffect, useState } from "react";
 import Navbar from "../../navbar/Navbar";
 import Select from "@mui/material/Select";
@@ -29,7 +31,7 @@ function GuardianBatch({ user }) {
   // useEffect(() => {
   //   const fetchStudents = async () => {
   //     try {
-  //       const res = await axios.get("/api/students/getdivStudents/" + div);
+  //       const res = await axios.get(BASE_URL+"/api/students/getdivStudents/" + div);
   //       setStudents(res.data);
   //     } catch (err) {
   //       console.log(err);
@@ -42,7 +44,7 @@ function GuardianBatch({ user }) {
     const fetchBatches = async () => {
       try {
         const res = await axios.get(
-          "/api/batches/getbatches/" + user.collegeId
+          BASE_URL+"/api/batches/getbatches/" + user.collegeId
         );
         setBatches(res.data);
       } catch (err) {
@@ -79,7 +81,7 @@ function GuardianBatch({ user }) {
         batch_div: batchdiv,
         batch_branch: batchbranch,
       };
-      await axios.post("/api/batches/newBatch", data);
+      await axios.post(BASE_URL+"/api/batches/newBatch", data);
       window.alert("Batch Added Successfully");
     } catch (err) {
       console.log(err);
@@ -101,7 +103,7 @@ function GuardianBatch({ user }) {
   };
   const handleDelete = async()=>{
     try{
-      await axios.delete("/api/batches/deletebatch/" + did);
+      await axios.delete(BASE_URL+"/api/batches/deletebatch/" + did);
       window.alert("Batch Deleted Successfully");
       setOpen(false);
     }

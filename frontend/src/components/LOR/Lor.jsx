@@ -10,6 +10,8 @@ import "./lorapplication.css";
 import LorCard from "./LorCard";
 import axios from "axios";
 import "./lorcards.css";
+import { BASE_URL } from "../../base";
+
 
 function Lor({ user }) {
   const [open, setOpen] = React.useState(false);
@@ -20,7 +22,7 @@ function Lor({ user }) {
   useEffect(() => {
     const fetchactivites = async () => {
       try {
-        const res = await axios.get("/api/LOR/getbysid/" + user._id);
+        const res = await axios.get(BASE_URL+"/api/LOR/getbysid/" + user._id);
         setDatas(res.data);
       } catch (err) {
         console.log(err);

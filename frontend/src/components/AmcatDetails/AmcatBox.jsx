@@ -5,6 +5,8 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import "./amcat1.css";
+import { BASE_URL } from "../../base";
+
 import axios from "axios";
 import { Document, Page, pdfjs } from "react-pdf";
 import Dialog from "@mui/material/Dialog";
@@ -79,7 +81,7 @@ function AmcatBox({ data, user }) {
   const handleDelete = async () => {
     try {
       setDeleting(true);
-      await axios.delete(`/api/amcat/deleteAmcat/${data._id}`);
+      await axios.delete(`${BASE_URL}/api/amcat/deleteAmcat/${data._id}`);
       // window.alert("Amcat Details Deleted Successfully");
       setOpend(false);
       setDeleting(false);

@@ -27,6 +27,8 @@ import CompExams from "./components/CompetitiveExams/CompExams";
 import ExtraCurricular from "./components/ExtraCurricular/ExtraCurr";
 import TechnicalActivities from "./components/TechnicalActivities/Tech";
 import Lors from "./components/Teachers/LORs/Lors";
+import { BASE_URL } from "./base";
+
 
 function App() {
   const [user, setUser] = useState();
@@ -34,14 +36,14 @@ function App() {
   const sednRequest = async () => {
     try {
       const res = await axios
-        .get("/api/students/user", {
+        .get(BASE_URL+ "/api/students/user", {
           withCredentials: true,
         })
         .catch((err) => console.log(err));
       console.log(res);
       if (res === undefined) {
         const res = await axios
-          .get("/api/teachers/user", {
+          .get(BASE_URL+ "/api/teachers/user", {
             withCredentials: true,
           })
           .catch((err) => console.log(err));

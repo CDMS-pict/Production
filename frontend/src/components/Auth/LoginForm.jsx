@@ -7,6 +7,7 @@ import logo from "../../pict_logo.jpg";
 import { authActions } from "../../store/store";
 import { useDispatch } from "react-redux";
 import CircularProgress from "@mui/material/CircularProgress";
+import { BASE_URL } from "../../base";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -37,7 +38,7 @@ const LoginForm = () => {
   const sendRequest = async () => {
     setLoading(true);
     const res = await axios
-      .post("/api/students/login", {
+      .post(BASE_URL+ "/api/students/login", {
         collegeId: values.collegeId,
         password: values.password,
       })

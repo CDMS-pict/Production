@@ -8,6 +8,8 @@ import axios from "axios";
 import Backdrop from "@mui/material/Backdrop";
 import { Document, Page, pdfjs } from "react-pdf";
 import { Box, Fade, Modal } from "@mui/material";
+import { BASE_URL } from "../../base";
+
 
 function YearDetails({ year, user, sem1marks, sem2marks }) {
   //viewing pdfs
@@ -201,17 +203,17 @@ function YearDetails({ year, user, sem1marks, sem2marks }) {
     }
 
     try {
-      await axios.put(`/api/students/student/profile/update/${user._id}`, data);
+      await axios.put(`${BASE_URL}/api/students/student/profile/update/${user._id}`, data);
 
       if (selectedFile) {
         await axios.put(
-          `/api/students/student/profile/academic_update/sem1/${yearname}/${user._id}`,
+          `${BASE_URL}/api/students/student/profile/academic_update/sem1/${yearname}/${user._id}`,
           filedata1
         );
       }
       if (selectedFile1) {
         await axios.put(
-          `/api/students/student/profile/academic_update/sem2/${yearname}/${user._id}`,
+          `${BASE_URL}/api/students/student/profile/academic_update/sem2/${yearname}/${user._id}`,
           filedata
         );
       }

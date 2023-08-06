@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import axios from "axios";
+import { BASE_URL } from "../../../base";
+
 import { Button } from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -47,7 +49,7 @@ function Batch({ batch }) {
   useEffect(() => {
     const fetchStudents = async () => {
       const res = await axios.get(
-        "/api/students/getdivStudents/" + batch.batchdiv
+        BASE_URL+"/api/students/getdivStudents/" + batch.batchdiv
       );
       setStudents(res.data);
     };
@@ -63,10 +65,10 @@ function Batch({ batch }) {
       };
       console.log(data);
       if (tostu) {
-        await axios.post("/api/batches/sendmail/" + batch.batchid, data);
+        await axios.post(BASE_URL+"/api/batches/sendmail/" + batch.batchid, data);
       }
       if (toparen) {
-        await axios.post("/api/batches/sendmailp/" + batch.batchid, data);
+        await axios.post(BASE_URL+"/api/batches/sendmailp/" + batch.batchid, data);
       }
       window.alert("Mail sent successfully");
     } catch (err) {
@@ -88,7 +90,7 @@ function Batch({ batch }) {
     // console.log(data);
     try {
       // console.log(data);
-      await axios.put(`/api/batches/addstudents/${batch.batchid}`, data);
+      await axios.put(`${BASE_URL}/api/batches/addstudents/${batch.batchid}`, data);
       setAdding(true);
       setAge()
       console.log("Student added Successfully");

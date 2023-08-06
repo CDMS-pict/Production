@@ -1,6 +1,8 @@
 import { MenuItem, Select } from "@mui/material";
 // import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
+import { BASE_URL } from "../../../../base";
+
 import React, { useEffect, useState } from "react";
 import Navbar from "../../../navbar/Navbar";
 import Table from "@mui/material/Table";
@@ -107,10 +109,10 @@ function Students_data({user}) {
     const fetchStudents = async () => {
       try {
         if (div) {
-          const res = await axios.get(`/api/students/getStudentdiv/${div}`);
+          const res = await axios.get(`${BASE_URL}/api/students/getStudentdiv/${div}`);
           setDatas(res.data);
         } else if (rollno) {
-          const res = await axios.get(`/api/students/getStudentroll/${rollno}`);
+          const res = await axios.get(`${BASE_URL}/api/students/getStudentroll/${rollno}`);
           setDatas(res.data);
         }
         // console.log(res.data);

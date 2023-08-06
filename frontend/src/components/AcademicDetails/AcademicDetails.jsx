@@ -2,6 +2,8 @@ import React from "react";
 import Navbar from "../navbar/Navbar";
 import "./academicDetails.css";
 import YearDetails from "./YearDetails";
+import { BASE_URL } from "../../base";
+
 
 function AcademicDetails({ user }) {
   return (

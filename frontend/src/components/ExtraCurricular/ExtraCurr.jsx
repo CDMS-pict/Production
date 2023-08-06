@@ -7,6 +7,8 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import FormInput from "./FormInput";
+import { BASE_URL } from "../../base";
+
 // import ExtraCurrBoxes from "./ExtraCurrBoxes";
 import axios from "axios";
 import DateInput from "./DateInput";
@@ -76,7 +78,7 @@ function ExtraCurricular({ user }) {
       return;
     }
     try {
-      await axios.post("/api/extracurricular/newExtrac", data);
+      await axios.post(BASE_URL+"/api/extracurricular/newExtrac", data);
       // window.alert("Extra Curricular Activity Added Successfully");
       setOpen(false);
       setAdding(false);
@@ -90,7 +92,7 @@ function ExtraCurricular({ user }) {
   const fetchactivites = async () => {
     try {
       const res = await axios
-        .get("/api/extracurricular/getbysidd/" + user._id)
+        .get(BASE_URL+"/api/extracurricular/getbysidd/" + user._id)
         .catch((err) => console.log(err));
       // setDatas(res.data);
       const data = await res.data;

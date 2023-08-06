@@ -7,6 +7,8 @@ import Fade from "@mui/material/Fade";
 import "./ExtraCurr.css";
 import axios from "axios";
 import moment from "moment-timezone";
+import { BASE_URL } from "../../base";
+
 import { Document, Page, pdfjs } from "react-pdf";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -66,7 +68,7 @@ function ExtraCurrBoxes({ data, user }) {
     try {
       setDeleting(true);
       await axios.delete(
-        `/api/extracurricular/deleteactivitiy/${data._id}`
+        `${BASE_URL}/api/extracurricular/deleteactivitiy/${data._id}`
       );
       // window.alert("ExtraCurricular Activity Deleted Successfully");
       setOpend(false);

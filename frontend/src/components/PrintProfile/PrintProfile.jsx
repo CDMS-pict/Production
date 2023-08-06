@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./printprofile.css";
 import moment from "moment-timezone";
 import axios from "axios";
+import { BASE_URL } from "../../base";
+
 import collegeimg from "../../pict_logo4.jpg";
 
 function PrintProfile({ user }) {
@@ -10,7 +12,7 @@ function PrintProfile({ user }) {
     const fetchInternships = async () => {
       try {
         const res = await axios.get(
-          `/api/internships/getallStudentInternships/${user._id}`
+          `${BASE_URL}/api/internships/getallStudentInternships/${user._id}`
         );
         setDatas(res.data);
       } catch (err) {
@@ -26,7 +28,7 @@ function PrintProfile({ user }) {
     const fetchactivites = async () => {
       try {
         const res = await axios.get(
-          "/api/extracurricular/getbysidd/" + user._id
+          BASE_URL+"/api/extracurricular/getbysidd/" + user._id
         );
         setextracDatas(res.data);
         console.log(res.data);
@@ -41,7 +43,7 @@ function PrintProfile({ user }) {
   useEffect(() => {
     const fetchactivites = async () => {
       try {
-        const res = await axios.get("/api/compexams/getbysid/" + user._id);
+        const res = await axios.get(BASE_URL+"/api/compexams/getbysid/" + user._id);
 
         setCompExams(res.data);
         console.log(res.data);
@@ -56,7 +58,7 @@ function PrintProfile({ user }) {
   useEffect(() => {
     const fetchAmcatData = async () => {
       try {
-        const res = await axios.get(`/api/amcat/getbysid/${user._id}`);
+        const res = await axios.get(`${BASE_URL}/api/amcat/getbysid/${user._id}`);
         setAmcat(res.data);
       } catch (err) {
         console.log(err);

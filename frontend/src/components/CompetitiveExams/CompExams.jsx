@@ -10,6 +10,8 @@ import FormInput from "./FormInput";
 import CompExamsBoxes from "./CompExamsBoxes";
 import axios from "axios";
 import DateInput from "./DateInput";
+import { BASE_URL } from "../../base";
+
 
 
 function CompExams({user}) {
@@ -64,7 +66,7 @@ function CompExams({user}) {
       return;
     }
     try {
-      await axios.post("/api/compexams/newCompExam", data);
+      await axios.post(BASE_URL+"/api/compexams/newCompExam", data);
       window.alert("Competitive Exam Data Added Successfully");
       setAdding(false);
       setOpen(false);
@@ -77,7 +79,7 @@ function CompExams({user}) {
   useEffect(()=>{
     const fetchactivites = async()=>{
       try{
-        const res = await axios.get("/api/compexams/getbysid/" + user._id);
+        const res = await axios.get(BASE_URL+"/api/compexams/getbysid/" + user._id);
         setDatas(res.data);
         console.log(res.data);
       }

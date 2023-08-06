@@ -9,6 +9,8 @@ import Fade from "@mui/material/Fade";
 import FormInput from "./FormInput";
 import InternshipBoxes from "./InternshipBoxes";
 import axios from "axios";
+import { BASE_URL } from "../../base";
+
 import DateInput from "./DateInput";
 import Skeleton from "@mui/material/Skeleton";
 
@@ -47,7 +49,7 @@ function Internship({ user }) {
 
   // const refreshToken = async () => {
   //   const res = await axios
-  //     .get("/api/students/refresh", {
+  //     .get(BASE_URL+"/api/students/refresh", {
   //       withCredentials: true,
   //     })
   //     .catch((err) => console.log(err));
@@ -59,7 +61,7 @@ function Internship({ user }) {
     const fetchInternships = async () => {
       try {
         const res = await axios.get(
-          `/api/internships/getallStudentInternships/${user._id}`
+          `${BASE_URL}/api/internships/getallStudentInternships/${user._id}`
         );
         setDatas(res.data);
         // console.log(res.data);
@@ -104,7 +106,7 @@ function Internship({ user }) {
       return;
     }
     try {
-      await axios.post("/api/internships/newInternship", data);
+      await axios.post(BASE_URL+"/api/internships/newInternship", data);
       // window.alert("Internship Data Added Successfully");
       setOpen(false);
       setAdding(false);

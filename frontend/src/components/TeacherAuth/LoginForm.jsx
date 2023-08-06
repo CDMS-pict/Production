@@ -1,4 +1,6 @@
 import axios from "axios";
+import { BASE_URL } from "../../base";
+
 import React from "react";
 import { useState } from "react";
 import Login from "./Login";
@@ -38,7 +40,7 @@ const LoginForm = () => {
   const sendRequest = async () => {
     setLoading(true);
     const res = await axios
-      .post("/api/teachers/login", {
+      .post(BASE_URL+"/api/teachers/login", {
         collegeId: values.collegeId,
         password: values.password,
       })

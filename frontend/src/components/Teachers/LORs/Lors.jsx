@@ -8,6 +8,8 @@ import Fade from "@mui/material/Fade";
 import "../../LOR/lorapplication.css";
 import LorCard from "../../LOR/LorCard";
 import axios from "axios";
+import { BASE_URL } from "../../../base";
+
 
 function Lors({ user }) {
   const [open, setOpen] = React.useState(false);
@@ -19,7 +21,7 @@ function Lors({ user }) {
       try {
         let cid = user.collegeId;
         
-        const res = await axios.get(`/api/LOR/getbytid/${cid}`);
+        const res = await axios.get(`${BASE_URL}/api/LOR/getbytid/${cid}`);
         setDatas(res.data);
       } catch (err) {
         console.log(err);

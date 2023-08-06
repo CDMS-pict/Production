@@ -7,6 +7,8 @@ import Fade from "@mui/material/Fade";
 import Backdrop from "@mui/material/Backdrop";
 import { useState } from "react";
 import axios from "axios";
+import { BASE_URL } from "../../base";
+
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import "./notices.css";
@@ -77,10 +79,10 @@ function Notices({ user }) {
     }
     try {
       if (selectedFile) {
-        await axios.post("/api/notices/newNoticefile", data);
+        await axios.post(BASE_URL+"/api/notices/newNoticefile", data);
         setAdding(false);
       } else {
-        await axios.post("/api/notices/newNotice", data);
+        await axios.post(BASE_URL+"/api/notices/newNotice", data);
         setAdding(false);
       }
       setOpen(false);
@@ -99,15 +101,15 @@ function Notices({ user }) {
     const fetchNotices = async () => {
       try {
         if (user.role === "student") {
-          const res = await axios.get("/api/notices/getbyforw/" + user?.branch);
-          const resb = await axios.get("/api/notices/getbyforw/" + user?.batch);
-          const resall = await axios.get("/api/notices/getbyforw/All");          setBNotices(resb.data);
+          const res = await axios.get(BASE_URL+"/api/notices/getbyforw/" + user?.branch);
+          const resb = await axios.get(BASE_URL+"/api/notices/getbyforw/" + user?.batch);
+          const resall = await axios.get(BASE_URL+"/api/notices/getbyforw/All");          setBNotices(resb.data);
           setAllNotices(resall.data);
           setNotices(res.data);
           // console.log(resb.data);
         } else if (user.role === "teacher") {
           const res = await axios.get(
-            "/api/notices/getallTeacherNotices/" + user?._id
+            BASE_URL+"/api/notices/getallTeacherNotices/" + user?._id
           );
           setNotices(res.data);
         }
@@ -118,7 +120,7 @@ function Notices({ user }) {
     const fetchBatches = async () => {
       try {
         const res = await axios.get(
-          "/api/batches/getbatches/" + user.collegeId
+          BASE_URL+"/api/batches/getbatches/" + user.collegeId
         );
         setBatches(res.data);
       } catch (err) {
@@ -133,7 +135,7 @@ function Notices({ user }) {
     setDeleting(true);
     try {
       console.log(id);
-      await axios.delete("/api/notices/deleteNotice/" + id);
+      await axios.delete(BASE_URL+"/api/notices/deleteNotice/" + id);
       setDeleting(false);
     } catch (err) {
       console.log(err);
@@ -152,7 +154,7 @@ function Notices({ user }) {
     const data = { uid };
 
     try {
-      await axios.put(`/api/notices/addview/${nid}`, data);
+      await axios.put(`${BASE_URL}/api/notices/addview/${nid}`, data);
       console.log(data.views);
       // window.alert("Done");
     } catch (err) {

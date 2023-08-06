@@ -7,6 +7,8 @@ import defaultimg from "../../PersonalDetails/default_userimg.png";
 import "../../PersonalDetails/personal_details.css";
 import moment from "moment-timezone";
 import axios from "axios";
+import { BASE_URL } from "../../../base";
+
 import Address from "./Address";
 
 function PersonalDetails({ user }) {
@@ -83,11 +85,11 @@ function PersonalDetails({ user }) {
       // console.log(data);
       if (selectedFile1) {
         await axios.put(
-          `/api/teachers/teacher/profile/update_profile/${user._id}`,
+          `${BASE_URL}/api/teachers/teacher/profile/update_profile/${user._id}`,
           dp_data
         );
       }
-      await axios.put(`/api/teachers/teacher/profile/update/${user._id}`, data);
+      await axios.put(`${BASE_URL}/api/teachers/teacher/profile/update/${user._id}`, data);
       setEdit_personal_value("EDIT");
       setEdit_personal(true);
       window.alert("Profile Updated Successfully");

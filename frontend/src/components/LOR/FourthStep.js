@@ -3,6 +3,8 @@ import Container from "@material-ui/core/Container";
 import axios from "axios";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import { BASE_URL } from "../../base";
+
 
 export class FourthStep extends Component {
   next = (e) => {
@@ -26,7 +28,7 @@ export class FourthStep extends Component {
         return;
       }
       try {
-        await axios.post("/api/LOR/newLor/" + this.props.user._id, values);
+        await axios.post(BASE_URL+"/api/LOR/newLor/" + this.props.user._id, values);
         console.log(values);
         window.alert("Applied for LOR");
         window.location.reload();

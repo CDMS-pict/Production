@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./profile.css";
 import defaultimg from "./default_userimg.png";
 import axios from "axios";
+import { BASE_URL } from "../../base";
+
 import moment from "moment-timezone";
 import Skeleton from '@mui/material/Skeleton';
 axios.defaults.withCredentials = true;
@@ -12,14 +14,14 @@ function Profile() {
   const sednRequest = async () => {
     try {
       const res = await axios
-        .get("/api/students/user", {
+        .get(BASE_URL+"/api/students/user", {
           withCredentials: true,
         })
         .catch((err) => console.log(err));
       console.log(res);
       if (res === undefined) {
         const res = await axios
-          .get("/api/teachers/user", {
+          .get(BASE_URL+"/api/teachers/user", {
             withCredentials: true,
           })
           .catch((err) => console.log(err));

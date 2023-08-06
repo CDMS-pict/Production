@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { BASE_URL } from "../../base";
+
 import logo from "../../pict_logo.jpg";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
@@ -49,8 +51,8 @@ export class Education extends Component {
         return;
       }
       try {
-        // await axios.post("/api/students/signup", values);
-        await axios.post("/api/teachers/signupOTP", values);
+        // await axios.post(BASE_URL+"/api/students/signup", values);
+        await axios.post(BASE_URL+"/api/teachers/signupOTP", values);
       
         window.alert("OTP Sent Successfully");
         this.continue(e);

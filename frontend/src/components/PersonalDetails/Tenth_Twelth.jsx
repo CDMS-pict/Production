@@ -1,5 +1,7 @@
 import { Box, Button, Fade, Modal } from "@mui/material";
 import axios from "axios";
+import { BASE_URL } from "../../base";
+
 import React, { useState } from "react";
 import FormInput from "../Student_Internships/FormInput";
 import Backdrop from "@mui/material/Backdrop";
@@ -115,18 +117,18 @@ function Tenth_Twelth({ user }) {
     // }
     try {
       await axios.put(
-        `/api/students/student/profile/update/${user._id}`,
+        `${BASE_URL}/api/students/student/profile/update/${user._id}`,
         data_t_tw
       );
       if (selectedFile) {
         await axios.put(
-          `/api/students/student/profile/update_t_marks/${user._id}`,
+          `${BASE_URL}/api/students/student/profile/update_t_marks/${user._id}`,
           data_t
         );
       }
       if (selectedFile1) {
         await axios.put(
-          `/api/students/student/profile/update_tw_marks/${user._id}`,
+          `${BASE_URL}/api/students/student/profile/update_tw_marks/${user._id}`,
           data_tw
         );
       }

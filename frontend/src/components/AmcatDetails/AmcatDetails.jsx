@@ -6,6 +6,8 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import AmcatBox from "./AmcatBox";
+import { BASE_URL } from "../../base";
+
 
 import Navbar from "../navbar/Navbar";
 import axios from "axios";
@@ -63,7 +65,7 @@ function AmcatDetails({ user }) {
     const fetchAmcatData = async () => {
       try {
         const res = await axios.get(
-          `/api/amcat/getbysid/${user._id}`
+          `${BASE_URL}/api/amcat/getbysid/${user._id}`
         );
         setDatas(res.data);
       } catch (err) {
@@ -105,7 +107,7 @@ function AmcatDetails({ user }) {
     }
     try {
       // console.log(data);
-      await axios.post("/api/amcat/newamcat", data);
+      await axios.post(BASE_URL+"/api/amcat/newamcat", data);
       window.alert("Amcat Data Added Successfully");
       setOpen(false);
       setAdding(false);

@@ -1,5 +1,7 @@
 import { Button } from "@mui/material";
 import axios from "axios";
+import { BASE_URL } from "../../base";
+
 import React, { useState, useEffect } from "react";
 import Navbar from "../navbar/Navbar";
 import FormInput from "../Student_Internships/FormInput";
@@ -61,7 +63,7 @@ function Personal_Details() {
 
   const sednRequest = async () => {
     const res = await axios
-      .get("/api/students/user", {
+      .get(BASE_URL+"/api/students/user", {
         withCredentials: true,
       })
       .catch((err) => console.log(err));
@@ -118,11 +120,11 @@ function Personal_Details() {
       // console.log(data);
       if (selectedFile1) {
         await axios.put(
-          `/api/students/student/profile/update_profile/${user._id}`,
+          `${BASE_URL}/api/students/student/profile/update_profile/${user._id}`,
           dp_data
         );
       }
-      await axios.put(`/api/students/student/profile/update/${user._id}`, data);
+      await axios.put(`${BASE_URL}/api/students/student/profile/update/${user._id}`, data);
       setEdit_personal_value("EDIT");
       setEdit_personal(true);
       window.alert("Profile Updated Successfully");
